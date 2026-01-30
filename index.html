@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Will you be my Valentine? 💘</title>
+  <style>
+    :root{
+      --bg1:#0b1020; --bg2:#1b0f1a;
+      --card: rgba(255,255,255,.08);
+      --border: rgba(255,255,255,.16);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --radius: 22px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background: radial-gradient(1200px 700px at 15% 10%, rgba(255,80,160,.22), transparent 60%),
+                  radial-gradient(900px 600px at 90% 20%, rgba(120,80,255,.20), transparent 55%),
+                  linear-gradient(160deg, var(--bg1), var(--bg2));
+      overflow:hidden;
+    }
+    .wrap{
+      height:100%;
+      display:grid;
+      place-items:center;
+      padding:24px;
+      position:relative;
+    }
+    .card{
+      width:min(720px, 100%);
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      padding:28px 22px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.14);
+      font-size:14px;
+      color:var(--muted);
+      margin-bottom:16px;
+    }
+    h1{
+      margin:10px 0 8px;
+      font-size: clamp(28px, 4vw, 44px);
+      letter-spacing:-.02em;
+      line-height:1.1;
+    }
+    .sub{
+      margin:0 auto 18px;
+      max-width: 56ch;
+      color:var(--muted);
+      font-size: clamp(14px, 2vw, 16px);
+      line-height:1.5;
+    }
+
+    .name{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      font-weight:650;
+    }
+
+    .btns{
+      margin-top:18px;
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    button{
+      border:0;
+      cursor:pointer;
+      border-radius: 16px;
+      padding: 14px 18px;
+      font-size:16px;
+      font-weight:700;
+      transition: transform .12s ease, filter .12s ease, background .12s ease;
+      box-shadow: 0 10px 24px rgba(0,0,0,.35);
+      user-select:none;
+    }
+    button:active{transform: translateY(1px) scale(.99)}
+    .yes{
+      background: linear-gradient(135deg, rgba(255,90,160,1), rgba(255,70,120,1));
+      color:white;
+    }
+    .yes:hover{filter:brightness(1.05)}
+    .no{
+      background: rgba(255,255,255,.10);
+      color: rgba(255,255,255,.88);
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:none;
+    }
+    .no:hover{filter:brightness(1.08)}
+    .hint{
+      margin-top:14px;
+      font-size:13px;
+      color: rgba(255,255,255,.60);
+    }
+
+    .msg{
+      margin: 18px auto 0;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px dashed rgba(255,255,255,.22);
+      background: rgba(0,0,0,.14);
+      max-width: 62ch;
+      display:none;
+    }
+    .msg.show{display:block; animation: pop .35s ease both;}
+    @keyframes pop{from{transform:translateY(8px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+    /* floating hearts */
+    .heart{
+      position:absolute;
+      bottom:-40px;
+      font-size: 18px;
+      opacity:.0;
+      animation: floatUp linear forwards;
+      filter: drop-shadow(0 10px 14px rgba(0,0,0,.35));
+      pointer-events:none;
+    }
+    @keyframes floatUp{
+      0%{transform: translateY(0) translateX(0) scale(.9); opacity:0}
+      10%{opacity:.95}
+      100%{transform: translateY(-120vh) translateX(var(--drift)) scale(1.3); opacity:0}
+    }
+
+    /* corner glow */
+    .glow{
+      position:absolute; inset:-200px;
+      background: radial-gradient(500px 320px at 20% 30%, rgba(255,80,160,.20), transparent 60%),
+                  radial-gradient(520px 380px at 80% 40%, rgba(120,80,255,.16), transparent 60%);
+      z-index:-1;
+    }
+
+    .footer{
+      margin-top: 18px;
+      font-size: 12px;
+      color: rgba(255,255,255,.55);
+    }
+    .footer b{color: rgba(255,255,255,.85)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="glow"></div>
+
+    <div class="card" id="card">
+      <div class="badge">💌 A tiny website made with big feelings</div>
+
+      <h1>Will you be my Valentine, <span class="name" id="herName">Simran</span>? 💘</h1>
+      <p class="sub">
+        No pressure. Just a simple question from <b id="myName">Advi</b> —
+        because you make ordinary days feel a little magical ✨
+      </p>
+
+      <div class="btns">
+        <button class="yes" id="yesBtn">Yes 😭❤️</button>
+        <button class="no" id="noBtn">No 🙄</button>
+      </div>
+
+      <div class="hint">Tip: Try clicking “No” 😉</div>
+
+      <div class="msg" id="msgBox"></div>
+
+      <div class="footer">
+        P.S. If you say yes, you automatically get unlimited: hugs 🤗 + coffee dates ☕ + forehead kisses 🫣
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ====== Customize these two lines ======
+    const HER_NAME = "Simran"; // change to her name
+    const MY_NAME  = "Advi";   // change to your name
+    // =====================================
+
+    const herNameEl = document.getElementById("herName");
+    const myNameEl  = document.getElementById("myName");
+    const yesBtn    = document.getElementById("yesBtn");
+    const noBtn     = document.getElementById("noBtn");
+    const msgBox    = document.getElementById("msgBox");
+
+    herNameEl.textContent = HER_NAME;
+    myNameEl.textContent = MY_NAME;
+
+    let noCount = 0;
+
+    function showMessage(html){
+      msgBox.innerHTML = html;
+      msgBox.classList.add("show");
+    }
+
+    function makeHearts(amount=18){
+      const emojis = ["💗","💖","💘","💞","❤️","🧿"];
+      for(let i=0;i<amount;i++){
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+        const left = Math.random()*100;
+        const dur  = 3.2 + Math.random()*2.4;
+        const size = 14 + Math.random()*18;
+
+        h.style.left = left + "vw";
+        h.style.fontSize = size + "px";
+        h.style.animationDuration = dur + "s";
+        h.style.setProperty("--drift", (Math.random()*140 - 70) + "px");
+        h.style.opacity = "0";
+
+        document.body.appendChild(h);
+        void h.offsetHeight;
+        h.style.opacity = "1";
+
+        setTimeout(()=>h.remove(), dur*1000);
+      }
+    }
+
+    yesBtn.addEventListener("click", ()=>{
+      makeHearts(28);
+      showMessage(`
+        <b>YAYYY 😭❤️</b><br><br>
+        Okay, it’s official: <b>${HER_NAME}</b> is my Valentine 💘<br>
+        Screenshot this page and send it to me as proof 😌✨<br><br>
+        <small>(P.S. I owe you a proper date — even if it’s long-distance for now ☕🌙)</small>
+      `);
+      yesBtn.textContent = "YES CONFIRMED ✅💘";
+      noBtn.textContent  = "Too late 😌";
+      noBtn.disabled = true;
+      yesBtn.disabled = true;
+    });
+
+    function moveNoButton(){
+      const card = document.getElementById("card");
+      const rect = card.getBoundingClientRect();
+
+      const pad = 18;
+      const maxX = rect.width - noBtn.offsetWidth - pad;
+      const maxY = rect.height - noBtn.offsetHeight - pad;
+
+      const x = pad + Math.random()*maxX;
+      const y = pad + Math.random()*maxY;
+
+      noBtn.style.position = "absolute";
+      noBtn.style.left = x + "px";
+      noBtn.style.top  = y + "px";
+    }
+
+    noBtn.addEventListener("mouseenter", ()=>{
+      noCount++;
+      moveNoButton();
+
+      const lines = [
+        `Nice try 😌`,
+        `Nope 😭`,
+        `You sure? 👀`,
+        `Last chance… 🫣`,
+        `I’m taking that as a “yes” 😌💘`,
+      ];
+
+      if(noCount === 1){
+        showMessage(`You clicked <b>No</b>? 😭<br>Okay… try again 😌`);
+      } else if(noCount < 6){
+        showMessage(lines[Math.min(noCount-1, lines.length-1)]);
+      } else {
+        showMessage(`Alright, I’ll stop moving it… if you click <b>Yes</b> 🤭❤️`);
+      }
+    });
+
+    noBtn.addEventListener("click", (e)=>{
+      e.preventDefault();
+      noCount++;
+      moveNoButton();
+      makeHearts(6);
+    });
+
+    setInterval(()=>makeHearts(3), 3500);
+  </script>
+</body>
+</html>
