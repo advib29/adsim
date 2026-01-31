@@ -85,6 +85,8 @@
       gap:14px;
       justify-content:center;
       flex-wrap:wrap;
+      position:relative;
+      min-height:56px; /* helps when No button goes absolute */
     }
     button{
       border:0;
@@ -96,6 +98,7 @@
       transition: transform .12s ease, filter .12s ease, background .12s ease;
       box-shadow: 0 10px 24px rgba(0,0,0,.35);
       user-select:none;
+      -webkit-tap-highlight-color: transparent;
     }
     button:active{transform: translateY(1px) scale(.99)}
     .yes{
@@ -137,6 +140,7 @@
       animation: floatUp linear forwards;
       filter: drop-shadow(0 10px 14px rgba(0,0,0,.35));
       pointer-events:none;
+      z-index:5;
     }
     @keyframes floatUp{
       0%{transform: translateY(0) translateX(0) scale(.9); opacity:0}
@@ -167,13 +171,13 @@
     <div class="card" id="card">
       <div class="badge">💌 A tiny website made with big feelings</div>
 
-      <h1>Will you be my Valentine, <span class="name" id="herName">Simran</span>? 💘</h1>
+      <h1>Will you be my Valentine, <span class="name" id="herName">Dr. Simran Sharma</span>? 💘</h1>
       <p class="sub">
         No pressure. Just a simple question from <b id="myName">Advi</b> —
         because you make ordinary days feel a little magical ✨
       </p>
 
-      <div class="btns">
+      <div class="btns" id="btnWrap">
         <button class="yes" id="yesBtn">Yes 😭❤️</button>
         <button class="no" id="noBtn">No 🙄</button>
       </div>
@@ -190,8 +194,8 @@
 
   <script>
     // ====== Customize these two lines ======
-    const HER_NAME = "Simran"; // change to her name
-    const MY_NAME  = "Advi";   // change to your name
+    const HER_NAME = "Dr. Simran Sharma";
+    const MY_NAME  = "Advi";
     // =====================================
 
     const herNameEl = document.getElementById("herName");
@@ -199,9 +203,11 @@
     const yesBtn    = document.getElementById("yesBtn");
     const noBtn     = document.getElementById("noBtn");
     const msgBox    = document.getElementById("msgBox");
+    const card      = document.getElementById("card");
+    const btnWrap   = document.getElementById("btnWrap");
 
     herNameEl.textContent = HER_NAME;
-    myNameEl.textContent = MY_NAME;
+    myNameEl.textContent  = MY_NAME;
 
     let noCount = 0;
 
@@ -248,22 +254,26 @@
       yesBtn.disabled = true;
     });
 
+    // --- FIXED No button movement (works better on desktop + mobile) ---
     function moveNoButton(){
-      const card = document.getElementById("card");
-      const rect = card.getBoundingClientRect();
-
-      const pad = 18;
-      const maxX = rect.width - noBtn.offsetWidth - pad;
-      const maxY = rect.height - noBtn.offsetHeight - pad;
-
-      const x = pad + Math.random()*maxX;
-      const y = pad + Math.random()*maxY;
-
+      // Keep No button inside the button wrapper so it never jumps out of the card
+      btnWrap.style.position = "relative";
       noBtn.style.position = "absolute";
+
+      const wrapRect = btnWrap.getBoundingClientRect();
+
+      const pad = 10;
+      const maxX = wrapRect.width  - noBtn.offsetWidth  - pad;
+      const maxY = wrapRect.height - noBtn.offsetHeight - pad;
+
+      const x = pad + Math.random() * Math.max(0, maxX);
+      const y = pad + Math.random() * Math.max(0, maxY);
+
       noBtn.style.left = x + "px";
       noBtn.style.top  = y + "px";
     }
 
+    // Desktop: dodge when mouse comes near
     noBtn.addEventListener("mouseenter", ()=>{
       noCount++;
       moveNoButton();
@@ -278,20 +288,29 @@
 
       if(noCount === 1){
         showMessage(`You clicked <b>No</b>? 😭<br>Okay… try again 😌`);
-      } else if(noCount < 6){
+      } else if(noCount < 5){
         showMessage(lines[Math.min(noCount-1, lines.length-1)]);
       } else {
-        showMessage(`Alright, I’ll stop moving it… if you click <b>Yes</b> 🤭❤️`);
+        showMessage(`Alright 😌 if you really want “No”… you’ll have to catch it. Or just click <b>Yes</b> 🤭❤️`);
       }
     });
 
+    // Mobile: on tap, move and show message
     noBtn.addEventListener("click", (e)=>{
       e.preventDefault();
       noCount++;
       moveNoButton();
-      makeHearts(6);
+      makeHearts(8);
+      showMessage("Haha 😌 not that easy. Try the other button ❤️");
     });
 
+    // Keep the No button in a sensible starting spot
+    window.addEventListener("load", () => {
+      // make wrapper tall enough for movement on small screens
+      btnWrap.style.minHeight = "72px";
+    });
+
+    // subtle hearts occasionally
     setInterval(()=>makeHearts(3), 3500);
   </script>
 </body>
