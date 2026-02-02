@@ -1,379 +1,231 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Will you be my Valentine? 💘</title>
-  <style>
-    :root{
-      --bg1:#0b1020; --bg2:#1b0f1a;
-      --card: rgba(255,255,255,.08);
-      --border: rgba(255,255,255,.16);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.70);
-      --shadow: 0 18px 50px rgba(0,0,0,.45);
-      --radius: 22px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--text);
-      background: radial-gradient(1200px 700px at 15% 10%, rgba(255,80,160,.22), transparent 60%),
-                  radial-gradient(900px 600px at 90% 20%, rgba(120,80,255,.20), transparent 55%),
-                  linear-gradient(160deg, var(--bg1), var(--bg2));
-      overflow:hidden;
-    }
-    .wrap{
-      height:100%;
-      display:grid;
-      place-items:center;
-      padding:24px;
-      position:relative;
-    }
-    .card{
-      width:min(720px, 100%);
-      background: var(--card);
-      border:1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      padding:28px 22px;
-      text-align:center;
-      position:relative;
-      overflow:hidden;
-    }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 14px;
-      border-radius:999px;
-      background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.14);
-      font-size:14px;
-      color:var(--muted);
-      margin-bottom:16px;
-    }
-    h1{
-      margin:10px 0 8px;
-      font-size: clamp(28px, 4vw, 44px);
-      letter-spacing:-.02em;
-      line-height:1.1;
-    }
-    .sub{
-      margin:0 auto 18px;
-      max-width: 56ch;
-      color:var(--muted);
-      font-size: clamp(14px, 2vw, 16px);
-      line-height:1.5;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Will you be my Valentine? 💘</title>
 
-    /* name not in a box */
-    .name{
-      display:inline;
-      padding:0;
-      border-radius:0;
-      background: transparent;
-      border: none;
-      font-weight: 800;
-      color: rgba(255,255,255,.96);
-    }
+<style>
+:root{
+  --bg1:#0b1020; --bg2:#1b0f1a;
+  --card: rgba(255,255,255,.08);
+  --border: rgba(255,255,255,.16);
+  --text: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.70);
+  --shadow: 0 18px 50px rgba(0,0,0,.45);
+  --radius: 22px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color:var(--text);
+  background:
+    radial-gradient(1200px 700px at 15% 10%, rgba(255,80,160,.22), transparent 60%),
+    radial-gradient(900px 600px at 90% 20%, rgba(120,80,255,.20), transparent 55%),
+    linear-gradient(160deg, var(--bg1), var(--bg2));
+  overflow:hidden;
+}
 
-    .btns{
-      margin-top:18px;
-      display:flex;
-      gap:14px;
-      justify-content:center;
-      align-items:center;
-      flex-wrap:wrap;
-      position:relative;
-      min-height:70px; /* space for dodge */
-    }
+.wrap{
+  height:100%;
+  display:grid;
+  place-items:center;
+  padding:24px;
+}
 
-    /* same size buttons */
-    .btns button{
-      width: 170px;
-      height: 52px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      -webkit-tap-highlight-color: transparent;
-      user-select:none;
-    }
+.card{
+  width:min(720px,100%);
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(10px);
+  padding:28px 22px;
+  text-align:center;
+  position:relative;
+}
 
-    button{
-      border:0;
-      cursor:pointer;
-      border-radius: 16px;
-      padding: 14px 18px;
-      font-size:16px;
-      font-weight:700;
-      transition: transform .12s ease, filter .12s ease, background .12s ease;
-      box-shadow: 0 10px 24px rgba(0,0,0,.35);
-    }
-    button:active{transform: translateY(1px) scale(.99)}
+.badge{
+  display:inline-block;
+  padding:10px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:16px;
+}
 
-    .yes{
-      background: linear-gradient(135deg, rgba(255,90,160,1), rgba(255,70,120,1));
-      color:white;
-      position:relative;
-      z-index:10;
-    }
-    .yes:hover{filter:brightness(1.05)}
+h1{
+  margin:10px 0;
+  font-size: clamp(28px,4vw,44px);
+  line-height:1.1;
+}
 
-    .no{
-      background: rgba(255,255,255,.10);
-      color: rgba(255,255,255,.88);
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow:none;
-      position:relative;
-      z-index:11;
-    }
-    .no:hover{filter:brightness(1.08)}
+.sub{
+  color:var(--muted);
+  margin-bottom:18px;
+}
 
-    .hint{
-      margin-top:14px;
-      font-size:13px;
-      color: rgba(255,255,255,.60);
-    }
+.btns{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  min-height:70px;
+}
 
-    .msg{
-      margin: 18px auto 0;
-      padding: 14px 16px;
-      border-radius: 16px;
-      border: 1px dashed rgba(255,255,255,.22);
-      background: rgba(0,0,0,.14);
-      max-width: 62ch;
-      display:none;
-    }
-    .msg.show{display:block; animation: pop .35s ease both;}
-    @keyframes pop{from{transform:translateY(8px);opacity:0}to{transform:translateY(0);opacity:1}}
+button{
+  width:170px;
+  height:52px;
+  border-radius:16px;
+  border:none;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:0 10px 24px rgba(0,0,0,.35);
+}
 
-    .heart{
-      position:absolute;
-      bottom:-40px;
-      font-size: 18px;
-      opacity:.0;
-      animation: floatUp linear forwards;
-      filter: drop-shadow(0 10px 14px rgba(0,0,0,.35));
-      pointer-events:none;
-      z-index:5;
-    }
-    @keyframes floatUp{
-      0%{transform: translateY(0) translateX(0) scale(.9); opacity:0}
-      10%{opacity:.95}
-      100%{transform: translateY(-120vh) translateX(var(--drift)) scale(1.3); opacity:0}
-    }
+.yes{
+  background:linear-gradient(135deg,#ff5aa0,#ff4678);
+  color:#fff;
+  z-index:10;
+}
 
-    .glow{
-      position:absolute; inset:-200px;
-      background: radial-gradient(500px 320px at 20% 30%, rgba(255,80,160,.20), transparent 60%),
-                  radial-gradient(520px 380px at 80% 40%, rgba(120,80,255,.16), transparent 60%);
-      z-index:-1;
-    }
+.no{
+  background:rgba(255,255,255,.1);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.18);
+  position:relative;
+  z-index:11;
+}
 
-    .footer{
-      margin-top: 18px;
-      font-size: 12px;
-      color: rgba(255,255,255,.55);
-    }
-    .footer b{color: rgba(255,255,255,.85)}
-  </style>
+.msg{
+  display:none;
+  margin-top:18px;
+  padding:14px 16px;
+  border-radius:16px;
+  background:rgba(0,0,0,.14);
+  border:1px dashed rgba(255,255,255,.22);
+}
+.msg.show{display:block}
+
+.heart{
+  position:absolute;
+  bottom:-40px;
+  font-size:18px;
+  animation:floatUp linear forwards;
+  pointer-events:none;
+}
+@keyframes floatUp{
+  0%{transform:translateY(0);opacity:0}
+  10%{opacity:.9}
+  100%{transform:translateY(-120vh);opacity:0}
+}
+</style>
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="glow"></div>
+<div class="wrap">
+<div class="card">
 
-    <div class="card" id="card">
-      <div class="badge">💌 A tiny website made with big feelings</div>
+<div class="badge">💌 A tiny website made with big feelings</div>
 
-      <h1>Will you be my Valentine, <span class="name" id="herName">Dr. Simran Sharma</span>? 💘</h1>
-      <p class="sub">
-        No pressure. Just a simple question from <b id="myName">Advi</b> —
-        because you make ordinary days feel a little magical ✨
-      </p>
+<h1>Will you be my Valentine, Dr. Simran Sharma? 💘</h1>
+<p class="sub">No pressure. Just a simple question from <b>Advi</b>.</p>
 
-      <div class="btns" id="btnWrap">
-        <button class="yes" id="yesBtn">Yes 😭❤️</button>
-        <button class="no" id="noBtn">No 🙄</button>
-      </div>
+<div class="btns" id="btnWrap">
+  <button class="yes" id="yesBtn">Yes 😭❤️</button>
+  <button class="no" id="noBtn">No 🙄</button>
+</div>
 
-      <div class="hint">Tip: Try clicking “No” 😉</div>
+<div class="msg" id="msgBox"></div>
 
-      <div class="msg" id="msgBox"></div>
+</div>
+</div>
 
-      <div class="footer">
-        P.S. If you say yes, you automatically get unlimited: hugs 🤗 + coffee dates ☕ + forehead kisses 🫣
-      </div>
-    </div>
-  </div>
+<script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn  = document.getElementById("noBtn");
+const btnWrap = document.getElementById("btnWrap");
+const msgBox = document.getElementById("msgBox");
 
-  <script>
-    // ====== Customize ======
-    const HER_NAME = "Dr. Simran Sharma";
-    const MY_NAME  = "Advi";
-    // =======================
+let noClicks = 0;
+const DODGE_TIMES = 4;
 
-    const herNameEl = document.getElementById("herName");
-    const myNameEl  = document.getElementById("myName");
-    const yesBtn    = document.getElementById("yesBtn");
-    const noBtn     = document.getElementById("noBtn");
-    const msgBox    = document.getElementById("msgBox");
-    const btnWrap   = document.getElementById("btnWrap");
+function showMessage(t){
+  msgBox.innerHTML = t;
+  msgBox.classList.add("show");
+}
 
-    herNameEl.textContent = HER_NAME;
-    myNameEl.textContent  = MY_NAME;
+function hearts(n=8){
+  const e=["💖","💘","💞","❤️"];
+  for(let i=0;i<n;i++){
+    const h=document.createElement("div");
+    h.className="heart";
+    h.textContent=e[Math.floor(Math.random()*e.length)];
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(3+Math.random()*2)+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),5000);
+  }
+}
 
-    const DODGE_TIMES = 4;  // click 1-4: dodge
-    let noClicks = 0;
+function moveNo(){
+  btnWrap.style.position="relative";
+  noBtn.style.position="absolute";
 
-    function showMessage(html){
-      msgBox.innerHTML = html;
-      msgBox.classList.add("show");
+  const wrap=btnWrap.getBoundingClientRect();
+  const yes=yesBtn.getBoundingClientRect();
+
+  for(let i=0;i<30;i++){
+    const x=Math.random()*(wrap.width-noBtn.offsetWidth);
+    const y=Math.random()*(wrap.height-noBtn.offsetHeight);
+
+    const overlap = !(
+      x+noBtn.offsetWidth < yes.left-wrap.left ||
+      x > yes.right-wrap.left ||
+      y+noBtn.offsetHeight < yes.top-wrap.top ||
+      y > yes.bottom-wrap.top
+    );
+
+    if(!overlap){
+      noBtn.style.left=x+"px";
+      noBtn.style.top=y+"px";
+      return;
     }
+  }
+}
 
-    function makeHearts(amount=18){
-      const emojis = ["💗","💖","💘","💞","❤️","🧿"];
-      for(let i=0;i<amount;i++){
-        const h = document.createElement("div");
-        h.className = "heart";
-        h.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-        const left = Math.random()*100;
-        const dur  = 3.2 + Math.random()*2.4;
-        const size = 14 + Math.random()*18;
+function alignOnYes(){
+  const wrap=btnWrap.getBoundingClientRect();
+  const yes=yesBtn.getBoundingClientRect();
+  noBtn.style.left=(yes.left-wrap.left)+"px";
+  noBtn.style.top=(yes.top-wrap.top)+"px";
+  noBtn.style.pointerEvents="none";
+  showMessage("😌 Now the only easy choice is <b>Yes</b>");
+}
 
-        h.style.left = left + "vw";
-        h.style.fontSize = size + "px";
-        h.style.animationDuration = dur + "s";
-        h.style.setProperty("--drift", (Math.random()*140 - 70) + "px");
-        h.style.opacity = "0";
+noBtn.addEventListener("click",(e)=>{
+  e.preventDefault();
+  hearts();
+  noClicks++;
 
-        document.body.appendChild(h);
-        void h.offsetHeight;
-        h.style.opacity = "1";
+  if(noClicks<=DODGE_TIMES){
+    moveNo();
+    showMessage(["Nice try 😌","Nope 😭","You sure? 👀","Last chance 🫣"][noClicks-1]);
+  }else{
+    alignOnYes();
+  }
+});
 
-        setTimeout(()=>h.remove(), dur*1000);
-      }
-    }
-
-    yesBtn.addEventListener("click", ()=>{
-      makeHearts(28);
-      showMessage(`
-        <b>YAYYY 😭❤️</b><br><br>
-        Okay, it’s official: <b>${HER_NAME}</b> is my Valentine 💘<br>
-        Screenshot this page and send it to me as proof 😌✨<br><br>
-        <small>(P.S. I owe you a proper date — even if it’s long-distance for now ☕🌙)</small>
-      `);
-      yesBtn.textContent = "YES CONFIRMED ✅💘";
-      noBtn.textContent  = "Too late 😌";
-      noBtn.disabled = true;
-      yesBtn.disabled = true;
-    });
-
-    // Utility: check if two rectangles overlap
-    function rectsOverlap(a, b){
-      return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
-    }
-
-    // Click 1-4: move "No" randomly but NEVER overlap Yes
-    function moveNoWithoutOverlappingYes(){
-      btnWrap.style.position = "relative";
-      noBtn.style.position = "absolute";
-      noBtn.style.right = "";
-      noBtn.style.left = "";
-      noBtn.style.top = "";
-
-      const wrapRect = btnWrap.getBoundingClientRect();
-      const yesRectAbs = yesBtn.getBoundingClientRect();
-
-      // Convert YES rect into btnWrap-relative coordinates
-      const yesRect = {
-        left:   yesRectAbs.left - wrapRect.left,
-        top:    yesRectAbs.top  - wrapRect.top,
-        right:  yesRectAbs.right - wrapRect.left,
-        bottom: yesRectAbs.bottom - wrapRect.top
-      };
-
-      const pad = 10;
-      const maxX = (wrapRect.width  - noBtn.offsetWidth  - pad);
-      const maxY = (wrapRect.height - noBtn.offsetHeight - pad);
-
-      // Try multiple random positions until we find one that doesn't overlap YES
-      for(let tries=0; tries<40; tries++){
-        const x = pad + Math.random() * Math.max(0, maxX);
-        const y = pad + Math.random() * Math.max(0, maxY);
-
-        const noRect = {
-          left: x,
-          top: y,
-          right: x + noBtn.offsetWidth,
-          bottom: y + noBtn.offsetHeight
-        };
-
-        if(!rectsOverlap(noRect, yesRect)){
-          noBtn.style.left = x + "px";
-          noBtn.style.top  = y + "px";
-          return;
-        }
-      }
-
-      // Fallback (if wrap is too small): just push it away from YES
-      const fallbackX = Math.max(pad, Math.min(maxX, yesRect.right + pad));
-      const fallbackY = pad;
-      noBtn.style.left = fallbackX + "px";
-      noBtn.style.top  = fallbackY + "px";
-    }
-
-    // Click 5: place "No" exactly on top of "Yes"
-    function putNoExactlyOnYes(){
-      btnWrap.style.position = "relative";
-      noBtn.style.position = "absolute";
-
-      const wrapRect = btnWrap.getBoundingClientRect();
-      const yesRect  = yesBtn.getBoundingClientRect();
-
-      const left = yesRect.left - wrapRect.left;
-      const top  = yesRect.top  - wrapRect.top;
-
-      noBtn.style.left = left + "px";
-      noBtn.style.top  = top + "px";
-
-      // Make "No" unclickable so a tap/click lands on YES
-      noBtn.style.pointerEvents = "none";
-      noBtn.style.opacity = "0.92";
-
-      // Ensure YES is on top
-      yesBtn.style.zIndex = "10";
-      noBtn.style.zIndex = "9";
-
-      showMessage(`Okay 😌 now the only easy option is <b>Yes</b> 🤭❤️`);
-    }
-
-    noBtn.addEventListener("click", (e)=>{
-      e.preventDefault();
-      makeHearts(6);
-
-      noClicks++;
-
-      if(noClicks <= DODGE_TIMES){
-        moveNoWithoutOverlappingYes();
-        const lines = [
-          `Nice try 😌`,
-          `Nope 😭`,
-          `You sure? 👀`,
-          `Last chance… 🫣`
-        ];
-        showMessage(lines[Math.min(noClicks-1, lines.length-1)]);
-      } else {
-        putNoExactlyOnYes();
-      }
-    });
-
-    setInterval(()=>makeHearts(3), 3500);
-  </script>
+yesBtn.addEventListener("click",()=>{
+  hearts(20);
+  showMessage("YAYYY 😭❤️ Taking you to the next page…");
+  setTimeout(()=>window.location.href="./love.html",1200);
+});
+</script>
 </body>
 </html>
