@@ -19,32 +19,51 @@
     html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color:var(--text);
-      background: radial-gradient(1200px 700px at 15% 10%, rgba(255,80,160,.22), transparent 60%),
-                  radial-gradient(900px 600px at 90% 20%, rgba(120,80,255,.20), transparent 55%),
-                  linear-gradient(160deg, var(--bg1), var(--bg2));
+      background:
+        radial-gradient(1200px 700px at 15% 10%, rgba(255,80,160,.22), transparent 60%),
+        radial-gradient(900px 600px at 90% 20%, rgba(120,80,255,.20), transparent 55%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
       overflow:hidden;
       display:grid;
       place-items:center;
       padding:24px;
     }
 
-    /* ===== LOGO ===== */
+    /* ===== LOGO (THEME MATCHED) ===== */
     .logo{
       position: fixed;
       top: 14px;
-      right: 16px;
-      width: 150px;
-      max-width: 45vw;
-      opacity: 0.95;
+      right: 14px;
+      width: 120px;
+      max-width: 38vw;
+      opacity: 0.75;
       z-index: 50;
       pointer-events: none;
+
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 14px;
+      padding: 8px;
+
+      box-shadow:
+        0 8px 24px rgba(0,0,0,.35),
+        0 0 0 1px rgba(255,255,255,.08);
+
       animation: fadeLogo .8s ease both;
     }
     @keyframes fadeLogo{
       from{opacity:0; transform:translateY(-6px)}
-      to{opacity:.95; transform:none}
+      to{opacity:.75; transform:none}
+    }
+
+    @media (max-width:480px){
+      .logo{
+        width:100px;
+        opacity:0.65;
+      }
     }
 
     .card{
@@ -75,7 +94,6 @@
     h1{
       margin:6px 0 10px;
       font-size: clamp(22px, 3vw, 30px);
-      letter-spacing:-.01em;
       font-weight:800;
     }
 
@@ -92,13 +110,11 @@
       padding: 14px 16px;
     }
 
-    .letter b{color: rgba(255,255,255,.95)}
-
     .sign{
       margin-top:10px;
-      color: rgba(255,255,255,.82);
       font-weight:700;
       font-size:14px;
+      color: rgba(255,255,255,.82);
     }
 
     .btns{
@@ -106,29 +122,23 @@
       display:flex;
       gap:10px;
       justify-content:center;
-      flex-wrap:wrap;
     }
 
     a.btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
       padding:10px 14px;
       border-radius:14px;
-      font-weight:700;
       font-size:14px;
+      font-weight:700;
       text-decoration:none;
-      cursor:pointer;
       box-shadow: 0 8px 18px rgba(0,0,0,.32);
     }
     .primary{
+      background: linear-gradient(135deg, #ff5aa0, #ff4678);
       color:white;
-      background: linear-gradient(135deg, rgba(255,90,160,1), rgba(255,70,120,1));
-      border:0;
     }
     .secondary{
-      color: rgba(255,255,255,.9);
       background: rgba(255,255,255,.08);
+      color:white;
       border:1px solid rgba(255,255,255,.16);
       box-shadow:none;
     }
@@ -139,21 +149,17 @@
       color: rgba(255,255,255,.55);
     }
 
-    /* floating hearts */
     .heart{
       position:absolute;
       bottom:-40px;
-      font-size: 16px;
-      opacity:.0;
+      font-size:16px;
       animation: floatUp linear forwards;
-      filter: drop-shadow(0 10px 14px rgba(0,0,0,.35));
       pointer-events:none;
-      z-index:5;
     }
     @keyframes floatUp{
-      0%{transform: translateY(0) translateX(0) scale(.9); opacity:0}
+      0%{transform:translateY(0);opacity:0}
       10%{opacity:.9}
-      100%{transform: translateY(-120vh) translateX(var(--drift)) scale(1.2); opacity:0}
+      100%{transform:translateY(-120vh);opacity:0}
     }
   </style>
 </head>
@@ -169,21 +175,18 @@
     <h1>I love you, Dr. Simran Sharma ❤️</h1>
 
     <div class="letter">
-      <p>
-        <b>Simran,</b><br><br>
-        I don’t love you for grand moments or dramatic reasons.
-        I love you for the quiet ones — the way you care,
-        the way you think, and the calm you bring without even trying. 🧿✨
+      <p><b>Simran,</b><br><br>
+      I don’t love you for grand moments or dramatic reasons.
+      I love you for the quiet ones — the way you care,
+      the way you think, and the calm you bring without even trying. 🧿✨
       </p>
 
       <p>
-        Choosing you feels easy.
-        Even from far away, you’ve become my favourite part of the day. 💞
+      Choosing you feels easy.
+      Even from far away, you’ve become my favourite part of the day. 💞
       </p>
 
-      <p class="sign">
-        — Advi 😌
-      </p>
+      <p class="sign">— Advi 😌</p>
     </div>
 
     <div class="btns">
@@ -195,22 +198,21 @@
   </div>
 
   <script>
-    function hearts(n=14){
-      const emojis = ["💗","💖","💘","💞","❤️","🧿","✨"];
+    function hearts(n=12){
+      const e=["💗","💖","💘","💞","❤️","🧿"];
       for(let i=0;i<n;i++){
-        const h = document.createElement("div");
-        h.className = "heart";
-        h.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-        h.style.left = Math.random()*100 + "vw";
-        h.style.fontSize = (14 + Math.random()*10) + "px";
-        h.style.animationDuration = (3 + Math.random()*2) + "s";
-        h.style.setProperty("--drift", (Math.random()*120 - 60) + "px");
+        const h=document.createElement("div");
+        h.className="heart";
+        h.textContent=e[Math.floor(Math.random()*e.length)];
+        h.style.left=Math.random()*100+"vw";
+        h.style.animationDuration=(3+Math.random()*2)+"s";
         document.body.appendChild(h);
-        setTimeout(()=>h.remove(), 5000);
+        setTimeout(()=>h.remove(),5000);
       }
     }
-    hearts(18);
-    setInterval(()=>hearts(5), 3000);
+    hearts(16);
+    setInterval(()=>hearts(5),3000);
   </script>
+
 </body>
 </html>
