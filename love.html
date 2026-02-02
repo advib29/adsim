@@ -30,6 +30,23 @@
       padding:24px;
     }
 
+    /* ===== LOGO ===== */
+    .logo{
+      position: fixed;
+      top: 14px;
+      right: 16px;
+      width: 150px;
+      max-width: 45vw;
+      opacity: 0.95;
+      z-index: 50;
+      pointer-events: none;
+      animation: fadeLogo .8s ease both;
+    }
+    @keyframes fadeLogo{
+      from{opacity:0; transform:translateY(-6px)}
+      to{opacity:.95; transform:none}
+    }
+
     .card{
       width:min(760px, 100%);
       background: var(--card);
@@ -76,6 +93,7 @@
     }
 
     .letter b{color: rgba(255,255,255,.95)}
+
     .sign{
       margin-top:10px;
       color: rgba(255,255,255,.82);
@@ -121,7 +139,7 @@
       color: rgba(255,255,255,.55);
     }
 
-    /* hearts */
+    /* floating hearts */
     .heart{
       position:absolute;
       bottom:-40px;
@@ -141,6 +159,10 @@
 </head>
 
 <body>
+
+  <!-- LOGO -->
+  <img src="./logo.png" alt="Advaita & Simran" class="logo">
+
   <div class="card">
     <div class="badge">💘 You made it here</div>
 
@@ -187,7 +209,7 @@
         setTimeout(()=>h.remove(), 5000);
       }
     }
-    hearts(20);
+    hearts(18);
     setInterval(()=>hearts(5), 3000);
   </script>
 </body>
