@@ -70,13 +70,15 @@
       line-height:1.5;
     }
 
+    /* name not in a box */
     .name{
-      display:inline-block;
-      padding:8px 14px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.14);
-      font-weight:650;
+      display:inline;
+      padding:0;
+      border-radius:0;
+      background: transparent;
+      border: none;
+      font-weight: 800;
+      color: rgba(255,255,255,.96);
     }
 
     .btns{
@@ -84,10 +86,24 @@
       display:flex;
       gap:14px;
       justify-content:center;
+      align-items:center;
       flex-wrap:wrap;
       position:relative;
-      min-height:56px; /* helps when No button goes absolute */
+      min-height:70px; /* space for dodge */
     }
+
+    /* same size buttons */
+    .btns button{
+      width: 170px;
+      height: 52px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      -webkit-tap-highlight-color: transparent;
+      user-select:none;
+    }
+
     button{
       border:0;
       cursor:pointer;
@@ -97,22 +113,27 @@
       font-weight:700;
       transition: transform .12s ease, filter .12s ease, background .12s ease;
       box-shadow: 0 10px 24px rgba(0,0,0,.35);
-      user-select:none;
-      -webkit-tap-highlight-color: transparent;
     }
     button:active{transform: translateY(1px) scale(.99)}
+
     .yes{
       background: linear-gradient(135deg, rgba(255,90,160,1), rgba(255,70,120,1));
       color:white;
+      position:relative;
+      z-index:10;
     }
     .yes:hover{filter:brightness(1.05)}
+
     .no{
       background: rgba(255,255,255,.10);
       color: rgba(255,255,255,.88);
       border:1px solid rgba(255,255,255,.18);
       box-shadow:none;
+      position:relative;
+      z-index:11;
     }
     .no:hover{filter:brightness(1.08)}
+
     .hint{
       margin-top:14px;
       font-size:13px;
@@ -131,7 +152,6 @@
     .msg.show{display:block; animation: pop .35s ease both;}
     @keyframes pop{from{transform:translateY(8px);opacity:0}to{transform:translateY(0);opacity:1}}
 
-    /* floating hearts */
     .heart{
       position:absolute;
       bottom:-40px;
@@ -148,7 +168,6 @@
       100%{transform: translateY(-120vh) translateX(var(--drift)) scale(1.3); opacity:0}
     }
 
-    /* corner glow */
     .glow{
       position:absolute; inset:-200px;
       background: radial-gradient(500px 320px at 20% 30%, rgba(255,80,160,.20), transparent 60%),
@@ -164,6 +183,7 @@
     .footer b{color: rgba(255,255,255,.85)}
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <div class="glow"></div>
@@ -193,23 +213,23 @@
   </div>
 
   <script>
-    // ====== Customize these two lines ======
+    // ====== Customize ======
     const HER_NAME = "Dr. Simran Sharma";
     const MY_NAME  = "Advi";
-    // =====================================
+    // =======================
 
     const herNameEl = document.getElementById("herName");
     const myNameEl  = document.getElementById("myName");
     const yesBtn    = document.getElementById("yesBtn");
     const noBtn     = document.getElementById("noBtn");
     const msgBox    = document.getElementById("msgBox");
-    const card      = document.getElementById("card");
     const btnWrap   = document.getElementById("btnWrap");
 
     herNameEl.textContent = HER_NAME;
     myNameEl.textContent  = MY_NAME;
 
-    let noCount = 0;
+    const DODGE_TIMES = 4;  // click 1-4: dodge
+    let noClicks = 0;
 
     function showMessage(html){
       msgBox.innerHTML = html;
@@ -254,63 +274,105 @@
       yesBtn.disabled = true;
     });
 
-    // --- FIXED No button movement (works better on desktop + mobile) ---
-    function moveNoButton(){
-      // Keep No button inside the button wrapper so it never jumps out of the card
+    // Utility: check if two rectangles overlap
+    function rectsOverlap(a, b){
+      return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
+    }
+
+    // Click 1-4: move "No" randomly but NEVER overlap Yes
+    function moveNoWithoutOverlappingYes(){
+      btnWrap.style.position = "relative";
+      noBtn.style.position = "absolute";
+      noBtn.style.right = "";
+      noBtn.style.left = "";
+      noBtn.style.top = "";
+
+      const wrapRect = btnWrap.getBoundingClientRect();
+      const yesRectAbs = yesBtn.getBoundingClientRect();
+
+      // Convert YES rect into btnWrap-relative coordinates
+      const yesRect = {
+        left:   yesRectAbs.left - wrapRect.left,
+        top:    yesRectAbs.top  - wrapRect.top,
+        right:  yesRectAbs.right - wrapRect.left,
+        bottom: yesRectAbs.bottom - wrapRect.top
+      };
+
+      const pad = 10;
+      const maxX = (wrapRect.width  - noBtn.offsetWidth  - pad);
+      const maxY = (wrapRect.height - noBtn.offsetHeight - pad);
+
+      // Try multiple random positions until we find one that doesn't overlap YES
+      for(let tries=0; tries<40; tries++){
+        const x = pad + Math.random() * Math.max(0, maxX);
+        const y = pad + Math.random() * Math.max(0, maxY);
+
+        const noRect = {
+          left: x,
+          top: y,
+          right: x + noBtn.offsetWidth,
+          bottom: y + noBtn.offsetHeight
+        };
+
+        if(!rectsOverlap(noRect, yesRect)){
+          noBtn.style.left = x + "px";
+          noBtn.style.top  = y + "px";
+          return;
+        }
+      }
+
+      // Fallback (if wrap is too small): just push it away from YES
+      const fallbackX = Math.max(pad, Math.min(maxX, yesRect.right + pad));
+      const fallbackY = pad;
+      noBtn.style.left = fallbackX + "px";
+      noBtn.style.top  = fallbackY + "px";
+    }
+
+    // Click 5: place "No" exactly on top of "Yes"
+    function putNoExactlyOnYes(){
       btnWrap.style.position = "relative";
       noBtn.style.position = "absolute";
 
       const wrapRect = btnWrap.getBoundingClientRect();
+      const yesRect  = yesBtn.getBoundingClientRect();
 
-      const pad = 10;
-      const maxX = wrapRect.width  - noBtn.offsetWidth  - pad;
-      const maxY = wrapRect.height - noBtn.offsetHeight - pad;
+      const left = yesRect.left - wrapRect.left;
+      const top  = yesRect.top  - wrapRect.top;
 
-      const x = pad + Math.random() * Math.max(0, maxX);
-      const y = pad + Math.random() * Math.max(0, maxY);
+      noBtn.style.left = left + "px";
+      noBtn.style.top  = top + "px";
 
-      noBtn.style.left = x + "px";
-      noBtn.style.top  = y + "px";
+      // Make "No" unclickable so a tap/click lands on YES
+      noBtn.style.pointerEvents = "none";
+      noBtn.style.opacity = "0.92";
+
+      // Ensure YES is on top
+      yesBtn.style.zIndex = "10";
+      noBtn.style.zIndex = "9";
+
+      showMessage(`Okay 😌 now the only easy option is <b>Yes</b> 🤭❤️`);
     }
 
-    // Desktop: dodge when mouse comes near
-    noBtn.addEventListener("mouseenter", ()=>{
-      noCount++;
-      moveNoButton();
+    noBtn.addEventListener("click", (e)=>{
+      e.preventDefault();
+      makeHearts(6);
 
-      const lines = [
-        `Nice try 😌`,
-        `Nope 😭`,
-        `You sure? 👀`,
-        `Last chance… 🫣`,
-        `I’m taking that as a “yes” 😌💘`,
-      ];
+      noClicks++;
 
-      if(noCount === 1){
-        showMessage(`You clicked <b>No</b>? 😭<br>Okay… try again 😌`);
-      } else if(noCount < 5){
-        showMessage(lines[Math.min(noCount-1, lines.length-1)]);
+      if(noClicks <= DODGE_TIMES){
+        moveNoWithoutOverlappingYes();
+        const lines = [
+          `Nice try 😌`,
+          `Nope 😭`,
+          `You sure? 👀`,
+          `Last chance… 🫣`
+        ];
+        showMessage(lines[Math.min(noClicks-1, lines.length-1)]);
       } else {
-        showMessage(`Alright 😌 if you really want “No”… you’ll have to catch it. Or just click <b>Yes</b> 🤭❤️`);
+        putNoExactlyOnYes();
       }
     });
 
-    // Mobile: on tap, move and show message
-    noBtn.addEventListener("click", (e)=>{
-      e.preventDefault();
-      noCount++;
-      moveNoButton();
-      makeHearts(8);
-      showMessage("Haha 😌 not that easy. Try the other button ❤️");
-    });
-
-    // Keep the No button in a sensible starting spot
-    window.addEventListener("load", () => {
-      // make wrapper tall enough for movement on small screens
-      btnWrap.style.minHeight = "72px";
-    });
-
-    // subtle hearts occasionally
     setInterval(()=>makeHearts(3), 3500);
   </script>
 </body>
