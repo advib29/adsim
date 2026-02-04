@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Will you be my forever Valentine? ♾️💘</title>
+  <title>Will you be my Forever Valentine, Dr. Simran Sharma? ♾️❤️</title>
   <style>
     :root{
       --bg1:#0b1020; --bg2:#1b0f1a;
@@ -191,7 +191,7 @@
     <div class="card" id="card">
       <div class="badge">💌 A tiny website made with big feelings</div>
 
-      <h1>Will you be my Valentine, <span class="name" id="herName">Dr. Simran Sharma</span>? 💘</h1>
+      <h1>Will you be my Forever Valentine, <span class="name" id="herName">Dr. Simran Sharma</span>? ♾️❤️</h1>
       <p class="sub">
         Because one day is never enough to celebrate a Heera like you 💎
         You make every day feel special ✨
@@ -260,21 +260,20 @@
       }
     }
 
- yesBtn.addEventListener("click", ()=>{
-  makeHearts(28);
-  showMessage(`
-    <b>YAYYY 😭❤️</b><br><br>
-    Okay, it’s official: <b>${HER_NAME}</b> is my Valentine 💘<br>
-    Screenshot this page and send it to me as proof 😌✨<br><br>
-    <small>(Taking you to the next page… please wait 🫣)</small>
-  `);
+    yesBtn.addEventListener("click", ()=>{
+      makeHearts(28);
+      showMessage(`
+        <b>YAYYY 😭❤️</b><br><br>
+        Okay, it’s official: <b>${HER_NAME}</b> is my Valentine 💘<br>
+        Screenshot this page and send it to me as proof 😌✨<br><br>
+        <small>(Taking you to the next page… please wait 🫣)</small>
+      `);
 
-  // Open love page after 10 seconds
-  setTimeout(() => {
-    window.location.href = "./love.html";
-  }, 10000); // 10 seconds
-});
-
+      // Open love page after 10 seconds
+      setTimeout(() => {
+        window.location.href = "./love.html";
+      }, 10000); // 10 seconds
+    });
 
     // Utility: check if two rectangles overlap
     function rectsOverlap(a, b){
