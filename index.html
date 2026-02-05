@@ -54,6 +54,15 @@
       margin-bottom:16px;
     }
 
+    /* Joey line – slightly smaller than heading, but prominent */
+    .joey{
+      margin: 0 auto 12px;
+      font-size: clamp(20px, 3vw, 24px);
+      font-weight: 800;
+      color: rgba(255,255,255,.92);
+      letter-spacing: -.01em;
+    }
+
     h1{
       margin:8px 0 12px;
       font-size:clamp(26px,4vw,40px);
@@ -67,7 +76,6 @@
       line-height:1.6;
       color:rgba(255,255,255,.85);
     }
-
     .text b{color:white}
 
     button{
@@ -82,26 +90,27 @@
       box-shadow:0 10px 24px rgba(0,0,0,.35);
     }
 
+    /* Legal line – more readable */
     .small{
-      margin-top:14px;
-      font-size:12px;
-      color:rgba(255,255,255,.55);
+      margin-top:16px;
+      font-size:14px;
+      color:rgba(255,255,255,.75);
+      font-weight:600;
     }
   </style>
 </head>
 
 <body>
-
   <div class="card">
     <div class="badge">⚠️ Friendly Warning</div>
+
+    <div class="joey">How you doin’? 😏</div>
 
     <h1>Before you continue… 🤭</h1>
 
     <p class="text">
       By clicking <b>Continue</b>, you accept that <b>Advaita</b> may randomly flirt,
       over-compliment, tease, and talk nonsense 🤭💘
-      <br><br>
-      Proceed only if you’re emotionally prepared 🫣
     </p>
 
     <button onclick="window.location.href='./quiz.html'">
@@ -109,9 +118,8 @@
     </button>
 
     <div class="small">
-      P.S. This experience may cause smiling.
+      Legal note: This agreement is non-terminable. ✅
     </div>
   </div>
-
 </body>
 </html>
