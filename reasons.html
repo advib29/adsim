@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Reasons I don’t like you</title>
+
+  <style>
+    :root{
+      --bg1:#0b1020; --bg2:#1b0f1a;
+      --card: rgba(255,255,255,.08);
+      --border: rgba(255,255,255,.16);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --radius: 22px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      background: radial-gradient(1200px 700px at 15% 10%, rgba(255,80,160,.22), transparent 60%),
+                  radial-gradient(900px 600px at 90% 20%, rgba(120,80,255,.20), transparent 55%),
+                  linear-gradient(160deg, var(--bg1), var(--bg2));
+      display:grid;
+      place-items:center;
+      padding:24px;
+      overflow:hidden;
+    }
+
+    .card{
+      width:min(760px,100%);
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(10px);
+      padding:32px 24px;
+      text-align:center;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.14);
+      font-size:14px;
+      color:var(--muted);
+      margin-bottom:16px;
+    }
+
+    h1{
+      margin:8px 0 18px;
+      font-size:clamp(26px,4vw,40px);
+      letter-spacing:-.02em;
+    }
+
+    /* Intentionally blank section */
+    .blank{
+      margin: 0 auto 26px;
+      max-width: 560px;
+      min-height: 160px;
+      border-radius: 16px;
+      border: 1px dashed rgba(255,255,255,.18);
+      background: rgba(0,0,0,.12);
+    }
+
+    button{
+      padding:14px 22px;
+      border-radius:16px;
+      border:0;
+      background:linear-gradient(135deg,#ff5aa0,#ff4678);
+      color:white;
+      font-weight:800;
+      font-size:16px;
+      cursor:pointer;
+      box-shadow:0 10px 24px rgba(0,0,0,.35);
+    }
+
+    /* Emphasised "Exactly." */
+    .emphasis{
+      margin-top:18px;
+      font-size:16px;
+      font-weight:700;
+      color: rgba(255,255,255,.85);
+      letter-spacing:.02em;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="badge">📄 Evidence</div>
+
+    <h1>Reasons I don’t like you</h1>
+
+    <div class="blank"></div>
+
+    <button onclick="window.location.href='./love.html'">
+      Continue 😌
+    </button>
+
+    <div class="emphasis">
+      Exactly.
+    </div>
+  </div>
+</body>
+</html>
