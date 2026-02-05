@@ -60,14 +60,22 @@
       letter-spacing:-.02em;
     }
 
-    /* Intentionally blank section */
     .blank{
-      margin: 0 auto 26px;
+      margin: 0 auto 18px;
       max-width: 560px;
       min-height: 160px;
       border-radius: 16px;
       border: 1px dashed rgba(255,255,255,.18);
       background: rgba(0,0,0,.12);
+    }
+
+    /* Bigger, confident emphasis */
+    .emphasis{
+      margin: 0 auto 26px;
+      font-size:20px;
+      font-weight:800;
+      color: rgba(255,255,255,.92);
+      letter-spacing:.03em;
     }
 
     button{
@@ -81,15 +89,6 @@
       cursor:pointer;
       box-shadow:0 10px 24px rgba(0,0,0,.35);
     }
-
-    /* Emphasised "Exactly." */
-    .emphasis{
-      margin-top:18px;
-      font-size:16px;
-      font-weight:700;
-      color: rgba(255,255,255,.85);
-      letter-spacing:.02em;
-    }
   </style>
 </head>
 
@@ -101,13 +100,13 @@
 
     <div class="blank"></div>
 
-    <button onclick="window.location.href='./love.html'">
-      Continue 😌
-    </button>
-
     <div class="emphasis">
       Exactly.
     </div>
+
+    <button onclick="window.location.href='./love.html'">
+      Continue 😌
+    </button>
   </div>
 </body>
 </html>
