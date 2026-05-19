@@ -846,7 +846,7 @@ button.unlocked:hover{
         <div class="image-wrap">
 
           <img
-            src="./340190.jpg"
+            src="340190.jpg"
             alt="Non-Discharge Summary"
             class="summary-img"
           >
@@ -895,6 +895,9 @@ const hoursEl = document.getElementById("hours");
 const minutesEl = document.getElementById("minutes");
 const secondsEl = document.getElementById("seconds");
 
+const continueBtn =
+  document.getElementById("continueBtn");
+
 function pad(num){
   return String(num).padStart(2,"0");
 }
@@ -911,6 +914,8 @@ function updateCountdown(){
     hoursEl.textContent = "00";
     minutesEl.textContent = "00";
     secondsEl.textContent = "00";
+
+    unlockButton();
 
     return;
   }
@@ -938,6 +943,27 @@ function updateCountdown(){
   hoursEl.textContent = pad(hours);
   minutesEl.textContent = pad(minutes);
   secondsEl.textContent = pad(seconds);
+
+  continueBtn.classList.remove("unlocked");
+
+  continueBtn.innerHTML =
+    "Locked Until 29 May 🔒";
+
+  continueBtn.onclick = null;
+}
+
+function unlockButton(){
+
+  continueBtn.classList.add("unlocked");
+
+  continueBtn.innerHTML =
+    "Unlocked — Open Disclaimer 💌";
+
+  continueBtn.onclick = () => {
+
+    window.location.href = "disclaimer.html";
+
+  };
 }
 
 updateCountdown();
@@ -985,38 +1011,6 @@ function createParticle(){
 }
 
 setInterval(createParticle,900);
-
-const continueBtn =
-  document.getElementById("continueBtn");
-
-function unlockButton(){
-
-  const now = new Date();
-
-  if(now >= targetDate){
-
-    continueBtn.classList.add("unlocked");
-
-    continueBtn.innerHTML =
-      "Open Case File 💌";
-
-    continueBtn.onclick = () => {
-
-      alert("Case file officially unlocked 🤭❤️");
-
-    };
-
-  }else{
-
-    continueBtn.innerHTML =
-      "Locked Until 29 May 🔒";
-
-  }
-}
-
-unlockButton();
-
-setInterval(unlockButton,1000);
 </script>
 
 </body>
