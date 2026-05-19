@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Congratulations Dr. Sia 🎓</title>
+
+  <style>
+    :root{
+      --paper:#fff7ee;
+      --paper2:#f6eadc;
+      --ink:#2a1d1f;
+      --muted:#765f61;
+      --red:#c83052;
+      --pink:#ff5f93;
+      --line:rgba(42,29,31,.16);
+      --shadow:0 18px 48px rgba(0,0,0,.40);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+
+    html,body{
+      margin:0;
+      width:100%;
+      min-height:100%;
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      color:var(--ink);
+      overflow-x:hidden;
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(255,95,147,.25), transparent 60%),
+        radial-gradient(900px 600px at 85% 20%, rgba(255,198,120,.16), transparent 60%),
+        linear-gradient(145deg,#100b12,#24111b 55%,#100b12);
+    }
+
+    body{
+      min-height:100svh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px 18px;
+      position:relative;
+    }
+
+    .noise{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.22;
+      background-image:
+        linear-gradient(rgba(255,247,238,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,247,238,.07) 1px, transparent 1px);
+      background-size:44px 44px;
+      mask-image:radial-gradient(circle at center, black, transparent 75%);
+    }
+
+    .logo{
+      position:fixed;
+      top:12px;
+      right:12px;
+      width:50px;
+      height:50px;
+      object-fit:contain;
+      border-radius:15px;
+      background:rgba(255,247,238,.12);
+      border:1px solid rgba(255,255,255,.25);
+      box-shadow:0 12px 30px rgba(0,0,0,.35);
+      padding:7px;
+      backdrop-filter:blur(16px);
+      z-index:20;
+    }
+
+    .wrap{
+      width:min(860px,100%);
+      position:relative;
+      z-index:5;
+    }
+
+    .card{
+      position:relative;
+      overflow:visible;
+      border-radius:var(--radius);
+      background:
+        linear-gradient(90deg,rgba(42,29,31,.045) 1px, transparent 1px),
+        linear-gradient(var(--paper),var(--paper2));
+      background-size:28px 28px, auto;
+      border:1px solid rgba(255,255,255,.32);
+      box-shadow:var(--shadow);
+      padding:22px 30px 24px;
+      text-align:center;
+      color:var(--ink);
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      border-radius:var(--radius);
+      background:
+        radial-gradient(440px 220px at 50% 0%, rgba(255,95,147,.14), transparent 70%),
+        radial-gradient(460px 260px at 20% 80%, rgba(200,48,82,.10), transparent 70%);
+      pointer-events:none;
+      z-index:0;
+    }
+
+    .content{
+      position:relative;
+      z-index:2;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(200,48,82,.09);
+      border:1px solid rgba(200,48,82,.18);
+      color:#8b2639;
+      font-size:12px;
+      font-weight:900;
+      margin-bottom:9px;
+      animation:softPop .7s ease both;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(28px,5vw,48px);
+      line-height:1.04;
+      letter-spacing:-1.4px;
+      text-wrap:balance;
+      color:#8b2639;
+    }
+
+    .gradient-text{
+      display:inline-block;
+      min-width:250px;
+      background:linear-gradient(90deg,#8b2639,#c83052,#ff5f93,#8b2639);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      background-size:240% auto;
+      animation:shine 4s linear infinite, flipIn .55s ease both;
+    }
+
+    .flip-out{
+      animation:flipOut .45s ease both;
+    }
+
+    .flip-in{
+      animation:flipIn .55s ease both;
+    }
+
+    .subtitle{
+      margin:10px auto 0;
+      max-width:700px;
+      font-size:clamp(13.5px,1.6vw,15.5px);
+      line-height:1.45;
+      color:var(--muted);
+    }
+
+    .main-line{
+      margin:13px auto 0;
+      max-width:700px;
+      padding:12px 16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.45);
+      border:1px solid var(--line);
+      font-size:clamp(14.5px,1.9vw,18px);
+      line-height:1.38;
+      color:#4b3035;
+    }
+
+    .name{
+      color:#8b2639;
+      font-weight:900;
+      text-shadow:0 0 24px rgba(200,48,82,.18);
+    }
+
+    .letter{
+      margin:14px auto 0;
+      max-width:730px;
+      text-align:left;
+      border-radius:20px;
+      padding:14px 17px;
+      background:rgba(255,255,255,.42);
+      border:1px solid var(--line);
+      color:#4b3035;
+      line-height:1.48;
+      font-size:12.8px;
+    }
+
+    .letter p{
+      margin:0 0 7px;
+    }
+
+    .letter p:last-child{
+      margin-bottom:0;
+    }
+
+    .highlight{
+      color:#8b2639;
+      font-weight:900;
+    }
+
+    .signature{
+      margin-top:7px;
+      color:#8b2639;
+      font-weight:850;
+    }
+
+    .btn-row{
+      margin-top:13px;
+      display:flex;
+      justify-content:center;
+      gap:9px;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:5;
+    }
+
+    button{
+      border:0;
+      cursor:pointer;
+      border-radius:999px;
+      padding:10px 18px;
+      color:white;
+      font-weight:900;
+      font-size:12.5px;
+      background:linear-gradient(135deg,#c83052,#ff5f93);
+      box-shadow:0 12px 30px rgba(200,48,82,.25);
+      transition:.22s ease;
+    }
+
+    button:hover{
+      transform:translateY(-2px) scale(1.02);
+      box-shadow:0 15px 36px rgba(200,48,82,.34);
+    }
+
+    .cap{
+      position:absolute;
+      top:14px;
+      left:16px;
+      font-size:34px;
+      transform:rotate(-12deg);
+      filter:drop-shadow(0 12px 22px rgba(0,0,0,.18));
+      animation:floaty 4s ease-in-out infinite;
+      z-index:3;
+    }
+
+    .sparkle{
+      position:fixed;
+      pointer-events:none;
+      z-index:1;
+      opacity:.65;
+      animation:fall linear infinite;
+      font-size:15px;
+    }
+
+    .confetti{
+      position:fixed;
+      top:-12px;
+      width:9px;
+      height:14px;
+      border-radius:3px;
+      opacity:.95;
+      z-index:30;
+      animation:confettiFall 3.8s linear forwards;
+    }
+
+    .firework{
+      position:fixed;
+      width:5px;
+      height:5px;
+      border-radius:50%;
+      z-index:35;
+      pointer-events:none;
+      background:#fff7ee;
+      box-shadow:
+        0 -40px #f5d8d2,
+        28px -28px #ff5f93,
+        40px 0 #fff7ee,
+        28px 28px #c83052,
+        0 40px #f5d8d2,
+        -28px 28px #ff5f93,
+        -40px 0 #fff7ee,
+        -28px -28px #c83052,
+        0 -62px rgba(255,247,238,.9),
+        44px -44px rgba(245,216,210,.9),
+        62px 0 rgba(255,95,147,.9),
+        44px 44px rgba(200,48,82,.9),
+        0 62px rgba(255,247,238,.9),
+        -44px 44px rgba(245,216,210,.9),
+        -62px 0 rgba(255,95,147,.9),
+        -44px -44px rgba(200,48,82,.9);
+      animation:boom 1.05s ease-out forwards;
+    }
+
+    .footer{
+      margin-top:9px;
+      color:rgba(42,29,31,.48);
+      font-size:11px;
+    }
+
+    @keyframes shine{
+      to{background-position:240% center}
+    }
+
+    @keyframes softPop{
+      from{opacity:0; transform:translateY(10px) scale(.98)}
+      to{opacity:1; transform:translateY(0) scale(1)}
+    }
+
+    @keyframes floaty{
+      0%,100%{transform:translateY(0) rotate(-12deg)}
+      50%{transform:translateY(-8px) rotate(-8deg)}
+    }
+
+    @keyframes fall{
+      from{transform:translateY(-10vh) rotate(0)}
+      to{transform:translateY(115vh) rotate(360deg)}
+    }
+
+    @keyframes confettiFall{
+      0%{transform:translateY(-20px) rotate(0deg)}
+      100%{transform:translateY(110vh) rotate(720deg)}
+    }
+
+    @keyframes boom{
+      0%{transform:scale(.1); opacity:0}
+      25%{opacity:1}
+      100%{transform:scale(1.65); opacity:0}
+    }
+
+    @keyframes flipOut{
+      0%{transform:rotateX(0deg); opacity:1}
+      100%{transform:rotateX(90deg); opacity:0}
+    }
+
+    @keyframes flipIn{
+      0%{transform:rotateX(-90deg); opacity:0}
+      100%{transform:rotateX(0deg); opacity:1}
+    }
+
+    @media(max-height:720px){
+      body{
+        padding:10px 16px;
+      }
+
+      .logo{
+        width:46px;
+        height:46px;
+      }
+
+      .card{
+        padding:18px 26px 20px;
+      }
+
+      .badge{
+        font-size:11.5px;
+        padding:6px 11px;
+        margin-bottom:7px;
+      }
+
+      h1{
+        font-size:clamp(25px,4.7vw,42px);
+      }
+
+      .subtitle{
+        margin-top:8px;
+        font-size:12.8px;
+        line-height:1.38;
+      }
+
+      .main-line{
+        margin-top:10px;
+        padding:10px 14px;
+        font-size:14px;
+      }
+
+      .letter{
+        margin-top:11px;
+        padding:12px 15px;
+        font-size:12.1px;
+        line-height:1.4;
+      }
+
+      .letter p{
+        margin-bottom:5px;
+      }
+
+      .btn-row{
+        margin-top:10px;
+      }
+
+      button{
+        padding:9px 15px;
+        font-size:12px;
+      }
+
+      .footer{
+        margin-top:7px;
+        font-size:10.5px;
+      }
+
+      .cap{
+        font-size:30px;
+      }
+    }
+
+    @media(max-width:760px){
+      html,body{
+        height:auto;
+        min-height:100%;
+        overflow-x:hidden;
+        overflow-y:auto;
+      }
+
+      body{
+        padding:16px;
+        align-items:flex-start;
+      }
+
+      .logo{
+        width:50px;
+        height:50px;
+      }
+
+      .card{
+        margin-top:68px;
+        padding:26px 17px;
+      }
+
+      .cap{
+        top:17px;
+        left:17px;
+        font-size:34px;
+      }
+
+      .gradient-text{
+        min-width:auto;
+      }
+
+      .letter{
+        padding:17px;
+        font-size:13.2px;
+        line-height:1.52;
+      }
+
+      .subtitle{
+        font-size:14.5px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="noise"></div>
+
+  <img class="logo" src="logo.png" alt="AdSimu Logo" />
+
+  <main class="wrap">
+    <section class="card">
+      <div class="cap">🎓</div>
+
+      <div class="content">
+        <div class="badge">🎉 Graduation Day · Dr. Sia Special</div>
+
+        <h1>
+          Congratulations Dr.<br>
+          <span id="flipName" class="gradient-text">Simran Sharma</span>
+        </h1>
+
+        <p class="subtitle">
+          Today is about the girl who kept going through tired days, long duties,
+          studies, pressure and responsibilities — and still made it here with grace.
+        </p>
+
+        <div class="main-line">
+          <span class="name">You did it, Dr. Sia.</span><br>
+          And honestly, this title looks perfect on you.
+        </div>
+
+        <div class="letter">
+          <p>Dear Dr. Sia,</p>
+
+          <p>
+            I know this journey was not easy. There were days you were exhausted,
+            days everything felt too much, and still you showed up.
+          </p>
+
+          <p>
+            That is what makes today so special. You did not reach here only because
+            you are intelligent. You reached here because you are
+            <span class="highlight">strong, patient, disciplined and quietly brave.</span>
+          </p>
+
+          <p>
+            I am proud of the doctor you have become, but even more proud of the person you are.
+            The way you care, the way you keep trying, and the way you carry softness and strength together
+            makes you so special.
+          </p>
+
+          <p>
+            Every late night, every duty, every stressful moment and every sacrifice
+            became this beautiful day. Congratulations, my Dr. Sia.
+            This is your title, your win, your moment.
+          </p>
+
+          <p class="signature">
+            Forever proud of you,<br>
+            Your most loyal patient ❤️
+          </p>
+        </div>
+
+        <div class="btn-row">
+          <button onclick="startFullCelebrationShow()">Celebrate Dr. Sia 🎉</button>
+        </div>
+
+        <div class="footer">
+          Made only for Dr. Simran Sharma · Graduation Special · 27 May 🎓
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const sparkleIcons = ["✨","💖","🎓","🧿","⭐"];
+
+    function createSparkles(){
+      for(let i = 0; i < 18; i++){
+        const s = document.createElement("div");
+        s.className = "sparkle";
+        s.textContent = sparkleIcons[Math.floor(Math.random() * sparkleIcons.length)];
+        s.style.left = Math.random() * 100 + "vw";
+        s.style.animationDuration = 6 + Math.random() * 8 + "s";
+        s.style.animationDelay = Math.random() * 6 + "s";
+        s.style.fontSize = 12 + Math.random() * 12 + "px";
+        document.body.appendChild(s);
+      }
+    }
+
+    function launchConfetti(){
+      const colors = ["#c83052", "#ff5f93", "#fff7ee", "#f5d8d2", "#ffd1dc"];
+
+      for(let i = 0; i < 65; i++){
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.background = colors[Math.floor(Math.random() * colors.length)];
+        c.style.animationDelay = Math.random() * 0.5 + "s";
+        c.style.animationDuration = 2.8 + Math.random() * 1.8 + "s";
+        c.style.transform = `rotate(${Math.random() * 360}deg)`;
+        document.body.appendChild(c);
+
+        setTimeout(() => c.remove(), 5000);
+      }
+    }
+
+    function launchFireworksBurst(){
+      for(let i = 0; i < 7; i++){
+        setTimeout(() => {
+          const f = document.createElement("div");
+          f.className = "firework";
+          f.style.left = 12 + Math.random() * 76 + "vw";
+          f.style.top = 10 + Math.random() * 48 + "vh";
+          document.body.appendChild(f);
+
+          setTimeout(() => f.remove(), 1200);
+        }, i * 120);
+      }
+    }
+
+    function startFireworksOnlyShow(){
+      launchFireworksBurst();
+
+      const show = setInterval(() => {
+        launchFireworksBurst();
+      }, 1000);
+
+      setTimeout(() => {
+        clearInterval(show);
+      }, 10000);
+    }
+
+    function startFullCelebrationShow(){
+      launchConfetti();
+      launchFireworksBurst();
+
+      const show = setInterval(() => {
+        launchFireworksBurst();
+        launchConfetti();
+      }, 1000);
+
+      setTimeout(() => {
+        clearInterval(show);
+      }, 10000);
+    }
+
+    function startNameFlip(){
+      const names = ["Babe", "Darling", "Biwi", "Sweetheart", "Simran Sharma"];
+      const el = document.getElementById("flipName");
+      let index = 0;
+
+      const interval = setInterval(() => {
+        el.classList.remove("flip-in");
+        el.classList.add("flip-out");
+
+        setTimeout(() => {
+          el.textContent = names[index];
+          el.classList.remove("flip-out");
+          el.classList.add("flip-in");
+          index++;
+
+          if(index >= names.length){
+            clearInterval(interval);
+          }
+        }, 430);
+      }, 3500);
+    }
+
+    createSparkles();
+
+    window.addEventListener("load", () => {
+      setTimeout(startFireworksOnlyShow, 500);
+      setTimeout(startNameFlip, 1200);
+    });
+  </script>
+</body>
+</html>
