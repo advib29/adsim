@@ -1,636 +1,581 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Congratulations Dr. Sia 🎓</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Congratulations Dr. Sia 🎓</title>
 
-  <style>
-    :root{
-      --paper:#fff7ee;
-      --paper2:#f6eadc;
-      --ink:#2a1d1f;
-      --muted:#765f61;
-      --red:#c83052;
-      --pink:#ff5f93;
-      --line:rgba(42,29,31,.16);
-      --shadow:0 18px 48px rgba(0,0,0,.40);
-      --radius:22px;
-    }
+<style>
+:root{
+  --paper:#fff7ee;
+  --paper2:#f6eadc;
+  --ink:#2a1d1f;
+  --muted:#765f61;
+  --red:#c83052;
+  --pink:#ff5f93;
+  --line:rgba(42,29,31,.16);
+  --shadow:0 18px 48px rgba(0,0,0,.40);
+  --radius:22px;
+}
 
-    *{box-sizing:border-box}
+*{box-sizing:border-box}
 
-    html,body{
-      margin:0;
-      width:100%;
-      min-height:100%;
-      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
-      color:var(--ink);
-      overflow-x:hidden;
-      background:
-        radial-gradient(900px 500px at 20% 10%, rgba(255,95,147,.25), transparent 60%),
-        radial-gradient(900px 600px at 85% 20%, rgba(255,198,120,.16), transparent 60%),
-        linear-gradient(145deg,#100b12,#24111b 55%,#100b12);
-    }
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  color:var(--ink);
+  overflow:hidden;
+  background:
+    radial-gradient(900px 500px at 20% 10%, rgba(255,95,147,.25), transparent 60%),
+    radial-gradient(900px 600px at 85% 20%, rgba(255,198,120,.16), transparent 60%),
+    linear-gradient(145deg,#100b12,#24111b 55%,#100b12);
+}
 
-    body{
-      min-height:100svh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:14px 18px;
-      position:relative;
-    }
+body{
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 16px;
+  position:relative;
+}
 
-    .noise{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      opacity:.22;
-      background-image:
-        linear-gradient(rgba(255,247,238,.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,247,238,.07) 1px, transparent 1px);
-      background-size:44px 44px;
-      mask-image:radial-gradient(circle at center, black, transparent 75%);
-    }
+.noise{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.22;
+  background-image:
+    linear-gradient(rgba(255,247,238,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,247,238,.07) 1px, transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(circle at center, black, transparent 75%);
+}
 
-    .logo{
-      position:fixed;
-      top:12px;
-      right:12px;
-      width:50px;
-      height:50px;
-      object-fit:contain;
-      border-radius:15px;
-      background:rgba(255,247,238,.12);
-      border:1px solid rgba(255,255,255,.25);
-      box-shadow:0 12px 30px rgba(0,0,0,.35);
-      padding:7px;
-      backdrop-filter:blur(16px);
-      z-index:20;
-    }
+.logo{
+  position:fixed;
+  top:10px;
+  right:10px;
+  width:44px;
+  height:44px;
+  object-fit:contain;
+  border-radius:14px;
+  background:rgba(255,247,238,.12);
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow:0 12px 30px rgba(0,0,0,.35);
+  padding:6px;
+  backdrop-filter:blur(16px);
+  z-index:20;
+}
 
-    .wrap{
-      width:min(860px,100%);
-      position:relative;
-      z-index:5;
-    }
+.wrap{
+  width:min(850px,100%);
+  position:relative;
+  z-index:5;
+}
 
-    .card{
-      position:relative;
-      overflow:visible;
-      border-radius:var(--radius);
-      background:
-        linear-gradient(90deg,rgba(42,29,31,.045) 1px, transparent 1px),
-        linear-gradient(var(--paper),var(--paper2));
-      background-size:28px 28px, auto;
-      border:1px solid rgba(255,255,255,.32);
-      box-shadow:var(--shadow);
-      padding:22px 30px 24px;
-      text-align:center;
-      color:var(--ink);
-    }
+.card{
+  position:relative;
+  overflow:hidden;
+  border-radius:var(--radius);
+  background:
+    linear-gradient(90deg,rgba(42,29,31,.045) 1px, transparent 1px),
+    linear-gradient(var(--paper),var(--paper2));
+  background-size:28px 28px, auto;
+  border:1px solid rgba(255,255,255,.32);
+  box-shadow:var(--shadow);
+  padding:15px 24px 16px;
+  text-align:center;
+  color:var(--ink);
+  max-height:96vh;
+}
 
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      border-radius:var(--radius);
-      background:
-        radial-gradient(440px 220px at 50% 0%, rgba(255,95,147,.14), transparent 70%),
-        radial-gradient(460px 260px at 20% 80%, rgba(200,48,82,.10), transparent 70%);
-      pointer-events:none;
-      z-index:0;
-    }
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:var(--radius);
+  background:
+    radial-gradient(440px 220px at 50% 0%, rgba(255,95,147,.14), transparent 70%),
+    radial-gradient(460px 260px at 20% 80%, rgba(200,48,82,.10), transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
 
-    .content{
-      position:relative;
-      z-index:2;
-    }
+.content{
+  position:relative;
+  z-index:2;
+}
 
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:7px;
-      padding:7px 12px;
-      border-radius:999px;
-      background:rgba(200,48,82,.09);
-      border:1px solid rgba(200,48,82,.18);
-      color:#8b2639;
-      font-size:12px;
-      font-weight:900;
-      margin-bottom:9px;
-      animation:softPop .7s ease both;
-    }
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:6px 11px;
+  border-radius:999px;
+  background:rgba(200,48,82,.09);
+  border:1px solid rgba(200,48,82,.18);
+  color:#8b2639;
+  font-size:11px;
+  font-weight:900;
+  margin-bottom:7px;
+}
 
-    h1{
-      margin:0;
-      font-size:clamp(28px,5vw,48px);
-      line-height:1.04;
-      letter-spacing:-1.4px;
-      text-wrap:balance;
-      color:#8b2639;
-    }
+h1{
+  margin:0;
+  font-size:clamp(25px,4.5vw,41px);
+  line-height:1.02;
+  letter-spacing:-1.2px;
+  color:#8b2639;
+}
 
-    .gradient-text{
-      display:inline-block;
-      min-width:250px;
-      background:linear-gradient(90deg,#8b2639,#c83052,#ff5f93,#8b2639);
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      background-size:240% auto;
-      animation:shine 4s linear infinite, flipIn .55s ease both;
-    }
+.gradient-text{
+  display:inline-block;
+  min-width:230px;
+  background:linear-gradient(90deg,#8b2639,#c83052,#ff5f93,#8b2639);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  background-size:240% auto;
+  animation:shine 4s linear infinite, flipIn .55s ease both;
+}
 
-    .flip-out{
-      animation:flipOut .45s ease both;
-    }
+.subtitle{
+  margin:7px auto 0;
+  max-width:700px;
+  font-size:12.4px;
+  line-height:1.35;
+  color:var(--muted);
+}
 
-    .flip-in{
-      animation:flipIn .55s ease both;
-    }
+.main-line{
+  margin:9px auto 0;
+  max-width:700px;
+  padding:9px 13px;
+  border-radius:16px;
+  background:rgba(255,255,255,.45);
+  border:1px solid var(--line);
+  font-size:14px;
+  line-height:1.32;
+  color:#4b3035;
+}
 
-    .subtitle{
-      margin:10px auto 0;
-      max-width:700px;
-      font-size:clamp(13.5px,1.6vw,15.5px);
-      line-height:1.45;
-      color:var(--muted);
-    }
+.name{
+  color:#8b2639;
+  font-weight:900;
+}
 
-    .main-line{
-      margin:13px auto 0;
-      max-width:700px;
-      padding:12px 16px;
-      border-radius:18px;
-      background:rgba(255,255,255,.45);
-      border:1px solid var(--line);
-      font-size:clamp(14.5px,1.9vw,18px);
-      line-height:1.38;
-      color:#4b3035;
-    }
+.photo-wrap{
+  margin:10px auto 0;
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  overflow:hidden;
+  border:3px solid rgba(200,48,82,.35);
+  box-shadow:0 12px 36px rgba(200,48,82,.22);
+  background:rgba(255,255,255,.12);
+}
 
-    .name{
-      color:#8b2639;
-      font-weight:900;
-      text-shadow:0 0 24px rgba(200,48,82,.18);
-    }
+.photo-wrap img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
 
-    .letter{
-      margin:14px auto 0;
-      max-width:730px;
-      text-align:left;
-      border-radius:20px;
-      padding:14px 17px;
-      background:rgba(255,255,255,.42);
-      border:1px solid var(--line);
-      color:#4b3035;
-      line-height:1.48;
-      font-size:12.8px;
-    }
+.letter{
+  margin:10px auto 0;
+  max-width:730px;
+  text-align:left;
+  border-radius:18px;
+  padding:11px 14px;
+  background:rgba(255,255,255,.42);
+  border:1px solid var(--line);
+  color:#4b3035;
+  line-height:1.36;
+  font-size:11.7px;
+}
 
-    .letter p{
-      margin:0 0 7px;
-    }
+.letter p{
+  margin:0 0 5px;
+}
 
-    .letter p:last-child{
-      margin-bottom:0;
-    }
+.highlight{
+  color:#8b2639;
+  font-weight:900;
+}
 
-    .highlight{
-      color:#8b2639;
-      font-weight:900;
-    }
+.signature{
+  margin-top:5px;
+  color:#8b2639;
+  font-weight:850;
+}
 
-    .signature{
-      margin-top:7px;
-      color:#8b2639;
-      font-weight:850;
-    }
+.btn-row{
+  margin-top:9px;
+  display:flex;
+  justify-content:center;
+  gap:9px;
+  flex-wrap:wrap;
+}
 
-    .btn-row{
-      margin-top:13px;
-      display:flex;
-      justify-content:center;
-      gap:9px;
-      flex-wrap:wrap;
-      position:relative;
-      z-index:5;
-    }
+button{
+  border:0;
+  cursor:pointer;
+  border-radius:999px;
+  padding:9px 16px;
+  color:white;
+  font-weight:900;
+  font-size:12px;
+  background:linear-gradient(135deg,#c83052,#ff5f93);
+  box-shadow:0 12px 30px rgba(200,48,82,.25);
+  transition:.22s ease;
+}
 
-    button{
-      border:0;
-      cursor:pointer;
-      border-radius:999px;
-      padding:10px 18px;
-      color:white;
-      font-weight:900;
-      font-size:12.5px;
-      background:linear-gradient(135deg,#c83052,#ff5f93);
-      box-shadow:0 12px 30px rgba(200,48,82,.25);
-      transition:.22s ease;
-    }
+button:hover{
+  transform:translateY(-2px) scale(1.02);
+}
 
-    button:hover{
-      transform:translateY(-2px) scale(1.02);
-      box-shadow:0 15px 36px rgba(200,48,82,.34);
-    }
+.close-btn{
+  background:linear-gradient(135deg,#8b2639,#c83052);
+}
 
-    .cap{
-      position:absolute;
-      top:14px;
-      left:16px;
-      font-size:34px;
-      transform:rotate(-12deg);
-      filter:drop-shadow(0 12px 22px rgba(0,0,0,.18));
-      animation:floaty 4s ease-in-out infinite;
-      z-index:3;
-    }
+.cap{
+  position:absolute;
+  top:12px;
+  left:14px;
+  font-size:28px;
+  transform:rotate(-12deg);
+  animation:floaty 4s ease-in-out infinite;
+  z-index:3;
+}
 
-    .sparkle{
-      position:fixed;
-      pointer-events:none;
-      z-index:1;
-      opacity:.65;
-      animation:fall linear infinite;
-      font-size:15px;
-    }
+.confetti{
+  position:fixed;
+  top:-12px;
+  width:9px;
+  height:14px;
+  border-radius:3px;
+  opacity:.95;
+  z-index:30;
+  animation:confettiFall 3.8s linear forwards;
+}
 
-    .confetti{
-      position:fixed;
-      top:-12px;
-      width:9px;
-      height:14px;
-      border-radius:3px;
-      opacity:.95;
-      z-index:30;
-      animation:confettiFall 3.8s linear forwards;
-    }
+.firework{
+  position:fixed;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  z-index:35;
+  pointer-events:none;
+  background:#fff7ee;
+  box-shadow:
+    0 -40px #f5d8d2,
+    28px -28px #ff5f93,
+    40px 0 #fff7ee,
+    28px 28px #c83052,
+    0 40px #f5d8d2,
+    -28px 28px #ff5f93,
+    -40px 0 #fff7ee,
+    -28px -28px #c83052,
+    0 -62px rgba(255,247,238,.9),
+    44px -44px rgba(245,216,210,.9),
+    62px 0 rgba(255,95,147,.9),
+    44px 44px rgba(200,48,82,.9),
+    0 62px rgba(255,247,238,.9),
+    -44px 44px rgba(245,216,210,.9),
+    -62px 0 rgba(255,95,147,.9),
+    -44px -44px rgba(200,48,82,.9);
+  animation:boom 1.05s ease-out forwards;
+}
 
-    .firework{
-      position:fixed;
-      width:5px;
-      height:5px;
-      border-radius:50%;
-      z-index:35;
-      pointer-events:none;
-      background:#fff7ee;
-      box-shadow:
-        0 -40px #f5d8d2,
-        28px -28px #ff5f93,
-        40px 0 #fff7ee,
-        28px 28px #c83052,
-        0 40px #f5d8d2,
-        -28px 28px #ff5f93,
-        -40px 0 #fff7ee,
-        -28px -28px #c83052,
-        0 -62px rgba(255,247,238,.9),
-        44px -44px rgba(245,216,210,.9),
-        62px 0 rgba(255,95,147,.9),
-        44px 44px rgba(200,48,82,.9),
-        0 62px rgba(255,247,238,.9),
-        -44px 44px rgba(245,216,210,.9),
-        -62px 0 rgba(255,95,147,.9),
-        -44px -44px rgba(200,48,82,.9);
-      animation:boom 1.05s ease-out forwards;
-    }
+.footer{
+  margin-top:6px;
+  color:rgba(42,29,31,.48);
+  font-size:10px;
+}
 
-    .footer{
-      margin-top:9px;
-      color:rgba(42,29,31,.48);
-      font-size:11px;
-    }
+@keyframes shine{
+  to{background-position:240% center}
+}
 
-    @keyframes shine{
-      to{background-position:240% center}
-    }
+@keyframes floaty{
+  0%,100%{transform:translateY(0) rotate(-12deg)}
+  50%{transform:translateY(-8px) rotate(-8deg)}
+}
 
-    @keyframes softPop{
-      from{opacity:0; transform:translateY(10px) scale(.98)}
-      to{opacity:1; transform:translateY(0) scale(1)}
-    }
+@keyframes confettiFall{
+  0%{transform:translateY(-20px) rotate(0deg)}
+  100%{transform:translateY(110vh) rotate(720deg)}
+}
 
-    @keyframes floaty{
-      0%,100%{transform:translateY(0) rotate(-12deg)}
-      50%{transform:translateY(-8px) rotate(-8deg)}
-    }
+@keyframes boom{
+  0%{transform:scale(.1);opacity:0}
+  25%{opacity:1}
+  100%{transform:scale(1.65);opacity:0}
+}
 
-    @keyframes fall{
-      from{transform:translateY(-10vh) rotate(0)}
-      to{transform:translateY(115vh) rotate(360deg)}
-    }
+@keyframes flipOut{
+  0%{transform:rotateX(0deg);opacity:1}
+  100%{transform:rotateX(90deg);opacity:0}
+}
 
-    @keyframes confettiFall{
-      0%{transform:translateY(-20px) rotate(0deg)}
-      100%{transform:translateY(110vh) rotate(720deg)}
-    }
+@keyframes flipIn{
+  0%{transform:rotateX(-90deg);opacity:0}
+  100%{transform:rotateX(0deg);opacity:1}
+}
 
-    @keyframes boom{
-      0%{transform:scale(.1); opacity:0}
-      25%{opacity:1}
-      100%{transform:scale(1.65); opacity:0}
-    }
+@media(max-width:760px){
+  html,body{
+    overflow-y:auto;
+    height:auto;
+  }
 
-    @keyframes flipOut{
-      0%{transform:rotateX(0deg); opacity:1}
-      100%{transform:rotateX(90deg); opacity:0}
-    }
+  body{
+    padding:16px;
+  }
 
-    @keyframes flipIn{
-      0%{transform:rotateX(-90deg); opacity:0}
-      100%{transform:rotateX(0deg); opacity:1}
-    }
+  .card{
+    margin-top:58px;
+    max-height:none;
+    padding:20px 14px;
+  }
 
-    @media(max-height:720px){
-      body{
-        padding:10px 16px;
-      }
-
-      .logo{
-        width:46px;
-        height:46px;
-      }
-
-      .card{
-        padding:18px 26px 20px;
-      }
-
-      .badge{
-        font-size:11.5px;
-        padding:6px 11px;
-        margin-bottom:7px;
-      }
-
-      h1{
-        font-size:clamp(25px,4.7vw,42px);
-      }
-
-      .subtitle{
-        margin-top:8px;
-        font-size:12.8px;
-        line-height:1.38;
-      }
-
-      .main-line{
-        margin-top:10px;
-        padding:10px 14px;
-        font-size:14px;
-      }
-
-      .letter{
-        margin-top:11px;
-        padding:12px 15px;
-        font-size:12.1px;
-        line-height:1.4;
-      }
-
-      .letter p{
-        margin-bottom:5px;
-      }
-
-      .btn-row{
-        margin-top:10px;
-      }
-
-      button{
-        padding:9px 15px;
-        font-size:12px;
-      }
-
-      .footer{
-        margin-top:7px;
-        font-size:10.5px;
-      }
-
-      .cap{
-        font-size:30px;
-      }
-    }
-
-    @media(max-width:760px){
-      html,body{
-        height:auto;
-        min-height:100%;
-        overflow-x:hidden;
-        overflow-y:auto;
-      }
-
-      body{
-        padding:16px;
-        align-items:flex-start;
-      }
-
-      .logo{
-        width:50px;
-        height:50px;
-      }
-
-      .card{
-        margin-top:68px;
-        padding:26px 17px;
-      }
-
-      .cap{
-        top:17px;
-        left:17px;
-        font-size:34px;
-      }
-
-      .gradient-text{
-        min-width:auto;
-      }
-
-      .letter{
-        padding:17px;
-        font-size:13.2px;
-        line-height:1.52;
-      }
-
-      .subtitle{
-        font-size:14.5px;
-      }
-    }
-  </style>
+  .photo-wrap{
+    width:145px;
+    height:145px;
+  }
+}
+</style>
 </head>
 
 <body>
-  <div class="noise"></div>
 
-  <img class="logo" src="logo.png" alt="AdSimu Logo" />
+<div class="noise"></div>
 
-  <main class="wrap">
-    <section class="card">
-      <div class="cap">🎓</div>
+<img class="logo" src="logo.png" alt="AdSimu Logo" />
 
-      <div class="content">
-        <div class="badge">🎓 She Actually Did It · Dr. Sia Special</div>
+<main class="wrap">
 
-        <h1>
-          Congratulations Dr.<br>
-          <span id="flipName" class="gradient-text">Simran Sharma</span>
-        </h1>
+<section class="card">
 
-        <p class="subtitle">
-          Years of hard work, sleepless nights, long duties and quiet sacrifices —
-          and today it all becomes one beautiful title. <strong style="color:#8b2639;">Doctor.</strong>
-        </p>
+<div class="cap">🎓</div>
 
-        <div class="main-line">
-          <span class="name">You earned this, Dr. Sia.</span><br>
-          Not just the degree — every single letter of that title.
-        </div>
+<div class="content">
 
-        <div style="margin:14px auto 0;width:200px;height:200px;border-radius:50%;overflow:hidden;border:3px solid rgba(200,48,82,.35);box-shadow:0 12px 36px rgba(200,48,82,.22);background:rgba(255,255,255,.12);">
-          <img src="20.jpg" alt="Dr. Simran" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:52px;\'>👩‍⚕️</div>'" />
-        </div>
+<div class="badge">
+🎓 She Actually Did It · Dr. Sia Special
+</div>
 
-        <div class="letter">
-          <p>Dear Dr. Sia,</p>
+<h1>
+Congratulations Dr.<br>
+<span id="flipName" class="gradient-text">
+Simran Sharma
+</span>
+</h1>
 
-          <p>
-            I have watched you carry this journey — the pressure, the exhaustion,
-            the days that felt endless and the nights that were too short.
-            You never made it look easy, but you never gave up either.
-          </p>
+<p class="subtitle">
+Years of hard work, sleepless nights, long duties and quiet sacrifices —
+and today it all becomes one beautiful title.
+<strong style="color:#8b2639;">Doctor.</strong>
+</p>
 
-          <p>
-            Today is the proof of everything you silently pushed through.
-            You reached here not just because you are intelligent —
-            you reached here because you are
-            <span class="highlight">resilient, devoted, and quietly extraordinary.</span>
-          </p>
+<div class="main-line">
+<span class="name">
+You earned this, Dr. Sia.
+</span><br>
+Not just the degree — every single letter of that title.
+</div>
 
-          <p>
-            I am proud of the doctor you have become. But more than that,
-            I am proud of the person you are — the way you care deeply,
-            the way you stay soft even when things are hard,
-            and the way you carry grace in everything you do.
-          </p>
+<div class="photo-wrap">
+<img src="20.jpg" alt="Dr. Simran">
+</div>
 
-          <p>
-            This title is yours. You did not just study for it —
-            you lived for it. And it looks perfect on you.
-          </p>
+<div class="letter">
 
-          <p class="signature">
-            Forever your most loyal patient,<br>
-            Advaita ❤️
-          </p>
-        </div>
+<p>Dear Dr. Sia,</p>
 
-        <div class="btn-row">
-          <button onclick="startFullCelebrationShow()">Celebrate Dr. Sia 🎉</button>
-        </div>
+<p>
+I have watched you carry this journey —
+the pressure, the exhaustion,
+the days that felt endless and the nights that were too short.
+</p>
 
-        <div class="footer">
-          Made only for Dr. Simran Sharma · With love · Graduation Day 🎓
-        </div>
-      </div>
-    </section>
-  </main>
+<p>
+Today is proof of everything you silently pushed through.
+You reached here because you are
+<span class="highlight">
+resilient, devoted, and quietly extraordinary.
+</span>
+</p>
 
-  <script>
-    const sparkleIcons = ["✨","💖","🎓","🧿","⭐"];
+<p>
+This title is yours.
+And it looks perfect on you.
+</p>
 
-    function createSparkles(){
-      for(let i = 0; i < 18; i++){
-        const s = document.createElement("div");
-        s.className = "sparkle";
-        s.textContent = sparkleIcons[Math.floor(Math.random() * sparkleIcons.length)];
-        s.style.left = Math.random() * 100 + "vw";
-        s.style.animationDuration = 6 + Math.random() * 8 + "s";
-        s.style.animationDelay = Math.random() * 6 + "s";
-        s.style.fontSize = 12 + Math.random() * 12 + "px";
-        document.body.appendChild(s);
+<p class="signature">
+Forever your most loyal patient,<br>
+Advaita ❤️
+</p>
+
+</div>
+
+<div class="btn-row">
+
+<button onclick="startFullCelebrationShow()">
+Celebrate Dr. Sia 🎉
+</button>
+
+<button class="close-btn" onclick="openDegreePage()">
+One More Thing 🎓
+</button>
+
+</div>
+
+<div class="footer">
+Made only for Dr. Simran Sharma · Graduation Day 🎓
+</div>
+
+</div>
+</section>
+</main>
+
+<script>
+function launchConfetti(){
+
+  const colors = [
+    "#c83052",
+    "#ff5f93",
+    "#ffd166",
+    "#fff7ee",
+    "#f5d8d2"
+  ];
+
+  for(let i = 0; i < 120; i++){
+
+    const c = document.createElement("div");
+
+    c.className = "confetti";
+
+    c.style.left = Math.random() * 100 + "vw";
+
+    c.style.background =
+      colors[Math.floor(Math.random() * colors.length)];
+
+    c.style.width = 6 + Math.random() * 8 + "px";
+    c.style.height = 10 + Math.random() * 14 + "px";
+    c.style.borderRadius = Math.random() > .5 ? "50%" : "3px";
+    c.style.transform = `rotate(${Math.random()*360}deg)`;
+    c.style.animationDuration = 2.5 + Math.random() * 2 + "s";
+    c.style.opacity = .7 + Math.random() * .3;
+
+    document.body.appendChild(c);
+
+    setTimeout(() => {
+      c.remove();
+    },5000);
+  }
+}
+
+function launchFireworksBurst(){
+
+  for(let i=0;i<7;i++){
+
+    setTimeout(()=>{
+
+      const f = document.createElement("div");
+
+      f.className = "firework";
+
+      f.style.left = 12 + Math.random()*76 + "vw";
+      f.style.top = 10 + Math.random()*48 + "vh";
+
+      document.body.appendChild(f);
+
+      setTimeout(()=>f.remove(),1200);
+
+    },i*120);
+  }
+}
+
+function startFireworksOnlyShow(){
+
+  launchFireworksBurst();
+
+  const show = setInterval(()=>{
+    launchFireworksBurst();
+  },1000);
+
+  setTimeout(()=>{
+    clearInterval(show);
+  },10000);
+}
+
+function startFullCelebrationShow(){
+
+  launchConfetti();
+  launchFireworksBurst();
+
+  const show = setInterval(()=>{
+    launchFireworksBurst();
+    launchConfetti();
+  },1000);
+
+  setTimeout(()=>{
+    clearInterval(show);
+  },10000);
+}
+
+function startNameFlip(){
+
+  const names = [
+    "Babe",
+    "Darling",
+    "Biwi",
+    "Sweetheart",
+    "Simran Sharma"
+  ];
+
+  const el = document.getElementById("flipName");
+
+  let index = 0;
+
+  const interval = setInterval(()=>{
+
+    el.classList.add("flip-out");
+
+    setTimeout(()=>{
+
+      el.textContent = names[index];
+
+      el.classList.remove("flip-out");
+      el.classList.add("flip-in");
+
+      index++;
+
+      if(index >= names.length){
+        clearInterval(interval);
       }
-    }
 
-    function launchConfetti(){
-      const colors = ["#c83052", "#ff5f93", "#fff7ee", "#f5d8d2", "#ffd1dc"];
+    },430);
 
-      for(let i = 0; i < 65; i++){
-        const c = document.createElement("div");
-        c.className = "confetti";
-        c.style.left = Math.random() * 100 + "vw";
-        c.style.background = colors[Math.floor(Math.random() * colors.length)];
-        c.style.animationDelay = Math.random() * 0.5 + "s";
-        c.style.animationDuration = 2.8 + Math.random() * 1.8 + "s";
-        c.style.transform = `rotate(${Math.random() * 360}deg)`;
-        document.body.appendChild(c);
+  },3500);
+}
 
-        setTimeout(() => c.remove(), 5000);
-      }
-    }
+function openDegreePage(){
+  window.location.href = "degree.html";
+}
 
-    function launchFireworksBurst(){
-      for(let i = 0; i < 7; i++){
-        setTimeout(() => {
-          const f = document.createElement("div");
-          f.className = "firework";
-          f.style.left = 12 + Math.random() * 76 + "vw";
-          f.style.top = 10 + Math.random() * 48 + "vh";
-          document.body.appendChild(f);
+window.addEventListener("load",()=>{
 
-          setTimeout(() => f.remove(), 1200);
-        }, i * 120);
-      }
-    }
+  setTimeout(startFireworksOnlyShow,500);
 
-    function startFireworksOnlyShow(){
-      launchFireworksBurst();
+  setTimeout(startNameFlip,1200);
 
-      const show = setInterval(() => {
-        launchFireworksBurst();
-      }, 1000);
+});
+</script>
 
-      setTimeout(() => {
-        clearInterval(show);
-      }, 10000);
-    }
-
-    function startFullCelebrationShow(){
-      launchConfetti();
-      launchFireworksBurst();
-
-      const show = setInterval(() => {
-        launchFireworksBurst();
-        launchConfetti();
-      }, 1000);
-
-      setTimeout(() => {
-        clearInterval(show);
-      }, 10000);
-    }
-
-    function startNameFlip(){
-      const names = ["Babe", "Darling", "Biwi", "Sweetheart", "Simran Sharma"];
-      const el = document.getElementById("flipName");
-      let index = 0;
-
-      const interval = setInterval(() => {
-        el.classList.remove("flip-in");
-        el.classList.add("flip-out");
-
-        setTimeout(() => {
-          el.textContent = names[index];
-          el.classList.remove("flip-out");
-          el.classList.add("flip-in");
-          index++;
-
-          if(index >= names.length){
-            clearInterval(interval);
-          }
-        }, 430);
-      }, 3500);
-    }
-
-    createSparkles();
-
-    window.addEventListener("load", () => {
-      setTimeout(startFireworksOnlyShow, 500);
-      setTimeout(startNameFlip, 1200);
-    });
-  </script>
 </body>
 </html>
