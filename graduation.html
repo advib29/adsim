@@ -370,9 +370,7 @@ button:hover{
 
 <h1>
 Congratulations Dr.<br>
-<span id="flipName" class="gradient-text">
-Simran Sharma
-</span>
+<span id="flipName" class="gradient-text">Simran Sharma</span>
 </h1>
 
 <p class="subtitle">
@@ -382,14 +380,12 @@ and today it all becomes one beautiful title.
 </p>
 
 <div class="main-line">
-<span class="name">
-You earned this, Dr. Sia.
-</span><br>
-Not just the degree — every single letter of that title.
+<span class="name">You earned this, Dr. Sia.</span><br>
+Not just the degree, but the respect behind it ❤️
 </div>
 
 <div class="photo-wrap">
-<img src="20.jpg" alt="Dr. Simran">
+<img src="20.jpg" alt="Dr. Simran" onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-size:52px;\'>👩‍⚕️</div>'">
 </div>
 
 <div class="letter">
@@ -397,22 +393,21 @@ Not just the degree — every single letter of that title.
 <p>Dear Dr. Sia,</p>
 
 <p>
-I have watched you carry this journey —
-the pressure, the exhaustion,
-the days that felt endless and the nights that were too short.
+I've watched you carry this journey — the pressure, the exhaustion,
+the endless days, and the nights that barely gave you rest.
 </p>
 
 <p>
-Today is proof of everything you silently pushed through.
-You reached here because you are
-<span class="highlight">
-resilient, devoted, and quietly extraordinary.
-</span>
+Today is proof of everything you silently pushed through
+with <span class="highlight">strength, patience, and devotion.</span>
 </p>
 
 <p>
-This title is yours.
-And it looks perfect on you.
+You didn't just earn the degree, you earned the title.
+</p>
+
+<p>
+And honestly… it was always meant to look this perfect on you, my doctorni ❤️
 </p>
 
 <p class="signature">
@@ -423,15 +418,8 @@ Advaita ❤️
 </div>
 
 <div class="btn-row">
-
-<button onclick="startFullCelebrationShow()">
-Celebrate Dr. Sia 🎉
-</button>
-
-<button class="close-btn" onclick="openDegreePage()">
-One More Thing 🎓
-</button>
-
+<button onclick="startFullCelebrationShow()">Celebrate Dr. Sia 🎉</button>
+<button class="close-btn" onclick="openDegreePage()">One More Thing 🎓</button>
 </div>
 
 <div class="footer">
@@ -444,136 +432,72 @@ Made only for Dr. Simran Sharma · Graduation Day 🎓
 
 <script>
 function launchConfetti(){
-
-  const colors = [
-    "#c83052",
-    "#ff5f93",
-    "#ffd166",
-    "#fff7ee",
-    "#f5d8d2"
-  ];
-
-  for(let i = 0; i < 120; i++){
-
-    const c = document.createElement("div");
-
-    c.className = "confetti";
-
-    c.style.left = Math.random() * 100 + "vw";
-
-    c.style.background =
-      colors[Math.floor(Math.random() * colors.length)];
-
-    c.style.width = 6 + Math.random() * 8 + "px";
-    c.style.height = 10 + Math.random() * 14 + "px";
-    c.style.borderRadius = Math.random() > .5 ? "50%" : "3px";
-    c.style.transform = `rotate(${Math.random()*360}deg)`;
-    c.style.animationDuration = 2.5 + Math.random() * 2 + "s";
-    c.style.opacity = .7 + Math.random() * .3;
-
+  const colors = ["#c83052","#ff5f93","#ffd166","#fff7ee","#f5d8d2"];
+  for(let i=0;i<120;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.width=6+Math.random()*8+"px";
+    c.style.height=10+Math.random()*14+"px";
+    c.style.borderRadius=Math.random()>.5?"50%":"3px";
+    c.style.transform=`rotate(${Math.random()*360}deg)`;
+    c.style.animationDuration=2.5+Math.random()*2+"s";
+    c.style.opacity=.7+Math.random()*.3;
     document.body.appendChild(c);
-
-    setTimeout(() => {
-      c.remove();
-    },5000);
+    setTimeout(()=>c.remove(),5000);
   }
 }
 
 function launchFireworksBurst(){
-
   for(let i=0;i<7;i++){
-
     setTimeout(()=>{
-
-      const f = document.createElement("div");
-
-      f.className = "firework";
-
-      f.style.left = 12 + Math.random()*76 + "vw";
-      f.style.top = 10 + Math.random()*48 + "vh";
-
+      const f=document.createElement("div");
+      f.className="firework";
+      f.style.left=12+Math.random()*76+"vw";
+      f.style.top=10+Math.random()*48+"vh";
       document.body.appendChild(f);
-
       setTimeout(()=>f.remove(),1200);
-
     },i*120);
   }
 }
 
 function startFireworksOnlyShow(){
-
   launchFireworksBurst();
-
-  const show = setInterval(()=>{
-    launchFireworksBurst();
-  },1000);
-
-  setTimeout(()=>{
-    clearInterval(show);
-  },10000);
+  const show=setInterval(()=>launchFireworksBurst(),1000);
+  setTimeout(()=>clearInterval(show),10000);
 }
 
 function startFullCelebrationShow(){
-
   launchConfetti();
   launchFireworksBurst();
-
-  const show = setInterval(()=>{
-    launchFireworksBurst();
-    launchConfetti();
-  },1000);
-
-  setTimeout(()=>{
-    clearInterval(show);
-  },10000);
+  const show=setInterval(()=>{launchFireworksBurst();launchConfetti();},1000);
+  setTimeout(()=>clearInterval(show),10000);
 }
 
 function startNameFlip(){
-
-  const names = [
-    "Babe",
-    "Darling",
-    "Biwi",
-    "Sweetheart",
-    "Simran Sharma"
-  ];
-
-  const el = document.getElementById("flipName");
-
-  let index = 0;
-
-  const interval = setInterval(()=>{
-
+  const names=["Babe","Darling","Biwi","Sweetheart","Simran Sharma"];
+  const el=document.getElementById("flipName");
+  let index=0;
+  const interval=setInterval(()=>{
     el.classList.add("flip-out");
-
     setTimeout(()=>{
-
-      el.textContent = names[index];
-
+      el.textContent=names[index];
       el.classList.remove("flip-out");
       el.classList.add("flip-in");
-
       index++;
-
-      if(index >= names.length){
-        clearInterval(interval);
-      }
-
+      if(index>=names.length) clearInterval(interval);
     },430);
-
   },3500);
 }
 
 function openDegreePage(){
-  window.location.href = "degree.html";
+  window.location.href="degree.html";
 }
 
 window.addEventListener("load",()=>{
-
   setTimeout(startFireworksOnlyShow,500);
-
   setTimeout(startNameFlip,1200);
-
 });
 </script>
 
