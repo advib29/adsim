@@ -11,93 +11,78 @@
 :root{
   --cream:#fdf8f0;
   --cream2:#f5ede0;
-  --parchment:#ede0c8;
   --gold:#b8860b;
   --gold2:#d4a840;
   --gold3:#f0c060;
-  --gold-light:#fde8a0;
   --rose:#8b2252;
   --rose2:#a83060;
-  --rose-light:#d4708a;
   --ink:#1a0a0e;
   --ink2:#3d1c28;
   --ink-faint:rgba(26,10,14,.38);
-  --border:rgba(184,134,11,.35);
 }
 
 *{box-sizing:border-box;margin:0;padding:0;}
 
 html,body{
-  width:100%;min-height:100%;
+  width:100%;height:100%;
   background:#0e0608;
   display:flex;align-items:center;justify-content:center;
-  padding:20px;
-  overflow-x:hidden;
+  overflow:hidden;
 }
 
-/* ── outer frame ── */
 .frame-outer{
-  width:min(900px,96vw);
+  width:min(900px,98vw);
+  max-height:98vh;
   position:relative;
-  padding:16px;
+  padding:10px;
   background:#0e0608;
-  border-radius:4px;
-  box-shadow:
-    0 0 60px rgba(184,134,11,.18),
-    0 40px 120px rgba(0,0,0,.8);
+  box-shadow:0 0 60px rgba(184,134,11,.18),0 40px 120px rgba(0,0,0,.8);
   animation:fadeIn 1.2s ease both;
+  display:flex;
+  transform-origin:center center;
 }
 
-/* ── certificate body ── */
 .cert{
   position:relative;
+  width:100%;
   background:
     radial-gradient(ellipse 110% 60% at 50% 0%, #fdf0dc, transparent 55%),
     radial-gradient(ellipse 80% 50% at 20% 100%, rgba(180,120,80,.12), transparent 50%),
     radial-gradient(ellipse 80% 50% at 80% 100%, rgba(180,120,80,.10), transparent 50%),
     linear-gradient(170deg, #fdf8f0 0%, #f8ede0 40%, #f5e8d8 70%, #f0e0cc 100%);
-  padding:clamp(28px,5vw,60px) clamp(24px,5vw,64px);
+  padding:clamp(16px,2.5vh,40px) clamp(20px,3vw,50px);
   overflow:hidden;
-  border-radius:1px;
 }
 
-/* parchment texture */
 .cert::before{
-  content:"";
-  position:absolute;inset:0;
+  content:"";position:absolute;inset:0;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  opacity:.045;
-  pointer-events:none;
+  opacity:.045;pointer-events:none;
 }
 
-/* corner ornaments */
 .corner{
   position:absolute;
-  width:clamp(50px,8vw,90px);
-  height:clamp(50px,8vw,90px);
+  width:clamp(36px,5vw,70px);
+  height:clamp(36px,5vw,70px);
   pointer-events:none;
 }
-.corner svg{ width:100%;height:100%; }
-.corner.tl{top:16px;left:16px;}
-.corner.tr{top:16px;right:16px;transform:scaleX(-1);}
-.corner.bl{bottom:16px;left:16px;transform:scaleY(-1);}
-.corner.br{bottom:16px;right:16px;transform:scale(-1);}
+.corner svg{width:100%;height:100%;}
+.corner.tl{top:12px;left:12px;}
+.corner.tr{top:12px;right:12px;transform:scaleX(-1);}
+.corner.bl{bottom:12px;left:12px;transform:scaleY(-1);}
+.corner.br{bottom:12px;right:12px;transform:scale(-1);}
 
-/* inner border lines */
 .inner-border{
   position:absolute;
-  inset:clamp(14px,3vw,28px);
+  inset:clamp(10px,2vw,22px);
   border:1px solid rgba(184,134,11,.28);
   pointer-events:none;
 }
 .inner-border::before{
-  content:"";
-  position:absolute;
-  inset:5px;
+  content:"";position:absolute;inset:5px;
   border:1px solid rgba(184,134,11,.16);
 }
 
-/* ── content ── */
 .cert-content{
   position:relative;z-index:2;
   text-align:center;
@@ -108,411 +93,356 @@ html,body{
 
 .seal-top{
   display:flex;align-items:center;gap:14px;
-  margin-bottom:clamp(14px,2.5vh,26px);
+  margin-bottom:clamp(6px,1.2vh,18px);
 }
 
 .seal-line{
-  height:1px;
-  width:clamp(50px,8vw,110px);
+  height:1px;width:clamp(40px,6vw,110px);
   background:linear-gradient(to right,transparent,var(--gold),transparent);
 }
 
 .seal-text{
   font-family:'Cinzel',serif;
-  font-size:clamp(7px,1.1vw,11px);
-  letter-spacing:3.5px;
-  color:var(--gold);
-  text-transform:uppercase;
-  white-space:nowrap;
+  font-size:clamp(7px,1vh,11px);
+  letter-spacing:3.5px;color:var(--gold);
+  text-transform:uppercase;white-space:nowrap;
 }
 
 .institution{
   font-family:'Cinzel',serif;
-  font-size:clamp(13px,2.2vw,22px);
-  font-weight:600;
-  letter-spacing:3px;
-  color:var(--ink2);
-  text-transform:uppercase;
-  margin-bottom:4px;
+  font-size:clamp(10px,1.8vh,20px);
+  font-weight:600;letter-spacing:3px;
+  color:var(--ink2);text-transform:uppercase;
+  margin-bottom:3px;
 }
 
 .institution-sub{
   font-family:'Cormorant Garamond',serif;
   font-style:italic;
-  font-size:clamp(11px,1.5vw,15px);
-  color:var(--rose);
-  letter-spacing:1.5px;
-  margin-bottom:clamp(14px,2.5vh,28px);
+  font-size:clamp(9px,1.3vh,14px);
+  color:var(--rose);letter-spacing:1.5px;
+  margin-bottom:clamp(6px,1.2vh,18px);
 }
 
 .divider-ornament{
   display:flex;align-items:center;gap:10px;
-  width:100%;
-  max-width:480px;
-  margin-bottom:clamp(14px,2.5vh,26px);
+  width:100%;max-width:480px;
+  margin-bottom:clamp(6px,1.2vh,18px);
 }
-.div-line{
-  flex:1;height:1px;
-  background:linear-gradient(to right,transparent,rgba(184,134,11,.5),transparent);
-}
-.div-diamond{
-  width:7px;height:7px;
-  background:var(--gold2);
-  transform:rotate(45deg);
-  flex-shrink:0;
-}
+.div-line{flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(184,134,11,.5),transparent);}
+.div-diamond{width:7px;height:7px;background:var(--gold2);transform:rotate(45deg);flex-shrink:0;}
 
 .presents{
   font-family:'IM Fell English',serif;
   font-style:italic;
-  font-size:clamp(13px,1.8vw,18px);
-  color:var(--ink-faint);
-  letter-spacing:.5px;
-  margin-bottom:clamp(8px,1.5vh,14px);
+  font-size:clamp(11px,1.5vh,17px);
+  color:var(--ink-faint);letter-spacing:.5px;
+  margin-bottom:clamp(4px,.8vh,10px);
 }
 
 .cert-type{
   font-family:'Cinzel',serif;
-  font-size:clamp(9px,1.4vw,14px);
-  letter-spacing:4px;
-  color:var(--rose);
+  font-size:clamp(8px,1.2vh,13px);
+  letter-spacing:4px;color:var(--rose);
   text-transform:uppercase;
-  margin-bottom:clamp(10px,1.8vh,18px);
-}
-
-.awarded-to{
-  font-family:'Cormorant Garamond',serif;
-  font-style:italic;
-  font-size:clamp(12px,1.6vw,16px);
-  color:var(--ink-faint);
-  letter-spacing:.5px;
-  margin-bottom:clamp(4px,1vh,8px);
+  margin-bottom:clamp(6px,1.2vh,14px);
 }
 
 .name{
   font-family:'IM Fell English',serif;
-  font-size:clamp(32px,6vw,72px);
-  color:var(--rose2);
-  line-height:1;
-  margin-bottom:clamp(2px,.5vh,6px);
+  font-size:clamp(26px,4.5vh,60px);
+  color:var(--rose2);line-height:1;
+  margin-bottom:clamp(2px,.4vh,5px);
   text-shadow:1px 1px 0 rgba(139,34,82,.12);
 }
 
 .name-sub{
   font-family:'Cormorant Garamond',serif;
   font-style:italic;
-  font-size:clamp(12px,1.5vw,15px);
-  color:var(--gold);
-  letter-spacing:1px;
-  margin-bottom:clamp(14px,2.5vh,26px);
+  font-size:clamp(10px,1.3vh,14px);
+  color:var(--gold);letter-spacing:1px;
+  margin-bottom:clamp(8px,1.5vh,20px);
 }
 
 .body-text{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(13px,1.8vw,18px);
-  line-height:1.8;
-  color:var(--ink2);
+  font-size:clamp(11px,1.5vh,16px);
+  line-height:1.65;color:var(--ink2);
   max-width:560px;
-  margin-bottom:clamp(14px,2.5vh,26px);
+  margin-bottom:clamp(8px,1.5vh,20px);
 }
+.body-text em{font-style:italic;color:var(--rose);}
+.body-text strong{font-weight:600;color:var(--ink);}
 
-.body-text em{
-  font-style:italic;
-  color:var(--rose);
-}
-
-.body-text strong{
-  font-weight:600;
-  color:var(--ink);
-}
-
-/* ── clauses ── */
 .clauses{
   width:100%;max-width:560px;
   border-top:1px solid rgba(184,134,11,.25);
   border-bottom:1px solid rgba(184,134,11,.25);
-  padding:clamp(10px,1.8vh,18px) 0;
-  margin-bottom:clamp(14px,2.5vh,26px);
-  display:flex;flex-direction:column;gap:clamp(6px,1vh,10px);
+  padding:clamp(6px,1.2vh,14px) 0;
+  margin-bottom:clamp(8px,1.5vh,20px);
+  display:flex;flex-direction:column;
+  gap:clamp(4px,.8vh,8px);
   text-align:left;
 }
 
 .clause{
   display:flex;gap:12px;align-items:flex-start;
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(12px,1.5vw,15px);
-  color:var(--ink2);
-  line-height:1.55;
+  font-size:clamp(10px,1.3vh,14px);
+  color:var(--ink2);line-height:1.45;
 }
 
 .clause-num{
   font-family:'Cinzel',serif;
-  font-size:clamp(9px,1.1vw,11px);
-  color:var(--gold);
-  letter-spacing:1px;
-  padding-top:2px;
-  flex-shrink:0;
-  min-width:22px;
+  font-size:clamp(8px,1vh,11px);
+  color:var(--gold);letter-spacing:1px;
+  padding-top:2px;flex-shrink:0;min-width:22px;
 }
+.clause em{font-style:italic;color:var(--rose);}
 
-.clause em{ font-style:italic; color:var(--rose); }
-
-/* ── signatures ── */
 .sig-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
+  display:flex;justify-content:space-between;align-items:flex-end;
   width:100%;max-width:560px;
   gap:20px;
-  margin-bottom:clamp(10px,1.8vh,18px);
+  margin-bottom:clamp(6px,1.2vh,14px);
 }
 
-.sig-block{
-  text-align:center;
-  flex:1;
-}
+.sig-block{text-align:center;flex:1;}
 
 .sig-name{
   font-family:'IM Fell English',serif;
   font-style:italic;
-  font-size:clamp(16px,2.5vw,26px);
-  color:var(--ink2);
-  line-height:1;
-  margin-bottom:4px;
+  font-size:clamp(14px,2vh,24px);
+  color:var(--ink2);line-height:1;margin-bottom:4px;
 }
 
-.sig-line{
-  height:1px;
-  background:rgba(26,10,14,.25);
-  margin-bottom:4px;
-}
+.sig-line{height:1px;background:rgba(26,10,14,.25);margin-bottom:4px;}
 
 .sig-label{
   font-family:'Cinzel',serif;
-  font-size:clamp(7px,1vw,10px);
-  letter-spacing:2px;
-  color:var(--ink-faint);
-  text-transform:uppercase;
+  font-size:clamp(6px,.9vh,10px);
+  letter-spacing:2px;color:var(--ink-faint);text-transform:uppercase;
 }
 
-/* center wax seal */
-.wax-seal{
-  display:flex;flex-direction:column;align-items:center;gap:3px;
-  flex:0 0 auto;
-}
+.wax-seal{display:flex;flex-direction:column;align-items:center;gap:3px;flex:0 0 auto;}
 
 .seal-circle{
-  width:clamp(52px,8vw,72px);
-  height:clamp(52px,8vw,72px);
+  width:clamp(40px,6vh,65px);height:clamp(40px,6vh,65px);
   border-radius:50%;
   background:radial-gradient(circle at 35% 35%,#e05080,#a82050 50%,#6e1035);
   border:2px solid rgba(184,134,11,.5);
-  box-shadow:
-    0 4px 16px rgba(139,34,82,.35),
-    inset 0 1px 0 rgba(255,255,255,.15);
+  box-shadow:0 4px 16px rgba(139,34,82,.35),inset 0 1px 0 rgba(255,255,255,.15);
   display:flex;align-items:center;justify-content:center;
 }
-
-.seal-circle svg{
-  width:65%;height:65%;
-  opacity:.9;
-}
+.seal-circle svg{width:65%;height:65%;opacity:.9;}
 
 .seal-word{
   font-family:'Cinzel',serif;
-  font-size:clamp(6px,.8vw,8px);
-  letter-spacing:2.5px;
-  color:var(--gold);
-  text-transform:uppercase;
+  font-size:clamp(5px,.7vh,8px);
+  letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;
 }
 
-/* ── footer ── */
-.cert-footer{
-  display:flex;align-items:center;gap:10px;
-}
+.cert-footer{display:flex;align-items:center;gap:10px;}
 
 .foot-line{
-  height:1px;width:clamp(40px,6vw,80px);
+  height:1px;width:clamp(30px,4vw,80px);
   background:linear-gradient(to right,transparent,rgba(184,134,11,.4),transparent);
 }
 
 .foot-text{
   font-family:'Cormorant Garamond',serif;
   font-style:italic;
-  font-size:clamp(10px,1.3vw,13px);
-  color:var(--ink-faint);
-  letter-spacing:.5px;
-  white-space:nowrap;
+  font-size:clamp(9px,1.1vh,13px);
+  color:var(--ink-faint);letter-spacing:.5px;white-space:nowrap;
 }
 
-/* ── animations ── */
 @keyframes fadeIn{from{opacity:0;transform:scale(.97);}to{opacity:1;transform:scale(1);}}
 
-.cert-content > *{
-  animation:slideUp .7s ease both;
-}
-@keyframes slideUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.cert-content > *{animation:slideUp .7s ease both;}
+@keyframes slideUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 .cert-content > *:nth-child(1){animation-delay:.3s;}
-.cert-content > *:nth-child(2){animation-delay:.45s;}
-.cert-content > *:nth-child(3){animation-delay:.55s;}
-.cert-content > *:nth-child(4){animation-delay:.65s;}
-.cert-content > *:nth-child(5){animation-delay:.72s;}
-.cert-content > *:nth-child(6){animation-delay:.78s;}
-.cert-content > *:nth-child(7){animation-delay:.84s;}
-.cert-content > *:nth-child(8){animation-delay:.90s;}
-.cert-content > *:nth-child(9){animation-delay:.96s;}
-.cert-content > *:nth-child(10){animation-delay:1.02s;}
-.cert-content > *:nth-child(11){animation-delay:1.08s;}
-.cert-content > *:nth-child(12){animation-delay:1.14s;}
-.cert-content > *:nth-child(13){animation-delay:1.18s;}
+.cert-content > *:nth-child(2){animation-delay:.42s;}
+.cert-content > *:nth-child(3){animation-delay:.52s;}
+.cert-content > *:nth-child(4){animation-delay:.62s;}
+.cert-content > *:nth-child(5){animation-delay:.70s;}
+.cert-content > *:nth-child(6){animation-delay:.76s;}
+.cert-content > *:nth-child(7){animation-delay:.82s;}
+.cert-content > *:nth-child(8){animation-delay:.88s;}
+.cert-content > *:nth-child(9){animation-delay:.94s;}
+.cert-content > *:nth-child(10){animation-delay:1.00s;}
+.cert-content > *:nth-child(11){animation-delay:1.06s;}
+.cert-content > *:nth-child(12){animation-delay:1.12s;}
+.cert-content > *:nth-child(13){animation-delay:1.16s;}
 
 @media(max-width:600px){
-  html,body{padding:10px;}
-  .frame-outer{padding:8px;}
-  .frame-inner{padding:6px;}
-  .cert{padding:clamp(20px,4vw,40px) clamp(16px,4vw,32px);}
-  .sig-row{flex-direction:column;align-items:center;gap:16px;}
+  html,body{overflow-y:auto;height:auto;}
+  .sig-row{flex-direction:column;align-items:center;gap:14px;}
   .sig-block{width:100%;max-width:200px;}
-  .wax-seal{order:-1;margin-bottom:8px;}
+  .wax-seal{order:-1;margin-bottom:6px;}
 }
 </style>
 </head>
 <body>
 
-<div class="frame-outer">
-    <div class="cert">
+<div class="frame-outer" id="frameOuter">
+  <div class="cert">
 
-      <!-- corners -->
-      <div class="corner tl">
-        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 76 L4 4 L76 4" stroke="#b8860b" stroke-width="1.5" fill="none" opacity=".6"/>
-          <path d="M12 68 L12 12 L68 12" stroke="#b8860b" stroke-width=".8" fill="none" opacity=".4"/>
-          <circle cx="4" cy="4" r="3" fill="#d4a840" opacity=".7"/>
-          <circle cx="40" cy="4" r="1.5" fill="#d4a840" opacity=".5"/>
-          <circle cx="4" cy="40" r="1.5" fill="#d4a840" opacity=".5"/>
-          <path d="M20 4 Q24 8 20 12 Q16 8 20 4Z" fill="#d4a840" opacity=".5"/>
-          <path d="M4 20 Q8 24 4 28 Q0 24 4 20Z" fill="#d4a840" opacity=".5"/>
-        </svg>
-      </div>
-      <div class="corner tr">
-        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 76 L4 4 L76 4" stroke="#b8860b" stroke-width="1.5" fill="none" opacity=".6"/>
-          <path d="M12 68 L12 12 L68 12" stroke="#b8860b" stroke-width=".8" fill="none" opacity=".4"/>
-          <circle cx="4" cy="4" r="3" fill="#d4a840" opacity=".7"/>
-          <circle cx="40" cy="4" r="1.5" fill="#d4a840" opacity=".5"/>
-          <circle cx="4" cy="40" r="1.5" fill="#d4a840" opacity=".5"/>
-          <path d="M20 4 Q24 8 20 12 Q16 8 20 4Z" fill="#d4a840" opacity=".5"/>
-          <path d="M4 20 Q8 24 4 28 Q0 24 4 20Z" fill="#d4a840" opacity=".5"/>
-        </svg>
-      </div>
-      <div class="corner bl">
-        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 76 L4 4 L76 4" stroke="#b8860b" stroke-width="1.5" fill="none" opacity=".6"/>
-          <path d="M12 68 L12 12 L68 12" stroke="#b8860b" stroke-width=".8" fill="none" opacity=".4"/>
-          <circle cx="4" cy="4" r="3" fill="#d4a840" opacity=".7"/>
-          <circle cx="40" cy="4" r="1.5" fill="#d4a840" opacity=".5"/>
-          <circle cx="4" cy="40" r="1.5" fill="#d4a840" opacity=".5"/>
-          <path d="M20 4 Q24 8 20 12 Q16 8 20 4Z" fill="#d4a840" opacity=".5"/>
-          <path d="M4 20 Q8 24 4 28 Q0 24 4 20Z" fill="#d4a840" opacity=".5"/>
-        </svg>
-      </div>
-      <div class="corner br">
-        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 76 L4 4 L76 4" stroke="#b8860b" stroke-width="1.5" fill="none" opacity=".6"/>
-          <path d="M12 68 L12 12 L68 12" stroke="#b8860b" stroke-width=".8" fill="none" opacity=".4"/>
-          <circle cx="4" cy="4" r="3" fill="#d4a840" opacity=".7"/>
-          <circle cx="40" cy="4" r="1.5" fill="#d4a840" opacity=".5"/>
-          <circle cx="4" cy="40" r="1.5" fill="#d4a840" opacity=".5"/>
-          <path d="M20 4 Q24 8 20 12 Q16 8 20 4Z" fill="#d4a840" opacity=".5"/>
-          <path d="M4 20 Q8 24 4 28 Q0 24 4 20Z" fill="#d4a840" opacity=".5"/>
-        </svg>
-      </div>
-
-      <div class="inner-border"></div>
-
-      <div class="cert-content">
-
-        <div class="seal-top">
-          <div class="seal-line"></div>
-          <div class="seal-text">Est. 29 · November · 2024</div>
-          <div class="seal-line"></div>
-        </div>
-
-        <div class="institution">The AdSim Institute of Lifelong Love</div>
-        <div class="institution-sub">Department of Permanent Feelings & Future Plans</div>
-
-        <div class="divider-ornament">
-          <div class="div-line"></div>
-          <div class="div-diamond"></div>
-          <div class="div-line"></div>
-        </div>
-
-        <div class="presents">this certificate is hereby presented to</div>
-
-        <div class="cert-type">Doctorate in Stolen Hearts</div>
-
-        <div class="name">Dr. Simran Sharma</div>
-        <div class="name-sub">M.B.B.S · D.H.W (Designated Head of Warmth)</div>
-
-        <div class="body-text">
-          In recognition of her extraordinary patience with one very determined patient,
-          her <em>unwavering ability to be loved deeply</em>, and her remarkable courage
-          in accepting a <strong>lifetime of good morning texts</strong>, spontaneous plans,
-          and a heart that has chosen her — every single day — since the 29th of November, 2024.
-        </div>
-
-        <div class="clauses">
-          <div class="clause">
-            <span class="clause-num">I.</span>
-            <span>The patient hereby <em>waives all rights to discharge</em> and agrees to remain admitted indefinitely under the care of the above-named doctor.</span>
-          </div>
-          <div class="clause">
-            <span class="clause-num">II.</span>
-            <span>The title of <em>wife</em> has been reserved under this institution and shall be conferred at a date decided after <em>mutual agreement between the Doctor and the Patient</em>.</span>
-          </div>
-          <div class="clause">
-            <span class="clause-num">III.</span>
-            <span>All future plans, Vrindavan trips, and 2 AM conversations are to be considered <em>binding and non-negotiable</em>.</span>
-          </div>
-          <div class="clause">
-            <span class="clause-num">IV.</span>
-            <span>This certificate carries the full weight of <em>six months, one Bangalore visit, and a love that was always going to find its way to her</em>.</span>
-          </div>
-        </div>
-
-        <div class="sig-row">
-          <div class="sig-block">
-            <div class="sig-name">Advaita</div>
-            <div class="sig-line"></div>
-            <div class="sig-label">The Patient</div>
-          </div>
-
-          <div class="wax-seal">
-            <div class="seal-circle">
-              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 34 C17 31 13 28 9 23 C3 16 3 7 10 4 C14 2 17 4 20 8 C23 4 26 2 30 4 C37 7 37 16 31 23 C27 28 23 31 20 34Z" fill="rgba(255,255,255,.25)" stroke="rgba(255,255,255,.4)" stroke-width="1"/>
-                <text x="20" y="22" text-anchor="middle" font-family="serif" font-size="8" fill="rgba(255,255,255,.7)" font-style="italic">AdSim</text>
-              </svg>
-            </div>
-            <div class="seal-word">Sealed with love</div>
-          </div>
-
-          <div class="sig-block">
-            <div class="sig-name">Simran</div>
-            <div class="sig-line"></div>
-            <div class="sig-label">Chief of Hearts</div>
-          </div>
-        </div>
-
-        <div class="cert-footer">
-          <div class="foot-line"></div>
-          <div class="foot-text">Valid for: one lifetime · Non-transferable · Irrevocable</div>
-          <div class="foot-line"></div>
-        </div>
-
-      </div>
+    <div class="corner tl">
+      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 76 L4 4 L76 4" stroke="#b8860b" stroke-width="1.5" fill="none" opacity=".6"/>
+        <path d="M12 68 L12 12 L68 12" stroke="#b8860b" stroke-width=".8" fill="none" opacity=".4"/>
+        <circle cx="4" cy="4" r="3" fill="#d4a840" opacity=".7"/>
+        <circle cx="40" cy="4" r="1.5" fill="#d4a840" opacity=".5"/>
+        <circle cx="4" cy="40" r="1.5" fill="#d4a840" opacity=".5"/>
+        <path d="M20 4 Q24 8 20 12 Q16 8 20 4Z" fill="#d4a840" opacity=".5"/>
+        <path d="M4 20 Q8 24 4 28 Q0 24 4 20Z" fill="#d4a840" opacity=".5"/>
+      </svg>
     </div>
+    <div class="corner tr">
+      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 76 L4 4 L76 4" stroke="#b8860b" stroke-width="1.5" fill="none" opacity=".6"/>
+        <path d="M12 68 L12 12 L68 12" stroke="#b8860b" stroke-width=".8" fill="none" opacity=".4"/>
+        <circle cx="4" cy="4" r="3" fill="#d4a840" opacity=".7"/>
+        <circle cx="40" cy="4" r="1.5" fill="#d4a840" opacity=".5"/>
+        <circle cx="4" cy="40" r="1.5" fill="#d4a840" opacity=".5"/>
+        <path d="M20 4 Q24 8 20 12 Q16 8 20 4Z" fill="#d4a840" opacity=".5"/>
+        <path d="M4 20 Q8 24 4 28 Q0 24 4 20Z" fill="#d4a840" opacity=".5"/>
+      </svg>
+    </div>
+    <div class="corner bl">
+      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 76 L4 4 L76 4" stroke="#b8860b" stroke-width="1.5" fill="none" opacity=".6"/>
+        <path d="M12 68 L12 12 L68 12" stroke="#b8860b" stroke-width=".8" fill="none" opacity=".4"/>
+        <circle cx="4" cy="4" r="3" fill="#d4a840" opacity=".7"/>
+        <circle cx="40" cy="4" r="1.5" fill="#d4a840" opacity=".5"/>
+        <circle cx="4" cy="40" r="1.5" fill="#d4a840" opacity=".5"/>
+        <path d="M20 4 Q24 8 20 12 Q16 8 20 4Z" fill="#d4a840" opacity=".5"/>
+        <path d="M4 20 Q8 24 4 28 Q0 24 4 20Z" fill="#d4a840" opacity=".5"/>
+      </svg>
+    </div>
+    <div class="corner br">
+      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 76 L4 4 L76 4" stroke="#b8860b" stroke-width="1.5" fill="none" opacity=".6"/>
+        <path d="M12 68 L12 12 L68 12" stroke="#b8860b" stroke-width=".8" fill="none" opacity=".4"/>
+        <circle cx="4" cy="4" r="3" fill="#d4a840" opacity=".7"/>
+        <circle cx="40" cy="4" r="1.5" fill="#d4a840" opacity=".5"/>
+        <circle cx="4" cy="40" r="1.5" fill="#d4a840" opacity=".5"/>
+        <path d="M20 4 Q24 8 20 12 Q16 8 20 4Z" fill="#d4a840" opacity=".5"/>
+        <path d="M4 20 Q8 24 4 28 Q0 24 4 20Z" fill="#d4a840" opacity=".5"/>
+      </svg>
+    </div>
+
+    <div class="inner-border"></div>
+
+    <div class="cert-content">
+
+      <div class="seal-top">
+        <div class="seal-line"></div>
+        <div class="seal-text">Est. 29 · November · 2024</div>
+        <div class="seal-line"></div>
+      </div>
+
+      <div class="institution">The AdSim Institute of Lifelong Love</div>
+      <div class="institution-sub">Department of Permanent Feelings & Future Plans</div>
+
+      <div style="margin:clamp(6px,1vh,12px) auto;width:clamp(48px,7vh,72px);height:clamp(48px,7vh,72px);border-radius:50%;overflow:hidden;border:1.5px solid rgba(184,134,11,.4);box-shadow:0 4px 16px rgba(184,134,11,.18);">
+        <img src="340190.jpg" alt="AdSim Logo" style="width:100%;height:100%;object-fit:cover;"/>
+      </div>
+
+      <div class="divider-ornament">
+        <div class="div-line"></div>
+        <div class="div-diamond"></div>
+        <div class="div-line"></div>
+      </div>
+
+      <div class="presents">this certificate is hereby presented to</div>
+
+      <div class="cert-type">Doctor of Hearts</div>
+
+      <div class="name">Dr. Simran Sharma</div>
+      <div class="name-sub">M.B.B.S · D.H.W (Designated Head of Warmth)</div>
+
+      <div class="body-text">
+        In recognition of her extraordinary patience with one very determined patient,
+        her <em>unwavering ability to be loved deeply</em>, and her remarkable courage
+        in accepting a <strong>lifetime of good morning texts</strong>, spontaneous plans,
+        and a heart that has chosen her — every single day — since the 29th of November, 2024.
+      </div>
+
+      <div class="clauses">
+        <div class="clause">
+          <span class="clause-num">I.</span>
+          <span>The patient hereby <em>waives all rights to discharge</em> and agrees to remain admitted indefinitely under the care of the above-named doctor.</span>
+        </div>
+        <div class="clause">
+          <span class="clause-num">II.</span>
+          <span>The title of <em>wife</em> has been reserved under this institution and shall be conferred at a date decided after <em>mutual agreement between the Doctor and the Patient</em>.</span>
+        </div>
+        <div class="clause">
+          <span class="clause-num">III.</span>
+          <span>All future plans and 2 AM conversations are to be considered <em>binding and non-negotiable</em>.</span>
+        </div>
+        <div class="clause">
+          <span class="clause-num">IV.</span>
+          <span>This certificate carries the full weight of <em>six months, one Bangalore visit, and a love that was always going to find its way to her</em>.</span>
+        </div>
+      </div>
+
+      <div class="sig-row">
+        <div class="sig-block">
+          <div class="sig-name">Advaita</div>
+          <div class="sig-line"></div>
+          <div class="sig-label">The Patient</div>
+        </div>
+
+        <div class="wax-seal">
+          <div class="seal-circle">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 34 C17 31 13 28 9 23 C3 16 3 7 10 4 C14 2 17 4 20 8 C23 4 26 2 30 4 C37 7 37 16 31 23 C27 28 23 31 20 34Z" fill="rgba(255,255,255,.25)" stroke="rgba(255,255,255,.4)" stroke-width="1"/>
+              <text x="20" y="22" text-anchor="middle" font-family="serif" font-size="8" fill="rgba(255,255,255,.7)" font-style="italic">AdSim</text>
+            </svg>
+          </div>
+          <div class="seal-word">Sealed with love</div>
+        </div>
+
+        <div class="sig-block">
+          <div class="sig-name">Simran</div>
+          <div class="sig-line"></div>
+          <div class="sig-label">Chief of Hearts</div>
+        </div>
+      </div>
+
+      <div class="cert-footer">
+        <div class="foot-line"></div>
+        <div class="foot-text">Valid for: one lifetime · Non-transferable · Irrevocable</div>
+        <div class="foot-line"></div>
+      </div>
+
+    </div>
+  </div>
 </div>
+
+<script>
+function autoScale(){
+  const frame = document.getElementById('frameOuter');
+  frame.style.transform = 'none';
+  frame.style.marginTop = '0';
+  const fH = frame.offsetHeight;
+  const fW = frame.offsetWidth;
+  const vH = window.innerHeight - 10;
+  const vW = window.innerWidth - 10;
+  const scale = Math.min(vH / fH, vW / fW, 1);
+  if(scale < 1){
+    frame.style.transformOrigin = 'top center';
+    frame.style.transform = `scale(${scale})`;
+    const newH = fH * scale;
+    const gap = (vH - newH) / 2;
+    frame.style.marginTop = gap > 0 ? gap + 'px' : '0';
+  }
+}
+window.addEventListener('load', autoScale);
+window.addEventListener('resize', autoScale);
+</script>
 
 </body>
 </html>
