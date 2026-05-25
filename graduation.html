@@ -176,6 +176,38 @@ h1{
   border:3px solid rgba(200,48,82,.35);
   box-shadow:0 12px 36px rgba(200,48,82,.22);
   background:rgba(255,255,255,.12);
+  cursor:pointer;
+  transition:transform .2s ease;
+}
+
+.photo-wrap:hover{
+  transform:scale(1.04);
+}
+
+.burst-h{
+  position:fixed;left:50%;top:50%;
+  transform:translate(-50%,-50%) scale(.3);
+  font-size:26px;opacity:0;z-index:80;
+  pointer-events:none;
+  animation:heartBurst 3s ease-out forwards;
+}
+
+.spark{
+  position:fixed;left:50%;top:50%;
+  width:6px;height:6px;border-radius:50%;
+  background:white;z-index:75;pointer-events:none;
+  animation:sparkMove 1.2s ease-out forwards;
+}
+
+@keyframes heartBurst{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.3);}
+  12%{opacity:1;}
+  100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(1.5) rotate(var(--r));}
+}
+
+@keyframes sparkMove{
+  0%{opacity:1;transform:translate(-50%,-50%);}
+  100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(.1);}
 }
 
 .photo-wrap img{
@@ -431,6 +463,35 @@ Made only for Dr. Simran Sharma · Graduation Day 🎓
 </main>
 
 <script>
+function photoBurst(){
+  const items=["❤️","💕","💗","💖","💘","💞"];
+  for(let k=0;k<44;k++){
+    const h=document.createElement("div");
+    h.className="burst-h";
+    h.textContent=items[Math.floor(Math.random()*items.length)];
+    const a=Math.random()*Math.PI*2;
+    const d=80+Math.random()*280;
+    h.style.setProperty("--x",Math.cos(a)*d+"px");
+    h.style.setProperty("--y",Math.sin(a)*d+"px");
+    h.style.setProperty("--r",(Math.random()*160-80)+"deg");
+    h.style.fontSize=16+Math.random()*26+"px";
+    h.style.animationDelay=Math.random()*.4+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),3400);
+  }
+  for(let k=0;k<65;k++){
+    const s=document.createElement("div");
+    s.className="spark";
+    const a=Math.random()*Math.PI*2;
+    const d=80+Math.random()*300;
+    s.style.setProperty("--x",Math.cos(a)*d+"px");
+    s.style.setProperty("--y",Math.sin(a)*d+"px");
+    s.style.background=["#fff","#ffd9a8","#ff9cc8","#ff75ad","#ff4f95"][Math.floor(Math.random()*5)];
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),1300);
+  }
+}
+
 function launchConfetti(){
   const colors = ["#c83052","#ff5f93","#ffd166","#fff7ee","#f5d8d2"];
   for(let i=0;i<120;i++){
@@ -498,6 +559,7 @@ function openDegreePage(){
 window.addEventListener("load",()=>{
   setTimeout(startFireworksOnlyShow,500);
   setTimeout(startNameFlip,1200);
+  document.querySelector(".photo-wrap").addEventListener("click", photoBurst);
 });
 </script>
 
