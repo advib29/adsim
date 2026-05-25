@@ -526,7 +526,7 @@ function launchFireworksBurst(){
 function startFireworksOnlyShow(){
   launchFireworksBurst();
   const show=setInterval(()=>launchFireworksBurst(),1000);
-  setTimeout(()=>clearInterval(show),10000);
+  setTimeout(()=>clearInterval(show),6000);
 }
 
 function startFullCelebrationShow(){
@@ -560,6 +560,11 @@ window.addEventListener("load",()=>{
   setTimeout(startFireworksOnlyShow,500);
   setTimeout(startNameFlip,1200);
   document.querySelector(".photo-wrap").addEventListener("click", photoBurst);
+
+  // auto burst 3 times after fireworks end (6s) with 1.5s gap
+  setTimeout(()=>photoBurst(), 8500);
+  setTimeout(()=>photoBurst(), 10000);
+  setTimeout(()=>photoBurst(), 11500);
 });
 </script>
 
