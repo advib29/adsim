@@ -49,7 +49,7 @@ html,body{
     radial-gradient(ellipse 80% 50% at 20% 100%, rgba(180,120,80,.12), transparent 50%),
     radial-gradient(ellipse 80% 50% at 80% 100%, rgba(180,120,80,.10), transparent 50%),
     linear-gradient(170deg, #fdf8f0 0%, #f8ede0 40%, #f5e8d8 70%, #f0e0cc 100%);
-  padding:clamp(20px,3vh,48px) clamp(24px,3.5vw,56px) clamp(16px,2.5vh,40px);
+  padding:clamp(20px,3vh,48px) clamp(24px,3.5vw,56px) clamp(28px,4vh,52px);
   overflow:visible;
 }
 
@@ -244,18 +244,25 @@ html,body{
   letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;
 }
 
-.cert-footer{display:flex;align-items:center;gap:10px;}
-
-.foot-line{
-  height:1px;width:clamp(40px,5vw,80px);
-  background:linear-gradient(to right,transparent,rgba(184,134,11,.4),transparent);
+.cert-footer{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  text-align:center;
+  margin-top:2px;
+  margin-bottom:clamp(10px,1.8vh,18px);
+  position:relative;
+  z-index:3;
 }
 
 .foot-text{
   font-family:'Cormorant Garamond',serif;
   font-style:italic;
   font-size:clamp(10px,1.3vh,14px);
-  color:var(--ink-faint);letter-spacing:.5px;white-space:nowrap;
+  color:var(--ink-faint);
+  letter-spacing:.5px;
+  white-space:nowrap;
 }
 
 @keyframes fadeIn{from{opacity:0;transform:scale(.97);}to{opacity:1;transform:scale(1);}}
@@ -281,6 +288,11 @@ html,body{
   .sig-row{flex-direction:column;align-items:center;gap:14px;}
   .sig-block{width:100%;max-width:200px;}
   .wax-seal{order:-1;margin-bottom:6px;}
+  .foot-text{
+    white-space:normal;
+    max-width:90%;
+    line-height:1.25;
+  }
 }
 </style>
 </head>
@@ -300,6 +312,7 @@ html,body{
         <path d="M4 20 Q8 24 4 28 Q0 24 4 20Z" fill="#d4a840" opacity=".5"/>
       </svg>
     </div>
+
     <div class="corner tr">
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M4 76 L4 4 L76 4" stroke="#b8860b" stroke-width="1.5" fill="none" opacity=".6"/>
@@ -311,6 +324,7 @@ html,body{
         <path d="M4 20 Q8 24 4 28 Q0 24 4 20Z" fill="#d4a840" opacity=".5"/>
       </svg>
     </div>
+
     <div class="corner bl">
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M4 76 L4 4 L76 4" stroke="#b8860b" stroke-width="1.5" fill="none" opacity=".6"/>
@@ -322,6 +336,7 @@ html,body{
         <path d="M4 20 Q8 24 4 28 Q0 24 4 20Z" fill="#d4a840" opacity=".5"/>
       </svg>
     </div>
+
     <div class="corner br">
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M4 76 L4 4 L76 4" stroke="#b8860b" stroke-width="1.5" fill="none" opacity=".6"/>
@@ -340,7 +355,7 @@ html,body{
 
       <div class="seal-top">
         <div class="seal-line"></div>
-        <div class="seal-text">Est. 29 · November · 2024</div>
+        <div class="seal-text">Est. 29 · November · 2025</div>
         <div class="seal-line"></div>
       </div>
 
@@ -368,7 +383,7 @@ html,body{
         In recognition of her extraordinary patience with one very determined patient,
         her <em>unwavering ability to deeply love and to be loved</em>, and her remarkable courage
         in accepting a <strong>lifetime of good morning texts</strong>, spontaneous plans,
-        and a heart that has chosen her — every single day — since the 29th of November, 2024.
+        and a heart that has chosen her — every single day — since the 29th of November.
       </div>
 
       <div class="clauses">
@@ -415,9 +430,7 @@ html,body{
       </div>
 
       <div class="cert-footer">
-        <div class="foot-line"></div>
         <div class="foot-text">Valid for: one lifetime · Non-transferable · Irrevocable</div>
-        <div class="foot-line"></div>
       </div>
 
     </div>
@@ -427,7 +440,6 @@ html,body{
 <script>
 function autoScale(){
   const frame = document.getElementById('frameOuter');
-  // reset first so we measure natural size
   frame.style.transform = 'none';
   frame.style.position = 'relative';
 
@@ -443,7 +455,6 @@ function autoScale(){
   frame.style.transformOrigin = 'top center';
   frame.style.transform = scale < 1 ? `scale(${scale})` : 'none';
 
-  // vertically center after scaling
   const scaledH = fH * scale;
   const topOffset = Math.max(0, (vH - scaledH) / 2);
   frame.style.marginTop = topOffset + 'px';
