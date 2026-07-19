@@ -395,6 +395,7 @@ function startTimer(){
 }
 
 function openBday(){
+  document.getElementById('miMusic').pause();
   document.getElementById('s2').style.opacity='0';
   document.getElementById('s2').style.transition='opacity .6s ease';
   setTimeout(()=>window.location.href='bday_logo.html',600);
