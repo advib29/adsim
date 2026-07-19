@@ -240,6 +240,7 @@ html,body{
 @keyframes burst{0%{opacity:0;transform:translate(-50%,-50%) scale(.3);}12%{opacity:1;}100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(1.5) rotate(var(--r));}}
 @keyframes sparkMove{0%{opacity:1;transform:translate(-50%,-50%);}100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(.1);}}
 
+@keyframes badgePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.2);}}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
 .float-heart{position:fixed;bottom:-40px;pointer-events:none;z-index:1;animation:floatUp linear forwards;}@keyframes floatUp{0%{opacity:0;}10%{opacity:.4;}100%{transform:translateY(-110vh);opacity:0;}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
@@ -253,7 +254,10 @@ html,body{
 <!-- SCREEN 1: ENVELOPE -->
 <div class="screen active" id="s1">
   <div class="envelope-wrap">
-    <div class="envelope" onclick="openEnvelope()">💌</div>
+    <div style="position:relative;display:inline-block;">
+      <div class="envelope" onclick="openEnvelope()">💌</div>
+      <div style="position:absolute;top:0;right:0;width:24px;height:24px;border-radius:50%;background:#ff4f95;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 0 10px rgba(255,79,149,.7);animation:badgePulse 1.5s ease-in-out infinite;">1</div>
+    </div>
     <div class="env-title">You have a message,<br>Dr. Simran Sharma.</div>
     <div class="env-sub">from someone who identifies himself as your husband 🤭</div>
     <div class="env-hint">↑ Tap to open ↑</div>
@@ -305,6 +309,7 @@ html,body{
     <div class="timer-date">Unlocking · 25 · July · 2026</div>
     <div class="unlock-msg" id="unlockMsg">Mission is live, Dr. Sia 📡❤️</div>
     <button class="open-btn" id="openBtn" onclick="openBday()">Open Your Surprise 🎈</button>
+    <div style="margin-top:20px;font-size:11px;color:rgba(255,255,255,.18);letter-spacing:1.5px;">© AdSim 2026</div>
   </div>
 
 </div>
@@ -350,14 +355,20 @@ function openEnvelope(){
   },600);
 }
 
-const noResponses=["Wrong answer. Try again. 🙃","Babe. Come on. 😭","The no button is decorative. 😂","I'll wait. ❤️"];
+const noResponses=[
+  "Wrong answer. Try again. 🙃",
+  "Babe. Come on. 😭",
+  "Babeeeeeeeeee 👀",
+  "Kya kar rahi hai 😭😭",
+  "This button is decorative. 😂"
+];
 let noCount=0;
 
 function acceptNo(){
   const el=document.getElementById('noMsg');
   el.textContent=noResponses[Math.min(noCount,noResponses.length-1)];
   noCount++;
-  if(noCount>=3){
+  if(noCount>=5){
     document.getElementById('noBtn').style.opacity='0.2';
     document.getElementById('noBtn').style.pointerEvents='none';
   }
