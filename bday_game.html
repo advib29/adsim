@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Pop the Balloons 🎈</title>
+<style>
+:root{
+  --bg1:#070410;
+  --bg2:#150919;
+  --pink2:#ff9cc8;
+  --gold:#ffd9a8;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+
+html,body{
+  width:100%;height:100%;
+  font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;
+  color:#fff;overflow:hidden;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(200,48,82,.22), transparent),
+    linear-gradient(160deg,var(--bg1) 0%,var(--bg2) 50%,#220c1e 100%);
+  touch-action:manipulation;
+}
+
+.noise{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity:.028;
+}
+
+.header{
+  position:fixed;top:0;left:0;right:0;z-index:40;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;
+  background:linear-gradient(to bottom,rgba(7,4,16,.92),transparent);
+}
+
+.header-title{font-size:14px;color:rgba(255,255,255,.6);}
+
+.score-wrap{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:999px;padding:6px 14px;
+  font-size:13px;color:rgba(255,255,255,.55);
+}
+.score-wrap b{color:#fff;font-size:14px;}
+
+.grid-wrap{
+  position:relative;z-index:5;
+  width:100%;height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:72px 16px 20px;
+  gap:12px;
+}
+
+.grid-label{
+  font-size:11px;color:rgba(255,255,255,.25);
+  letter-spacing:2px;text-transform:uppercase;
+}
+
+/* 4 cols on phone for bigger tap targets */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  width:min(340px,94vw);
+}
+
+.cell{
+  aspect-ratio:1;
+  border-radius:16px;
+  background:rgba(200,10,50,.18);
+  border:2px solid rgba(200,10,50,.35);
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  transition:background .2s, border-color .2s, transform .08s;
+  user-select:none;
+  min-height:64px;
+}
+
+.cell::after{content:"🎈";font-size:24px;opacity:.15;}
+
+.cell.green{
+  background:rgba(0,210,100,.2);
+  border-color:rgba(0,210,100,.6);
+  animation:greenPulse .45s ease-in-out infinite alternate;
+}
+.cell.green::after{opacity:1;filter:hue-rotate(100deg) brightness(1.3);}
+.cell.green:active{transform:scale(.88);}
+
+.cell.popped{
+  background:rgba(255,79,149,.1);
+  border-color:rgba(255,79,149,.22);
+  cursor:default;animation:none;
+}
+.cell.popped::after{content:"✓";font-size:20px;color:rgba(255,120,170,.45);font-weight:700;}
+
+.cell.miss{animation:missFlash .28s ease;}
+
+@keyframes greenPulse{
+  from{box-shadow:0 0 8px rgba(0,210,100,.3);}
+  to{box-shadow:0 0 24px rgba(0,210,100,.75);}
+}
+@keyframes missFlash{
+  0%,100%{background:rgba(200,10,50,.18);}
+  50%{background:rgba(255,40,40,.4);}
+}
+
+.progress-wrap{width:min(340px,94vw);}
+.progress-bar{height:5px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;}
+.progress-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#c83052,#ff9cc8);transition:width .4s ease;width:0%;}
+.progress-text{text-align:center;font-size:11px;color:rgba(255,255,255,.22);letter-spacing:1px;margin-top:6px;}
+
+.burst-h{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.3);opacity:0;z-index:75;pointer-events:none;animation:burst 3s ease-out forwards;}
+.spark{position:fixed;left:50%;top:50%;width:6px;height:6px;border-radius:50%;background:white;z-index:74;pointer-events:none;animation:sparkMove 1.2s ease-out forwards;}
+.confetti-el{position:fixed;top:-12px;border-radius:3px;opacity:.95;z-index:70;animation:confettiFall linear forwards;}
+.float-heart{position:fixed;bottom:-40px;pointer-events:none;z-index:1;animation:floatUp linear forwards;}
+
+@keyframes emojiBurst{
+  0%{transform:translate(-50%,-50%) scale(.3);opacity:1;}
+  60%{opacity:1;}
+  100%{transform:translate(calc(-50% + var(--ex)),calc(-50% + var(--ey))) scale(1.2);opacity:0;}
+}
+
+@keyframes floatUp{0%{opacity:0;}10%{opacity:.4;}100%{transform:translateY(-110vh);opacity:0;}}
+@keyframes burst{0%{opacity:0;transform:translate(-50%,-50%) scale(.3);}12%{opacity:1;}100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(1.5) rotate(var(--r));}}
+@keyframes sparkMove{0%{opacity:1;transform:translate(-50%,-50%);}100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(.1);}}
+@keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);}100%{transform:translateY(110vh) rotate(720deg);}}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<div class="header">
+  <div class="header-title">🎈 Pop the green ones!</div>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <div class="score-wrap" id="streakWrap" style="display:none;">🔥 <b id="streakNum">0</b></div>
+    <div class="score-wrap">Popped <b id="scoreNum">0</b> / 24</div>
+  </div>
+</div>
+
+<div class="grid-wrap">
+  <div class="grid-label">Tap when green</div>
+  <div class="grid" id="grid"></div>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-text" id="progressText">0 of 24 popped</div>
+  </div>
+</div>
+
+<script>
+const TOTAL=24;
+let popped=0,activeCells=[],gameTimer=null,gameOver=false,round=0,streak=0;
+
+function setStreak(v){
+  streak=v;
+  const w=document.getElementById('streakWrap');
+  document.getElementById('streakNum').textContent=streak;
+  w.style.display=streak>=2?'flex':'none';
+}
+
+const grid=document.getElementById('grid');
+const cells=[];
+
+for(let i=0;i<TOTAL;i++){
+  const cell=document.createElement('div');
+  cell.className='cell';
+  cell.addEventListener('click',()=>tapCell(i));
+  cell.addEventListener('touchstart',(e)=>{e.preventDefault();tapCell(i);},{passive:false});
+  grid.appendChild(cell);
+  cells.push(cell);
+}
+
+function tapCell(idx){
+  if(gameOver) return;
+  const cell=cells[idx];
+  if(!cell.classList.contains('green')){
+    cell.classList.add('miss');
+    setStreak(0);
+    setTimeout(()=>cell.classList.remove('miss'),300);
+    return;
+  }
+  popCell(idx);
+}
+
+function popCell(idx){
+  const cell=cells[idx];
+  if(cell.classList.contains('popped')) return;
+  const rect=cell.getBoundingClientRect();
+  const cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;
+
+  // big emoji explosion from cell center
+  const emojis=["❤️","💕","💖","💗","💘","💞"];
+  for(let i=0;i<10;i++){
+    const e=document.createElement("div");
+    e.style.cssText=`position:fixed;left:${cx}px;top:${cy}px;font-size:${14+Math.random()*14}px;pointer-events:none;z-index:80;animation:emojiBurst .7s ease-out forwards;`;
+    e.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+    const angle=(i/10)*Math.PI*2;
+    const dist=25+Math.random()*40;
+    e.style.setProperty('--ex',Math.cos(angle)*dist+'px');
+    e.style.setProperty('--ey',Math.sin(angle)*dist+'px');
+    e.style.animationDelay=Math.random()*.12+'s';
+    document.body.appendChild(e);
+    setTimeout(()=>e.remove(),900);
+  }
+
+  cell.classList.remove('green');
+  cell.classList.add('popped');
+  activeCells = activeCells.filter(i => i !== idx);
+
+  popped++;
+  setStreak(streak+1);
+  document.getElementById('scoreNum').textContent=popped;
+  document.getElementById('progressFill').style.width=(popped/TOTAL*100)+'%';
+  document.getElementById('progressText').textContent=popped+' of 24 popped';
+
+  if(popped>=TOTAL){
+    gameOver=true;
+    clearTimeout(gameTimer);
+    bigBurst();confetti();
+    setTimeout(()=>{bigBurst();confetti();},600);
+    setTimeout(()=>{document.body.style.opacity='0';document.body.style.transition='opacity .6s ease';},1800);
+    setTimeout(()=>window.location.href='bday_message.html',2400);
+    return;
+  }
+
+  // if no greens left, trigger next round
+  if(activeCells.length === 0){
+    clearTimeout(gameTimer);
+    gameTimer=setTimeout(nextBalloon,300);
+  }
+}
+
+function nextBalloon(){
+  if(gameOver) return;
+  round++;
+  const myRound=round;
+
+  // clear any remaining greens
+  activeCells.forEach(i=>{
+    if(!cells[i].classList.contains('popped')) cells[i].classList.remove('green');
+  });
+  activeCells=[];
+
+  const avail=cells.map((_,i)=>i).filter(i=>!cells[i].classList.contains('popped') && !cells[i].classList.contains('green'));
+  if(!avail.length) return;
+
+  // medium ramp: up to 3 from early on, 4 in the final stretch
+  const maxSimul = popped < 4 ? 2 : popped < 12 ? 3 : 4;
+  const count = Math.min(Math.floor(Math.random() * maxSimul) + 1, avail.length);
+
+  // shuffle avail and pick count
+  const shuffled = avail.sort(()=>Math.random()-.5);
+  const chosen = shuffled.slice(0, count);
+
+  chosen.forEach(idx=>{
+    cells[idx].classList.add('green');
+    activeCells.push(idx);
+  });
+
+  // medium: 1.6s early, tightening to 1.1s at the end
+  const speed = popped < 6 ? 1600 : popped < 16 ? 1350 : 1100;
+
+  // auto-clear after timeout if not popped (only for this round)
+  setTimeout(()=>{
+    if(gameOver || myRound!==round) return;
+    const stillGreen = activeCells.filter(i=>cells[i].classList.contains('green'));
+    if(stillGreen.length) setStreak(0);
+    stillGreen.forEach(i=>cells[i].classList.remove('green'));
+    activeCells = activeCells.filter(i=>!stillGreen.includes(i));
+    if(activeCells.length===0){
+      gameTimer=setTimeout(nextBalloon,250);
+    }
+  }, speed);
+}
+
+setTimeout(nextBalloon,1000);
+
+function bigBurst(){
+  const items=["❤️","🎂","🎉","💕","✨","🎈","💖","🥳"];
+  for(let k=0;k<40;k++){
+    const h=document.createElement("div");
+    h.className="burst-h";
+    h.textContent=items[Math.floor(Math.random()*items.length)];
+    const a=Math.random()*Math.PI*2,d=60+Math.random()*280;
+    h.style.setProperty("--x",Math.cos(a)*d+"px");
+    h.style.setProperty("--y",Math.sin(a)*d+"px");
+    h.style.setProperty("--r",(Math.random()*160-80)+"deg");
+    h.style.fontSize=16+Math.random()*22+"px";
+    h.style.animationDelay=Math.random()*.5+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),3500);
+  }
+  for(let k=0;k<55;k++){
+    const s=document.createElement("div");
+    s.className="spark";
+    const a=Math.random()*Math.PI*2,d=60+Math.random()*300;
+    s.style.setProperty("--x",Math.cos(a)*d+"px");
+    s.style.setProperty("--y",Math.sin(a)*d+"px");
+    s.style.background=["#fff","#ffd9a8","#ff9cc8","#ff75ad","#ff4f95","#ffd166"][Math.floor(Math.random()*6)];
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),1300);
+  }
+}
+
+function confetti(){
+  const colors=["#c83052","#ff5f93","#ffd166","#fff7ee","#f5d8d2","#ff9cc8","#ffd9a8"];
+  for(let i=0;i<100;i++){
+    const c=document.createElement("div");
+    c.className="confetti-el";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.width=6+Math.random()*7+"px";
+    c.style.height=9+Math.random()*12+"px";
+    c.style.borderRadius=Math.random()>.5?"50%":"3px";
+    c.style.transform=`rotate(${Math.random()*360}deg)`;
+    c.style.animationDuration=2.5+Math.random()*2+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5500);
+  }
+}
+
+const fi=["❤️","💕","✨","💖"];
+function fh(){
+  const h=document.createElement("div");
+  h.className="float-heart";
+  h.textContent=fi[Math.floor(Math.random()*fi.length)];
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=10+Math.random()*10+"px";
+  h.style.animationDuration=7+Math.random()*5+"s";
+  h.style.opacity=0.15+Math.random()*.2;
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),13000);
+}
+setInterval(fh,1800);
+</script>
+</body>
+</html>
