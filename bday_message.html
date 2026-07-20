@@ -195,6 +195,21 @@ html,body{
 .music-toggle{background:none;border:none;cursor:pointer;font-size:18px;padding:0;min-width:28px;}
 
 /* floaters */
+.firework{
+  position:fixed;width:5px;height:5px;border-radius:50%;
+  z-index:35;pointer-events:none;
+  background:#fff7ee;
+  box-shadow:
+    0 -40px #f5d8d2,28px -28px #ff5f93,40px 0 #fff7ee,28px 28px #c83052,
+    0 40px #f5d8d2,-28px 28px #ff5f93,-40px 0 #fff7ee,-28px -28px #c83052,
+    0 -62px rgba(255,247,238,.9),44px -44px rgba(245,216,210,.9),
+    62px 0 rgba(255,95,147,.9),44px 44px rgba(200,48,82,.9),
+    0 62px rgba(255,247,238,.9),-44px 44px rgba(245,216,210,.9),
+    -62px 0 rgba(255,95,147,.9),-44px -44px rgba(200,48,82,.9);
+  animation:boom 1.05s ease-out forwards;
+}
+
+@keyframes boom{0%{transform:scale(.1);opacity:0;}25%{opacity:1;}100%{transform:scale(1.65);opacity:0;}}
 .float-heart{position:fixed;bottom:-40px;pointer-events:none;z-index:1;animation:floatUp linear forwards;}
 .burst-h{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.3);opacity:0;z-index:80;pointer-events:none;animation:burst 3s ease-out forwards;}
 .spark{position:fixed;left:50%;top:50%;width:6px;height:6px;border-radius:50%;background:white;z-index:74;pointer-events:none;animation:sparkMove 1.2s ease-out forwards;}
@@ -261,6 +276,7 @@ html,body{
 
   <div class="btn-row">
     <button class="btn-main" onclick="celebrate()">Celebrate More 🎉</button>
+    <button class="btn-main" onclick="window.location.href='bday_cv.html'">One More Thing 💼</button>
   </div>
 
 </main>
@@ -278,8 +294,9 @@ let musicPlaying=false;
 window.addEventListener('load',()=>{
   audio.volume=0.75;
   audio.play().then(()=>{musicPlaying=true;}).catch(()=>{});
-  setTimeout(()=>{bigBurst();confetti();},400);
-  setTimeout(()=>bigBurst(),1100);
+  setTimeout(()=>{bigBurst();launchFireworks();},400);
+  setTimeout(()=>{bigBurst();launchFireworks();},1000);
+  setTimeout(()=>launchFireworks(),1600);
 });
 
 function toggleMusic(){
@@ -294,7 +311,20 @@ function toggleMusic(){
   }
 }
 
-function celebrate(){bigBurst();confetti();}
+function launchFireworks(){
+  for(let i=0;i<8;i++){
+    setTimeout(()=>{
+      const f=document.createElement("div");
+      f.className="firework";
+      f.style.left=10+Math.random()*80+"vw";
+      f.style.top=5+Math.random()*50+"vh";
+      document.body.appendChild(f);
+      setTimeout(()=>f.remove(),1200);
+    },i*120);
+  }
+}
+
+function celebrate(){bigBurst();launchFireworks();}
 
 function bigBurst(){
   const items=["❤️","🎂","🎉","💕","✨","🎈","💖","🥳"];
