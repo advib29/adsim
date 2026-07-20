@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>For Dr. Sia 🎂</title>
+<style>
+:root{
+  --bg1:#070410;
+  --bg2:#150919;
+  --bg3:#220c1e;
+  --gold:#ffd9a8;
+  --pink2:#ff9cc8;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+
+html,body{
+  width:100%;height:100%;
+  font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;
+  color:#fff;overflow:hidden;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(200,48,82,.22), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(255,217,168,.10), transparent),
+    linear-gradient(160deg,var(--bg1) 0%,var(--bg2) 50%,var(--bg3) 100%);
+}
+
+.noise{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity:.028;
+}
+
+.stage{
+  position:relative;z-index:5;
+  width:100%;height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:32px 28px;
+  gap:0;
+  transition:opacity .6s ease;
+}
+
+.line{
+  opacity:0;transform:translateY(14px);
+  transition:opacity .85s ease, transform .85s ease;
+  margin-bottom:20px;
+}
+.line.show{opacity:1;transform:translateY(0);}
+
+.line-small{
+  font-size:11px;color:rgba(255,255,255,.35);
+  letter-spacing:3px;text-transform:uppercase;
+}
+
+.line-medium{
+  font-size:16px;color:rgba(255,255,255,.6);
+  line-height:1.65;font-style:italic;
+  max-width:320px;
+}
+.line-medium em{font-style:normal;color:rgba(255,165,195,.85);font-weight:600;}
+
+.line-large{
+  font-family:Georgia,serif;
+  font-size:42px;font-weight:400;
+  letter-spacing:-1.5px;line-height:1;color:#fff;
+}
+
+.line-cursive{
+  font-family:"Segoe Script","Brush Script MT",cursive;
+  font-size:38px;color:#ff9fc7;
+  letter-spacing:-.04em;line-height:1.1;
+}
+
+.line-gold{
+  font-family:Georgia,serif;
+  font-size:15px;color:var(--gold);letter-spacing:2px;
+}
+
+.start-btn{
+  opacity:0;transform:translateY(14px);
+  transition:opacity .85s ease, transform .85s ease;
+  border:0;cursor:pointer;
+  background:linear-gradient(135deg,#ffe3b5 0%,#ff9cc8 50%,#ff4f95 100%);
+  color:#3b0b22;font-weight:700;font-size:16px;
+  border-radius:999px;
+  padding:16px 48px;
+  margin-top:28px;letter-spacing:.3px;
+  min-height:54px;
+}
+.start-btn.show{opacity:1;transform:translateY(0);animation:btnGlow 2s ease-in-out infinite;}
+.start-btn:active{transform:scale(.96);}
+
+@keyframes btnGlow{
+  0%,100%{box-shadow:0 0 30px rgba(255,79,149,.3);}
+  50%{box-shadow:0 0 55px rgba(255,79,149,.65);}
+}
+
+.float-heart{
+  position:fixed;bottom:-40px;pointer-events:none;z-index:1;
+  animation:floatUp linear forwards;
+}
+
+@keyframes floatUp{
+  0%{transform:translateY(0);opacity:0;}
+  10%{opacity:.5;}
+  100%{transform:translateY(-110vh);opacity:0;}
+}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<main class="stage" id="stage">
+  <div class="line line-small" id="l1">AdSim · Birthday Edition</div>
+  <div class="line line-medium" id="l2">There's someone who deserves<br>a <em>very special</em> day today.</div>
+  <div class="line line-medium" id="l3">Someone who heals people for a living.<br>Someone who <em>also healed this patient's heart.</em></div>
+  <div class="line line-medium" id="l4">And today — <em>for the first time</em> —<br>we celebrate her birthday together.</div>
+  <div class="line line-large" id="l6">Happy Birthday</div>
+  <div class="line line-cursive" id="l7">Dr. Simran Sharma 🎂</div>
+  <button class="start-btn" id="startBtn" onclick="goNext()">Open Your Birthday 🎈</button>
+</main>
+<script>
+const seq=[
+  {id:'l1',delay:600},{id:'l2',delay:1800},{id:'l3',delay:3600},
+  {id:'l4',delay:5800},{id:'l6',delay:7400},
+  {id:'l7',delay:8600},{id:'startBtn',delay:10000},
+];
+seq.forEach(({id,delay})=>setTimeout(()=>document.getElementById(id).classList.add('show'),delay));
+
+function goNext(){
+  document.getElementById('stage').style.opacity='0';
+  setTimeout(()=>window.location.href='bday_game.html',600);
+}
+
+const fi=["❤️","💕","✨","💖","🎈"];
+function fh(){
+  const h=document.createElement("div");
+  h.className="float-heart";
+  h.textContent=fi[Math.floor(Math.random()*fi.length)];
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=12+Math.random()*12+"px";
+  h.style.animationDuration=7+Math.random()*5+"s";
+  h.style.opacity=0.2+Math.random()*.3;
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),13000);
+}
+setInterval(fh,1600);
+</script>
+</body>
+</html>
