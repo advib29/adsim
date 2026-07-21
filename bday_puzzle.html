@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>A Little Puzzle 🎁</title>
+<style>
+:root{
+  --bg1:#070410;
+  --bg2:#150919;
+  --bg3:#220c1e;
+  --pink:#ff75ad;
+  --pink2:#ff9cc8;
+  --gold:#ffd9a8;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+
+html,body{
+  width:100%;height:100%;
+  font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;
+  color:#fff;overflow:hidden;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(200,48,82,.22), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(255,217,168,.10), transparent),
+    linear-gradient(160deg,var(--bg1) 0%,var(--bg2) 50%,var(--bg3) 100%);
+  touch-action:none;
+}
+
+.noise{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.028;}
+
+/* screen transitions */
+.screen{
+  position:fixed;inset:0;z-index:5;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:24px 20px;
+  opacity:0;pointer-events:none;
+  transition:opacity .6s ease;
+}
+.screen.active{opacity:1;pointer-events:auto;}
+
+/* shared */
+.tag{
+  display:inline-flex;align-items:center;gap:7px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.06);
+  border-radius:999px;padding:6px 14px;
+  font-size:10px;letter-spacing:2.4px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:14px;
+  animation:fadeInUp .7s ease .1s both;
+}
+.tag-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:blink 2s ease-in-out infinite;}
+
+.title{
+  font-family:Georgia,serif;
+  font-size:clamp(18px,4vw,26px);
+  font-weight:400;letter-spacing:-0.5px;
+  margin-bottom:5px;text-align:center;
+  animation:fadeInUp .7s ease .2s both;
+}
+
+.subtitle{
+  font-size:12px;color:rgba(255,255,255,.4);
+  font-style:italic;margin-bottom:20px;text-align:center;
+  animation:fadeInUp .7s ease .3s both;
+}
+
+.drop-zone{
+  display:flex;flex-wrap:wrap;gap:8px;
+  justify-content:center;align-items:center;
+  min-height:80px;width:100%;max-width:380px;
+  border:2px dashed rgba(255,255,255,.15);
+  border-radius:20px;padding:14px;
+  margin-bottom:18px;
+  background:rgba(255,255,255,.04);
+  transition:border-color .3s ease;
+  animation:fadeInUp .7s ease .4s both;
+}
+.drop-zone.drag-over{border-color:rgba(255,79,149,.5);background:rgba(255,79,149,.06);}
+
+.drop-hint{font-size:12px;color:rgba(255,255,255,.2);font-style:italic;pointer-events:none;}
+
+.word-tile{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:9px 15px;border-radius:999px;
+  font-size:clamp(13px,3.5vw,16px);font-weight:600;
+  cursor:grab;user-select:none;
+  transition:transform .15s ease;touch-action:none;
+}
+
+.tile-1{background:linear-gradient(135deg,#ff75ad,#ff4f95);color:#fff;}
+.tile-2{background:linear-gradient(135deg,#ff9cc8,#ff75ad);color:#fff;}
+.tile-3{background:linear-gradient(135deg,#ffd9a8,#ffb347);color:#3b0b22;}
+.tile-4{background:linear-gradient(135deg,#c83052,#ff5f93);color:#fff;}
+.tile-5{background:linear-gradient(135deg,#ff4f95,#c83052);color:#fff;}
+.tile-6{background:linear-gradient(135deg,#ffb347,#ffd9a8);color:#3b0b22;}
+.tile-7{background:linear-gradient(135deg,#a855f7,#ec4899);color:#fff;}
+.tile-8{background:linear-gradient(135deg,#ec4899,#f43f5e);color:#fff;}
+.tile-9{background:linear-gradient(135deg,#ffd9a8,#ff9cc8);color:#3b0b22;}
+.tile-10{background:linear-gradient(135deg,#f43f5e,#ff75ad);color:#fff;}
+
+.word-pool{
+  display:flex;flex-wrap:wrap;gap:8px;
+  justify-content:center;
+  width:100%;max-width:380px;min-height:50px;
+  animation:fadeInUp .7s ease .5s both;
+}
+
+.reset-btn{
+  margin-top:10px;
+  background:none;border:1px solid rgba(255,255,255,.14);
+  color:rgba(255,255,255,.35);font-size:12px;
+  border-radius:999px;padding:7px 18px;cursor:pointer;
+}
+
+/* level complete */
+.level-complete{
+  text-align:center;
+  animation:fadeInUp .8s ease both;
+}
+
+.level-msg{
+  font-family:"Segoe Script","Brush Script MT",cursive;
+  font-size:clamp(22px,5.5vw,36px);
+  color:#ff9fc7;line-height:1.3;max-width:320px;
+  margin-bottom:10px;
+}
+
+.level-sub{
+  font-size:13px;color:rgba(255,255,255,.5);
+  font-style:italic;max-width:280px;line-height:1.6;
+  margin-bottom:20px;
+}
+
+.next-btn{
+  border:0;cursor:pointer;
+  background:linear-gradient(135deg,#ffe3b5 0%,#ff9cc8 50%,#ff4f95 100%);
+  color:#3b0b22;font-weight:700;font-size:15px;
+  border-radius:999px;padding:14px 36px;min-height:50px;
+  box-shadow:0 0 30px rgba(255,79,149,.3);
+}
+.next-btn:active{transform:scale(.96);}
+
+/* burst */
+.burst-h{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.3);opacity:0;z-index:80;pointer-events:none;animation:burst 3s ease-out forwards;}
+.spark{position:fixed;left:50%;top:50%;width:6px;height:6px;border-radius:50%;background:white;z-index:74;pointer-events:none;animation:sparkMove 1.2s ease-out forwards;}
+.float-heart{position:fixed;bottom:-40px;pointer-events:none;z-index:1;animation:floatUp linear forwards;}
+
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+@keyframes floatUp{0%{opacity:0;}10%{opacity:.4;}100%{transform:translateY(-110vh);opacity:0;}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+@keyframes burst{0%{opacity:0;transform:translate(-50%,-50%) scale(.3);}12%{opacity:1;}100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(1.5) rotate(var(--r));}}
+@keyframes sparkMove{0%{opacity:1;transform:translate(-50%,-50%);}100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(.1);}}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<!-- LEVEL 1 -->
+<div class="screen active" id="s-l1">
+  <div class="tag"><span class="tag-dot"></span>Level 1 · Unscramble</div>
+  <div class="title">Arrange the words 💌</div>
+  <div class="subtitle">5 words · drag into the right order</div>
+  <div class="drop-zone" id="dz1"><span class="drop-hint" id="dh1">Drop words here ↓</span></div>
+  <div class="word-pool" id="wp1"></div>
+  <button class="reset-btn" onclick="reset(1)">↺ Reset</button>
+</div>
+
+<!-- LEVEL 1 COMPLETE -->
+<div class="screen" id="s-l1c">
+  <div class="level-complete">
+    <div class="level-msg">I love you soo much ❤️</div>
+    <div class="level-sub">Too easy? Let's see how you do with Level 2 😏</div>
+    <button class="next-btn" onclick="goLevel(2)">Level 2 →</button>
+  </div>
+</div>
+
+<!-- LEVEL 2 -->
+<div class="screen" id="s-l2">
+  <div class="tag"><span class="tag-dot"></span>Level 2 · A little harder 😏</div>
+  <div class="title">Unscramble the message 💌</div>
+  <div class="subtitle">10 words · drag into the right order</div>
+  <div class="drop-zone" id="dz2"><span class="drop-hint" id="dh2">Drop words here ↓</span></div>
+  <div class="word-pool" id="wp2"></div>
+  <button class="reset-btn" onclick="reset(2)">↺ Reset</button>
+</div>
+
+<!-- LEVEL 2 COMPLETE -->
+<div class="screen" id="s-l2c">
+  <div class="level-complete">
+    <div class="level-msg">You are the best thing that ever happened to me ❤️</div>
+    <div class="level-sub">And I mean that with everything I have, Dr. Sia 🥺</div>
+    <button class="next-btn" onclick="window.location.href='bday_cv.html'">Continue 🎁</button>
+  </div>
+</div>
+
+<script>
+const LEVELS = {
+  1: {
+    correct: ['I','love','you','soo','much'],
+    colors: ['tile-1','tile-2','tile-3','tile-4','tile-5'],
+  },
+  2: {
+    correct: ['You','are','the','best','thing','that','ever','happened','to','me'],
+    colors: ['tile-1','tile-2','tile-3','tile-4','tile-5','tile-6','tile-7','tile-8','tile-9','tile-10'],
+  }
+};
+
+const state = {
+  1: { dropped: [], shuffled: [] },
+  2: { dropped: [], shuffled: [] }
+};
+
+let draggingEl=null, ghostEl=null, dragOffsetX=0, dragOffsetY=0, activeLvl=1;
+
+function createTile(word, colorClass, inDrop, lvl){
+  const tile = document.createElement('div');
+  tile.className = `word-tile ${colorClass}`;
+  tile.textContent = word;
+  tile.dataset.word = word;
+  tile.dataset.color = colorClass;
+  tile.dataset.inDrop = inDrop?'1':'0';
+  tile.dataset.lvl = lvl;
+  tile.addEventListener('touchstart', onTouchStart, {passive:false});
+  return tile;
+}
+
+function renderDrop(lvl){
+  const dz = document.getElementById(`dz${lvl}`);
+  const dh = document.getElementById(`dh${lvl}`);
+  Array.from(dz.children).forEach(c=>{if(c!==dh)dz.removeChild(c);});
+  dh.style.display = state[lvl].dropped.length?'none':'block';
+  state[lvl].dropped.forEach((item,i)=>{
+    const tile = createTile(item.word, item.color, true, lvl);
+    tile.dataset.index = i;
+    dz.appendChild(tile);
+  });
+}
+
+function onTouchStart(e){
+  e.preventDefault();
+  const touch=e.touches[0];
+  const tile=e.currentTarget;
+  const rect=tile.getBoundingClientRect();
+  draggingEl=tile;
+  activeLvl=parseInt(tile.dataset.lvl);
+  dragOffsetX=touch.clientX-rect.left;
+  dragOffsetY=touch.clientY-rect.top;
+
+  ghostEl=tile.cloneNode(true);
+  ghostEl.style.cssText=`position:fixed;left:${rect.left}px;top:${rect.top}px;width:${rect.width}px;height:${rect.height}px;opacity:.85;z-index:200;pointer-events:none;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:${getComputedStyle(tile).fontSize};font-weight:600;color:${getComputedStyle(tile).color};background:${getComputedStyle(tile).background};box-shadow:0 8px 24px rgba(0,0,0,.4);`;
+  document.body.appendChild(ghostEl);
+  tile.style.opacity='0.3';
+
+  document.addEventListener('touchmove',onTouchMove,{passive:false});
+  document.addEventListener('touchend',onTouchEnd,{passive:false});
+}
+
+function onTouchMove(e){
+  e.preventDefault();
+  const touch=e.touches[0];
+  ghostEl.style.left=touch.clientX-dragOffsetX+'px';
+  ghostEl.style.top=touch.clientY-dragOffsetY+'px';
+  const dz=document.getElementById(`dz${activeLvl}`);
+  const r=dz.getBoundingClientRect();
+  const over=touch.clientX>r.left&&touch.clientX<r.right&&touch.clientY>r.top&&touch.clientY<r.bottom;
+  dz.classList.toggle('drag-over',over);
+}
+
+function onTouchEnd(e){
+  e.preventDefault();
+  document.removeEventListener('touchmove',onTouchMove);
+  document.removeEventListener('touchend',onTouchEnd);
+
+  const touch=e.changedTouches[0];
+  const lvl=activeLvl;
+  const dz=document.getElementById(`dz${lvl}`);
+  const wp=document.getElementById(`wp${lvl}`);
+  const dzR=dz.getBoundingClientRect();
+  const wpR=wp.getBoundingClientRect();
+
+  const overDrop=touch.clientX>dzR.left&&touch.clientX<dzR.right&&touch.clientY>dzR.top&&touch.clientY<dzR.bottom;
+  const overPool=touch.clientX>wpR.left&&touch.clientX<wpR.right&&touch.clientY>wpR.top&&touch.clientY<wpR.bottom;
+
+  const word=draggingEl.dataset.word;
+  const color=draggingEl.dataset.color;
+  const inDrop=draggingEl.dataset.inDrop==='1';
+  const idx=parseInt(draggingEl.dataset.index);
+
+  if(overDrop&&!inDrop){
+    state[lvl].dropped.push({word,color});
+    const tiles=Array.from(wp.querySelectorAll('.word-tile'));
+    const match=tiles.find(t=>t.dataset.word===word&&t.dataset.inDrop==='0');
+    if(match)match.remove();
+  } else if(overPool&&inDrop){
+    state[lvl].dropped.splice(idx,1);
+    wp.appendChild(createTile(word,color,false,lvl));
+  } else if(overDrop&&inDrop){
+    state[lvl].dropped.splice(idx,1);
+    state[lvl].dropped.push({word,color});
+  }
+
+  ghostEl.remove();ghostEl=null;
+  draggingEl.style.opacity='1';draggingEl=null;
+  dz.classList.remove('drag-over');
+  renderDrop(lvl);
+  checkAnswer(lvl);
+}
+
+function checkAnswer(lvl){
+  const {correct} = LEVELS[lvl];
+  if(state[lvl].dropped.length!==correct.length) return;
+  const match=state[lvl].dropped.every((w,i)=>w.word===correct[i]);
+  if(match){
+    setTimeout(()=>{
+      bigBurst();
+      setTimeout(()=>{
+        document.getElementById(`s-l${lvl}`).classList.remove('active');
+        setTimeout(()=>document.getElementById(`s-l${lvl}c`).classList.add('active'),200);
+      },700);
+    },300);
+  }
+}
+
+function goLevel(lvl){
+  const prev = document.getElementById(`s-l${lvl-1}c`);
+  prev.classList.remove('active');
+  prev.style.pointerEvents='none';
+  setTimeout(()=>{
+    document.getElementById(`s-l${lvl}`).classList.add('active');
+  },300);
+}
+
+function reset(lvl){
+  state[lvl].dropped=[];
+  renderDrop(lvl);
+  const wp=document.getElementById(`wp${lvl}`);
+  wp.innerHTML='';
+  const {colors}=LEVELS[lvl];
+  state[lvl].shuffled.forEach((word,i)=>wp.appendChild(createTile(word,colors[i%colors.length],false,lvl)));
+}
+
+function bigBurst(){
+  const items=["❤️","💕","💖","💗","💘","💞","✨"];
+  for(let k=0;k<44;k++){
+    const h=document.createElement("div");
+    h.className="burst-h";
+    h.textContent=items[Math.floor(Math.random()*items.length)];
+    const a=Math.random()*Math.PI*2,d=80+Math.random()*280;
+    h.style.setProperty("--x",Math.cos(a)*d+"px");
+    h.style.setProperty("--y",Math.sin(a)*d+"px");
+    h.style.setProperty("--r",(Math.random()*160-80)+"deg");
+    h.style.fontSize=16+Math.random()*26+"px";
+    h.style.animationDelay=Math.random()*.4+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),3400);
+  }
+  for(let k=0;k<55;k++){
+    const s=document.createElement("div");
+    s.className="spark";
+    const a=Math.random()*Math.PI*2,d=80+Math.random()*300;
+    s.style.setProperty("--x",Math.cos(a)*d+"px");
+    s.style.setProperty("--y",Math.sin(a)*d+"px");
+    s.style.background=["#fff","#ffd9a8","#ff9cc8","#ff75ad","#ff4f95"][Math.floor(Math.random()*5)];
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),1300);
+  }
+}
+
+// init both levels after functions are defined
+[1,2].forEach(lvl=>{
+  const {correct, colors} = LEVELS[lvl];
+  state[lvl].shuffled = [...correct].sort(()=>Math.random()-.5);
+  state[lvl].shuffled.forEach((word,i)=>{
+    document.getElementById(`wp${lvl}`).appendChild(createTile(word, colors[i%colors.length], false, lvl));
+  });
+});
+
+const fi=["❤️","💕","✨","💖"];
+function fh(){
+  const h=document.createElement("div");
+  h.className="float-heart";
+  h.textContent=fi[Math.floor(Math.random()*fi.length)];
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=10+Math.random()*12+"px";
+  h.style.animationDuration=7+Math.random()*5+"s";
+  h.style.opacity=0.18+Math.random()*.22;
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),13000);
+}
+setInterval(fh,1600);
+</script>
+</body>
+</html>
