@@ -63,6 +63,50 @@ html,body{
 }
 .photo-frame img{width:100%;height:100%;object-fit:cover;}
 
+.photo-wrap{position:relative;animation:photoFloat 4s ease-in-out infinite;}
+.photo-wrap .photo-frame{animation:none;}
+
+.photo-callout{
+  position:absolute;top:-20px;right:-98px;
+  display:flex;flex-direction:column;align-items:flex-start;
+  pointer-events:none;
+  animation:fadeInUp .8s ease 1s both;
+}
+.callout-text{
+  font-family:"Segoe Script","Brush Script MT",cursive;
+  font-size:21px;color:var(--gold);
+  transform:rotate(8deg);
+  text-shadow:0 0 18px rgba(255,217,168,.45);
+  white-space:nowrap;
+}
+.callout-arrow{
+  width:62px;height:62px;margin-top:0;margin-left:6px;
+  transform:rotate(4deg);
+  overflow:visible;
+}
+.callout-arrow path{
+  fill:none;stroke:var(--gold);stroke-width:2.8;
+  stroke-linecap:round;stroke-linejoin:round;
+  opacity:.92;
+  filter:drop-shadow(0 0 6px rgba(255,217,168,.35));
+}
+.callout-arrow .arrow-line{
+  stroke-dasharray:70;stroke-dashoffset:70;
+  animation:drawArrow 1s ease-out 1.65s forwards;
+}
+.callout-arrow .arrow-head{
+  opacity:0;
+  animation:showHead .3s ease-out 2.45s forwards;
+}
+@keyframes drawArrow{to{stroke-dashoffset:0;}}
+@keyframes showHead{to{opacity:.92;}}
+
+@media (max-width:400px){
+  .photo-callout{right:-88px;top:-22px;}
+  .callout-text{font-size:17px;}
+  .callout-arrow{width:50px;height:50px;}
+}
+
 .photo-name{
   margin-top:16px;
   font-family:Georgia,serif;
@@ -277,10 +321,19 @@ html,body{
 <div class="main-page" id="mainPage">
   <div class="photo-section">
     <div class="photo-tag"><span class="photo-tag-dot"></span>AdSim · First Birthday Together</div>
-    <div class="photo-frame">
-      <img src="20.jpg" alt="Dr. Simran" onerror="this.parentElement.style.background='rgba(255,79,149,.15)';this.style.display='none';" />
+    <div class="photo-wrap">
+      <div class="photo-frame">
+        <img src="20.jpg" alt="Dr. Simran" onerror="this.parentElement.style.background='rgba(255,79,149,.15)';this.style.display='none';" />
+      </div>
+      <div class="photo-callout">
+        <span class="callout-text">24K Dr. ✨</span>
+        <svg class="callout-arrow" viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+          <path class="arrow-line" d="M62 6 C 59 22, 50 34, 34 42" />
+          <path class="arrow-head" d="M45 42.5 L 34 42 L 40.5 33.5" />
+        </svg>
+      </div>
     </div>
-    <div class="photo-name">Happy Birthday 🎂</div>
+    <div class="photo-name">Happy Birthday 24K gf 🎂</div>
     <div class="photo-sub">Our first birthday together</div>
   </div>
 
@@ -336,7 +389,7 @@ html,body{
       <div class="role-icon">👩‍❤️‍👨</div>
       <div class="role-info">
         <div class="role-label">Wish from</div>
-        <div class="role-title">Your future Pati</div>
+        <div class="role-title">Your Pati</div>
       </div>
       <div class="role-check" id="check-4">✅</div>
       <div class="role-arrow">→</div>
@@ -391,10 +444,10 @@ const wishes = [
     bg:'linear-gradient(160deg,#060310,#0e0818,#1a0c1e)',
     title:'Happy Birthday to my partner in crime and my future! 🎂✨',
     msg:`Watching you hustle through doctor life, handle every stress with so much grace, and still care for everyone around you makes me <em>so proud to stand next to you.</em>\n\nChoosing you was the easiest decision of my life.\n\nI can't wait to build our dream life together — and hopefully, for your very next birthday, we'll be <em>celebrating it together in person.</em>\n\nYou are my today, my tomorrow, and my forever. ❤️`,
-    next: 'Your future Pati 👩‍❤️‍👨'
+    next: 'Your Pati 👩‍❤️‍👨'
   },
   {
-    icon:'👩‍❤️‍👨', label:'As your future Pati',
+    icon:'👩‍❤️‍👨', label:'As your Pati',
     bg:'linear-gradient(160deg,#0a0208,#180610,#220c1e)',
     title:'Happy Birthday to my future Mrs.! 🎂',
     msg:`Doctor Saab, today belongs <em>entirely to you.</em>\n\nMy only rule for you today is to put the stress aside, let everyone pamper you, eat all your favorite food, and just sit back and smile.\n\nI promise to spend the rest of my life making sure you're always <em>loved, protected, and celebrated.</em>\n\nSending you all my love today and every day.\n\n<b>Forever your patient,\nAdvaita 💕</b>`,
