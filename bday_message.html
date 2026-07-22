@@ -3,204 +3,78 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet">
 <title>Happy Birthday Dr. Sia 🎂</title>
 <style>
-:root{
-  --bg1:#070410;
-  --bg2:#150919;
-  --bg3:#220c1e;
-  --pink:#ff75ad;
-  --pink2:#ff9cc8;
-  --gold:#ffd9a8;
-}
-
+:root{--bg1:#070410;--bg2:#150919;--bg3:#220c1e;--pink:#ff75ad;--pink2:#ff9cc8;--gold:#ffd9a8;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-
-html,body{
-  width:100%;
-  font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;
-  color:#fff;
-  background:
-    radial-gradient(ellipse 80% 40% at 50% 0%, rgba(200,48,82,.28), transparent),
-    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(255,217,168,.10), transparent),
-    linear-gradient(160deg,var(--bg1) 0%,var(--bg2) 50%,var(--bg3) 100%);
-  min-height:100vh;
-  overflow-x:hidden;
-}
-
+html,body{width:100%;height:100%;font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;color:#fff;overflow:hidden;background:radial-gradient(ellipse 80% 40% at 50% 0%, rgba(200,48,82,.28), transparent),radial-gradient(ellipse 60% 40% at 80% 100%, rgba(255,217,168,.10), transparent),linear-gradient(160deg,var(--bg1) 0%,var(--bg2) 50%,var(--bg3) 100%);}
 .noise{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.028;}
-
-.page{
-  position:relative;z-index:2;
-  max-width:480px;margin:0 auto;
-  display:flex;flex-direction:column;
-  align-items:center;
-  padding:0 0 80px;
-}
-
-/* photo */
-.photo-section{
-  width:100%;display:flex;flex-direction:column;align-items:center;
-  padding-top:40px;animation:fadeInUp .8s ease .1s both;
-}
-
-.photo-tag{
-  display:inline-flex;align-items:center;gap:7px;
-  border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);
-  border-radius:999px;padding:6px 14px;
-  font-size:10px;letter-spacing:2.4px;text-transform:uppercase;
-  color:var(--gold);margin-bottom:18px;
-}
+.main-page{position:fixed;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;overflow-y:auto;padding:0 0 80px;transition:opacity .5s ease;}
+.photo-section{width:100%;max-width:480px;margin:0 auto;display:flex;flex-direction:column;align-items:center;padding-top:40px;animation:fadeInUp .8s ease .1s both;}
+.photo-tag{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);border-radius:999px;padding:6px 14px;font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
 .photo-tag-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:blink 2s ease-in-out infinite;}
-
-.photo-wrap{position:relative;display:inline-block;}
-
-.photo-frame{
-  width:180px;height:180px;border-radius:50%;overflow:hidden;
-  border:3px solid rgba(255,79,149,.4);
-  box-shadow:0 0 0 6px rgba(255,79,149,.08),0 20px 50px rgba(255,79,149,.28);
-  animation:photoFloat 4s ease-in-out infinite;
-}
+.photo-wrap{position:relative;animation:photoFloat 4s ease-in-out infinite;}
+.photo-wrap .photo-frame{animation:none;}
+.photo-frame{width:180px;height:180px;border-radius:50%;overflow:hidden;border:3px solid rgba(255,79,149,.4);box-shadow:0 0 0 6px rgba(255,79,149,.08),0 20px 50px rgba(255,79,149,.28);}
 .photo-frame img{width:100%;height:100%;object-fit:cover;}
-
-.annotation{
-  position:absolute;top:-32px;right:-96px;
-  display:flex;flex-direction:column;align-items:flex-start;gap:4px;
-}
-.annotation-text{
-  font-family:"Segoe Script","Brush Script MT",cursive;
-  font-size:19px;color:#ff9fc7;white-space:nowrap;
-}
-.annotation svg{}
-
+.photo-callout{position:absolute;top:-20px;right:-98px;display:flex;flex-direction:column;align-items:flex-start;pointer-events:none;animation:fadeInUp .8s ease 1s both;}
+.callout-text{font-family:"Dancing Script",cursive;font-size:21px;color:var(--gold);transform:rotate(8deg);text-shadow:0 0 18px rgba(255,217,168,.45);white-space:nowrap;}
+.callout-arrow{width:62px;height:62px;margin-top:0;margin-left:6px;transform:rotate(4deg);overflow:visible;}
+.callout-arrow path{fill:none;stroke:var(--gold);stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round;opacity:.92;filter:drop-shadow(0 0 6px rgba(255,217,168,.35));}
+.callout-arrow .arrow-line{stroke-dasharray:70;stroke-dashoffset:70;animation:drawArrow 1s ease-out 1.65s forwards;}
+.callout-arrow .arrow-head{opacity:0;animation:showHead .3s ease-out 2.45s forwards;}
+@keyframes drawArrow{to{stroke-dashoffset:0;}}
+@keyframes showHead{to{opacity:.92;}}
+@media(max-width:400px){.photo-callout{right:-88px;top:-22px;}.callout-text{font-size:17px;}.callout-arrow{width:50px;height:50px;}}
 .photo-name{margin-top:16px;font-family:Georgia,serif;font-size:26px;font-weight:400;text-align:center;}
-.photo-sub{margin-top:5px;font-family:"Segoe Script","Brush Script MT",cursive;font-size:17px;color:#ff9fc7;text-align:center;}
-
+.photo-sub{margin-top:5px;font-family:"Dancing Script",cursive;font-size:17px;color:#ff9fc7;text-align:center;}
 .divider{width:50%;height:1px;background:linear-gradient(to right,transparent,rgba(255,255,255,.15),transparent);margin:22px auto;animation:fadeInUp .8s ease .4s both;}
-
-/* intro */
-.intro-text{
-  text-align:center;padding:0 28px;
-  animation:fadeInUp .8s ease .5s both;margin-bottom:24px;width:100%;
-}
-.intro-text p{
-  font-family:"Segoe Script","Brush Script MT",cursive;
-  font-size:clamp(14px,3.5vw,17px);color:rgba(255,255,255,.62);line-height:1.9;
-}
+.intro-text{text-align:center;padding:0 28px;animation:fadeInUp .8s ease .5s both;margin-bottom:26px;max-width:480px;width:100%;}
+.intro-text p{font-family:"Dancing Script",cursive;font-size:clamp(20px,5vw,24px);color:rgba(255,255,255,.65);line-height:1.9;}
 .intro-text p em{font-style:normal;color:#ff9fc7;}
-
-/* role chips row */
-.chips-wrap{
-  display:flex;flex-wrap:wrap;gap:10px;
-  justify-content:center;
-  padding:0 20px;width:100%;
-  animation:fadeInUp .8s ease .7s both;
-  margin-bottom:24px;
-}
-
-.chip{
-  display:inline-flex;align-items:center;gap:7px;
-  padding:10px 18px;
-  border-radius:999px;
-  font-size:14px;font-weight:600;
-  cursor:pointer;
-  border:1px solid rgba(255,255,255,.14);
-  background:rgba(255,255,255,.07);
-  transition:transform .2s ease, background .2s ease;
-  user-select:none;
-}
-.chip:active{transform:scale(.94);}
-.chip.read{border-color:rgba(255,79,149,.4);background:rgba(255,79,149,.12);}
-
-.chip-1{border-color:rgba(255,120,170,.2);}
-.chip-2{border-color:rgba(255,180,80,.2);}
-.chip-3{border-color:rgba(168,80,200,.25);}
-.chip-4{border-color:rgba(255,217,168,.2);}
-.chip-5{border-color:rgba(200,48,82,.3);}
-
-/* message box */
-.msg-box{
-  width:100%;max-width:440px;padding:0 20px;
-  display:none;
-  animation:fadeInUp .5s ease both;
-}
-.msg-box.show{display:block;}
-
-.msg-inner{
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:22px;
-  padding:22px 20px 18px;
-}
-
-.msg-role-header{
-  display:flex;align-items:center;gap:10px;
-  margin-bottom:16px;
-}
-.msg-role-icon{font-size:24px;}
-.msg-role-title{font-family:Georgia,serif;font-size:17px;font-weight:400;color:#fff;}
-
-.msg-text{
-  font-family:"Segoe Script","Brush Script MT",cursive;
-  font-size:clamp(13px,3.2vw,15px);
-  line-height:2;
-  color:rgba(255,255,255,.72);
-}
-.msg-text em{font-style:normal;color:#ff9fc7;font-weight:500;}
-.msg-text b{color:#fff;}
-
-.close-btn{
-  display:block;
-  margin:14px auto 0;
-  border:1px solid rgba(255,255,255,.18);
-  background:rgba(255,255,255,.06);
-  color:rgba(255,255,255,.5);
-  font-size:13px;font-weight:600;
-  border-radius:999px;
-  padding:9px 28px;
-  cursor:pointer;
-  transition:.2s ease;
-}
-.close-btn:active{transform:scale(.96);}
-
-/* bottom btns */
-.btn-row{
-  margin-top:28px;
-  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
-  animation:fadeInUp .8s ease .9s both;padding:0 20px;
-}
-.btn-main{
-  border:0;cursor:pointer;
-  background:linear-gradient(135deg,#ffe3b5 0%,#ff9cc8 50%,#ff4f95 100%);
-  color:#3b0b22;font-weight:700;font-size:14px;
-  border-radius:999px;padding:13px 28px;min-height:48px;
-  box-shadow:0 0 30px rgba(255,79,149,.25);transition:.2s ease;
-}
+.roles-grid{width:100%;max-width:440px;padding:0 20px;display:flex;flex-direction:column;gap:12px;animation:fadeInUp .8s ease .7s both;}
+.role-btn{display:flex;align-items:center;gap:14px;padding:16px 20px;border-radius:20px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);cursor:pointer;transition:transform .2s ease, background .2s ease;position:relative;overflow:hidden;}
+.role-btn::before{content:"";position:absolute;inset:0;opacity:0;transition:opacity .3s ease;}
+.role-btn:active{transform:scale(.97);}
+.role-btn.read .role-check{opacity:1;}
+.r1{border-color:rgba(255,120,170,.25);} .r1::before{background:rgba(255,79,149,.08);}
+.r2{border-color:rgba(255,180,80,.2);}   .r2::before{background:rgba(255,180,80,.06);}
+.r3{border-color:rgba(168,80,200,.25);}  .r3::before{background:rgba(168,80,200,.08);}
+.r4{border-color:rgba(255,217,168,.2);}  .r4::before{background:rgba(255,217,168,.06);}
+.r5{border-color:rgba(200,48,82,.3);}    .r5::before{background:rgba(200,48,82,.1);}
+.role-icon{font-size:26px;flex-shrink:0;}
+.role-info{flex:1;}
+.role-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:3px;}
+.role-title{font-size:16px;font-weight:600;color:#fff;}
+.role-check{font-size:18px;opacity:0;transition:opacity .3s ease;flex-shrink:0;}
+.role-arrow{font-size:14px;color:rgba(255,255,255,.25);flex-shrink:0;}
+.bottom-btns{width:100%;max-width:440px;padding:0 20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px;animation:fadeInUp .8s ease .9s both;}
+.btn-main{border:0;cursor:pointer;background:linear-gradient(135deg,#ffe3b5 0%,#ff9cc8 50%,#ff4f95 100%);color:#3b0b22;font-weight:700;font-size:14px;border-radius:999px;padding:13px 28px;min-height:48px;box-shadow:0 0 30px rgba(255,79,149,.25);transition:.2s ease;}
 .btn-main:active{transform:scale(.96);}
-
-/* music */
-.music-bar{
-  position:fixed;bottom:20px;right:16px;
-  display:flex;align-items:center;gap:10px;
-  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);
-  border-radius:999px;padding:9px 16px;z-index:50;
-  animation:fadeInUp .8s ease 1.2s both;
-}
+.wish-overlay{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .4s ease;overflow-y:auto;}
+.wish-overlay.open{opacity:1;pointer-events:auto;}
+.wish-overlay-inner{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:50px 28px 80px;text-align:center;}
+.wish-close{position:fixed;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;z-index:60;transition:.2s ease;}
+.wish-close:active{transform:scale(.9);}
+.wish-role-icon{font-size:52px;margin-bottom:12px;animation:fadeInUp .6s ease .1s both;}
+.wish-role-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:6px;animation:fadeInUp .6s ease .15s both;}
+.wish-role-title{font-family:Georgia,serif;font-size:clamp(20px,5vw,30px);font-weight:400;margin-bottom:28px;animation:fadeInUp .6s ease .2s both;}
+.wish-message{font-family:"Dancing Script",cursive;font-size:clamp(24px,6vw,30px);line-height:2.1;color:rgba(255,255,255,.75);max-width:380px;animation:fadeInUp .6s ease .3s both;}
+.wish-message em{font-style:normal;color:#ff9fc7;font-weight:500;}
+.wish-message b{color:#fff;}
+.wish-next-btn{margin-top:32px;border:0;cursor:pointer;background:linear-gradient(135deg,#ffe3b5 0%,#ff9cc8 50%,#ff4f95 100%);color:#3b0b22;font-weight:700;font-size:15px;border-radius:999px;padding:14px 36px;min-height:50px;animation:fadeInUp .6s ease .5s both;}
+.wish-next-btn:active{transform:scale(.96);}
+.music-bar{position:fixed;bottom:20px;right:16px;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:9px 16px;z-index:90;animation:fadeInUp .8s ease 1.2s both;}
 .music-bars{display:flex;align-items:flex-end;gap:3px;height:16px;}
 .music-bars span{display:block;width:3px;border-radius:2px;background:var(--pink2);animation:musicBar .8s ease-in-out infinite;}
-.music-bars span:nth-child(1){height:8px;}
-.music-bars span:nth-child(2){height:14px;animation-delay:.15s;}
-.music-bars span:nth-child(3){height:10px;animation-delay:.3s;}
-.music-bars span:nth-child(4){height:16px;animation-delay:.1s;}
-.music-bars span:nth-child(5){height:6px;animation-delay:.25s;}
+.music-bars span:nth-child(1){height:8px;} .music-bars span:nth-child(2){height:14px;animation-delay:.15s;} .music-bars span:nth-child(3){height:10px;animation-delay:.3s;} .music-bars span:nth-child(4){height:16px;animation-delay:.1s;} .music-bars span:nth-child(5){height:6px;animation-delay:.25s;}
 .music-label{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.5px;}
 .music-toggle{background:none;border:none;cursor:pointer;font-size:18px;padding:0;min-width:28px;}
-
 .float-heart{position:fixed;bottom:-40px;pointer-events:none;z-index:1;animation:floatUp linear forwards;}
 .burst-h{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.3);opacity:0;z-index:80;pointer-events:none;animation:burst 3s ease-out forwards;}
 .spark{position:fixed;left:50%;top:50%;width:6px;height:6px;border-radius:50%;background:white;z-index:74;pointer-events:none;animation:sparkMove 1.2s ease-out forwards;}
 .firework{position:fixed;width:5px;height:5px;border-radius:50%;z-index:35;pointer-events:none;background:#fff7ee;box-shadow:0 -40px #f5d8d2,28px -28px #ff5f93,40px 0 #fff7ee,28px 28px #c83052,0 40px #f5d8d2,-28px 28px #ff5f93,-40px 0 #fff7ee,-28px -28px #c83052,0 -62px rgba(255,247,238,.9),44px -44px rgba(245,216,210,.9),62px 0 rgba(255,95,147,.9),44px 44px rgba(200,48,82,.9),0 62px rgba(255,247,238,.9),-44px 44px rgba(245,216,210,.9),-62px 0 rgba(255,95,147,.9),-44px -44px rgba(200,48,82,.9);animation:boom 1.05s ease-out forwards;}
-
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
 @keyframes photoFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 @keyframes musicBar{0%,100%{transform:scaleY(.4);}50%{transform:scaleY(1);}}
@@ -215,58 +89,69 @@ html,body{
 <div class="noise"></div>
 <audio id="bgMusic" loop><source src="24k.mp3" type="audio/mpeg"></audio>
 
-<main class="page">
-
+<div class="main-page" id="mainPage">
   <div class="photo-section">
-    <div class="photo-tag"><span class="photo-tag-dot"></span>AdSim · First Birthday Together</div>
+    <div class="photo-tag"><span class="photo-tag-dot"></span>I Love You</div>
     <div class="photo-wrap">
       <div class="photo-frame">
         <img src="20.jpg" alt="Dr. Simran" onerror="this.parentElement.style.background='rgba(255,79,149,.15)';this.style.display='none';" />
       </div>
-      <div class="annotation">
-        <span class="annotation-text">24K Dr. ✨</span>
-        <svg width="70" height="52" viewBox="0 0 70 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M58 6 C44 6 14 14 8 44" stroke="#ff9cc8" stroke-width="2" stroke-linecap="round" fill="none"/>
-          <path d="M2 38 L8 48 L18 42" stroke="#ff9cc8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <div class="photo-callout">
+        <span class="callout-text">24K Dr. ✨</span>
+        <svg class="callout-arrow" viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+          <path class="arrow-line" d="M62 6 C 59 22, 50 34, 34 42" />
+          <path class="arrow-head" d="M45 42.5 L 34 42 L 40.5 33.5" />
         </svg>
       </div>
     </div>
-    <div class="photo-name">Happy Birthday 🎂</div>
+    <div class="photo-name">Happy Birthday 24K gf 🎂</div>
     <div class="photo-sub">Our first birthday together</div>
   </div>
 
   <div class="divider"></div>
 
   <div class="intro-text">
-    <p>Since I carry quite a few titles in your life,<br>I wanted to wish you as <em>each one of them</em> today 🎁</p>
+    <p>Since I carry quite a few titles in your life,<br>I wanted to wish you as <em>each one of them</em> today…<br>Choose who you want to hear from first 🎁</p>
   </div>
 
-  <!-- CHIPS -->
-  <div class="chips-wrap">
-    <div class="chip chip-1" id="chip-0" onclick="openMsg(0)">🤝 Friend</div>
-    <div class="chip chip-2" id="chip-1" onclick="openMsg(1)">✨ BFF</div>
-    <div class="chip chip-3" id="chip-2" onclick="openMsg(2)">💕 BF</div>
-    <div class="chip chip-4" id="chip-3" onclick="openMsg(3)">💍 Fiancé</div>
-    <div class="chip chip-5" id="chip-4" onclick="openMsg(4)">👩‍❤️‍👨 Pati</div>
-  </div>
-
-  <div class="msg-box" id="msgBox">
-    <div class="msg-inner">
-      <div class="msg-role-header">
-        <span class="msg-role-icon" id="msgIcon"></span>
-        <span class="msg-role-title" id="msgTitle"></span>
-      </div>
-      <div class="msg-text" id="msgText"></div>
+  <div class="roles-grid">
+    <div class="role-btn r1" onclick="openWish(0)">
+      <div class="role-icon">🤝</div>
+      <div class="role-info"><div class="role-label">Wish from</div><div class="role-title">Your Friend</div></div>
+      <div class="role-check" id="check-0">✅</div><div class="role-arrow">→</div>
     </div>
-    <button class="close-btn" onclick="closeMsg()">✕ Close</button>
+    <div class="role-btn r2" onclick="openWish(1)">
+      <div class="role-icon">✨</div>
+      <div class="role-info"><div class="role-label">Wish from</div><div class="role-title">Your Best Friend</div></div>
+      <div class="role-check" id="check-1">✅</div><div class="role-arrow">→</div>
+    </div>
+    <div class="role-btn r3" onclick="openWish(2)">
+      <div class="role-icon">💕</div>
+      <div class="role-info"><div class="role-label">Wish from</div><div class="role-title">Your Boyfriend</div></div>
+      <div class="role-check" id="check-2">✅</div><div class="role-arrow">→</div>
+    </div>
+    <div class="role-btn r4" onclick="openWish(3)">
+      <div class="role-icon">💍</div>
+      <div class="role-info"><div class="role-label">Wish from</div><div class="role-title">Your Fiancé</div></div>
+      <div class="role-check" id="check-3">✅</div><div class="role-arrow">→</div>
+    </div>
+    <div class="role-btn r5" onclick="openWish(4)">
+      <div class="role-icon">👩‍❤️‍👨</div>
+      <div class="role-info"><div class="role-label">Wish from</div><div class="role-title">Your Pati</div></div>
+      <div class="role-check" id="check-4">✅</div><div class="role-arrow">→</div>
+    </div>
   </div>
 
-  <div class="btn-row">
+  <div class="bottom-btns">
     <button class="btn-main" onclick="celebrate()">Celebrate 🎉</button>
     <button class="btn-main" onclick="window.location.href='bday_puzzle.html'">One More Thing 💌</button>
   </div>
+</div>
 
-</main>
+<div class="wish-overlay" id="wishOverlay">
+  <div class="wish-close" onclick="closeWish()">✕</div>
+  <div class="wish-overlay-inner" id="wishContent"></div>
+</div>
 
 <div class="music-bar">
   <div class="music-bars"><span></span><span></span><span></span><span></span><span></span></div>
@@ -275,57 +160,66 @@ html,body{
 </div>
 
 <script>
-const wishes = [
+const wishes=[
   {
-    icon:'🤝', title:'As your Friend',
-    msg:`Happy Birthday! 🎂🎉<br><br>I am so genuinely grateful to have a friend like you in my corner.<br><br>Hope you have the <em>most amazing day!</em>`
+    icon:'🤝',label:'As your Friend',
+    bg:'linear-gradient(160deg,#0a0412,#1a0c20,#220c1e)',
+    title:'Happy Birthday! 🎂🎉',
+    msg:`I am so genuinely grateful to have a friend like you in my corner.\n\nHope you have the <em>most amazing day!</em>`,
+    next:'Your Best Friend ✨'
   },
   {
-    icon:'✨', title:'As your Best Friend',
-    msg:`Happy Birthday to my <em>absolute favorite human!</em><br><br>Thank you for always listening, making me laugh, and being my safe space.<br><br>Happy Birthday to the girl who gives me <em>butterflies every single day!</em> 🎂`
+    icon:'✨',label:'As your Best Friend',
+    bg:'linear-gradient(160deg,#080410,#1a0e10,#200c0c)',
+    title:'Happy Birthday to my absolute favorite human!',
+    msg:`Thank you for always listening, making me laugh, and being my safe space.\n\nHappy Birthday to the girl who gives me <em>butterflies every single day!</em> 🎂`,
+    next:'Your Boyfriend 💕'
   },
   {
-    icon:'💕', title:'As your Boyfriend',
-    msg:`Ever since you walked into my life, <em>everything just got brighter.</em><br><br>I fall in love with your smile, your voice, and your sweet little habits all over again every time we talk.<br><br>You make my world feel so complete, and I'm so <em>ridiculously head-over-heels for you.</em><br><br>Here's to celebrating the best thing that ever happened to me! 💕💍`
+    icon:'💕',label:'As your Boyfriend',
+    bg:'linear-gradient(160deg,#070410,#18081a,#220c1e)',
+    title:'Happy Birthday, my love 💕',
+    msg:`Ever since you walked into my life, <em>everything just got brighter.</em>\n\nI fall in love with your smile, your voice, and your sweet little habits all over again every time we talk.\n\nYou make my world feel so complete, and I'm so <em>ridiculously head-over-heels for you.</em>\n\nHere's to celebrating the best thing that ever happened to me! 💕💍`,
+    next:'Your Fiancé 💍'
   },
   {
-    icon:'💍', title:'As your Fiancé',
-    msg:`Happy Birthday to my partner in crime and my future! 🎂✨<br><br>Watching you hustle through doctor life, handle every stress with so much grace, and still care for everyone around you makes me <em>so proud to stand next to you.</em><br><br>Choosing you was the easiest decision of my life.<br><br>I can't wait to build our dream life together — and hopefully, for your very next birthday, we'll be <em>celebrating it together in person.</em><br><br>You are my today, my tomorrow, and my forever. ❤️`
+    icon:'💍',label:'As your Fiancé',
+    bg:'linear-gradient(160deg,#060310,#0e0818,#1a0c1e)',
+    title:'Happy Birthday to my partner in crime and my future! 🎂✨',
+    msg:`Watching you hustle through doctor life, handle every stress with so much grace, and still care for everyone around you makes me <em>so proud to stand next to you.</em>\n\nChoosing you was the easiest decision of my life.\n\nI can't wait to build our dream life together — and hopefully, for your very next birthday, we'll be <em>celebrating it together in person.</em>\n\nYou are my today, my tomorrow, and my forever. ❤️`,
+    next:'Your Pati 👩‍❤️‍👨'
   },
   {
-    icon:'👩‍❤️‍👨', title:'As your future Pati',
-    msg:`Happy Birthday to my Mrs. TTP 🎂❤️<br><br>Mrs. Sia, today is completely yours, and since it's your birthday, your pati is saying yes to everything today 🤭<br><br>For once, keep all the stress aside, let everyone pamper you, eat everything you love, and simply <em>enjoy being celebrated the way you deserve.</em><br><br>I promise to always make you feel <em>loved, protected, supported, and celebrated</em> — not just today, but through every chapter of our life together.<br><br>And now that we're married, one tradition is officially fixed: <em>a candlelight dinner on every birthday, every single year, no excuses.</em> ❤️<br><br>Sending you all my love, today and always.<br><br><b>Forever your favourite patient and your pati,<br>Addu 💕</b>`
+    icon:'👩‍❤️‍👨',label:'As your Pati',
+    bg:'linear-gradient(160deg,#0a0208,#180610,#220c1e)',
+    title:'Happy Birthday to my Mrs. TTP 🎂❤️',
+    msg:`Mrs. Sia, today is completely yours, and since it's your birthday, your pati is saying yes to everything today 🤭\n\nFor once, keep all the stress aside, let everyone pamper you, eat everything you love, and simply <em>enjoy being celebrated the way you deserve.</em>\n\nI promise to always make you feel <em>loved, protected, supported, and celebrated</em> — not just today, but through every chapter of our life together.\n\nAnd now that we're married, one tradition is officially fixed: <em>a candlelight dinner on every birthday, every single year, no excuses.</em> ❤️\n\nSending you all my love, today and always.\n\n<b>Forever your favourite patient and your pati,\nAddu 💕</b>`,
+    next:null
   }
 ];
 
-const readSet = new Set();
+let currentWish=0;
 
-function openMsg(idx){
-  const w = wishes[idx];
-  document.getElementById('msgIcon').textContent = w.icon;
-  document.getElementById('msgTitle').textContent = w.title;
-  document.getElementById('msgText').innerHTML = w.msg;
-
-  const box = document.getElementById('msgBox');
-  box.classList.remove('show');
-  void box.offsetWidth;
-  box.classList.add('show');
-
-  document.getElementById(`chip-${idx}`).classList.add('read');
-  readSet.add(idx);
-
-  // show Venn after all 5 read
-  if(readSet.size === 5){
-    setTimeout(()=>{
-    }, 600);
-  }
-
-  setTimeout(()=>box.scrollIntoView({behavior:'smooth', block:'start'}), 100);
+function openWish(idx){
+  currentWish=idx;
+  const w=wishes[idx];
+  const overlay=document.getElementById('wishOverlay');
+  overlay.style.background=w.bg;
+  const msgFormatted=w.msg.replace(/\n/g,'<br>');
+  document.getElementById('wishContent').innerHTML=`
+    <div class="wish-role-icon">${w.icon}</div>
+    <div class="wish-role-label">Wish from</div>
+    <div class="wish-role-title">${w.label}</div>
+    <div class="wish-message">${msgFormatted}</div>
+    ${w.next?`<button class="wish-next-btn" onclick="nextWish()">Next: ${w.next} →</button>`:`<button class="wish-next-btn" onclick="closeWish()">Done ❤️</button>`}
+  `;
+  overlay.classList.add('open');
+  overlay.scrollTop=0;
+  document.getElementById(`check-${idx}`).style.opacity='1';
 }
 
-function closeMsg(){
-  document.getElementById('msgBox').classList.remove('show');
-}
+function nextWish(){openWish(currentWish+1);}
+function closeWish(){document.getElementById('wishOverlay').classList.remove('open');}
 
 const audio=document.getElementById('bgMusic');
 let musicPlaying=false;
@@ -343,7 +237,7 @@ function toggleMusic(){
     audio.pause();musicPlaying=false;
     document.getElementById('musicToggle').textContent='▶';
     document.querySelectorAll('.music-bars span').forEach(s=>s.style.animationPlayState='paused');
-  } else {
+  }else{
     audio.play().catch(()=>{});musicPlaying=true;
     document.getElementById('musicToggle').textContent='⏸';
     document.querySelectorAll('.music-bars span').forEach(s=>s.style.animationPlayState='running');
@@ -352,8 +246,8 @@ function toggleMusic(){
 
 function celebrate(){
   launchFireworks();
-  setTimeout(launchFireworks, 400);
-  setTimeout(launchFireworks, 800);
+  setTimeout(launchFireworks,400);
+  setTimeout(launchFireworks,800);
 }
 
 function launchFireworks(){
@@ -366,33 +260,6 @@ function launchFireworks(){
       document.body.appendChild(f);
       setTimeout(()=>f.remove(),1200);
     },i*120);
-  }
-}
-
-function bigBurst(){
-  const items=["❤️","🎂","🎉","💕","✨","🎈","💖","🥳"];
-  for(let k=0;k<40;k++){
-    const h=document.createElement("div");
-    h.className="burst-h";
-    h.textContent=items[Math.floor(Math.random()*items.length)];
-    const a=Math.random()*Math.PI*2,d=60+Math.random()*280;
-    h.style.setProperty("--x",Math.cos(a)*d+"px");
-    h.style.setProperty("--y",Math.sin(a)*d+"px");
-    h.style.setProperty("--r",(Math.random()*160-80)+"deg");
-    h.style.fontSize=16+Math.random()*22+"px";
-    h.style.animationDelay=Math.random()*.5+"s";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),3500);
-  }
-  for(let k=0;k<55;k++){
-    const s=document.createElement("div");
-    s.className="spark";
-    const a=Math.random()*Math.PI*2,d=60+Math.random()*300;
-    s.style.setProperty("--x",Math.cos(a)*d+"px");
-    s.style.setProperty("--y",Math.sin(a)*d+"px");
-    s.style.background=["#fff","#ffd9a8","#ff9cc8","#ff75ad","#ff4f95","#ffd166"][Math.floor(Math.random()*6)];
-    document.body.appendChild(s);
-    setTimeout(()=>s.remove(),1300);
   }
 }
 
